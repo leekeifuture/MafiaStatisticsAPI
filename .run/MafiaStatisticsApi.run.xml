@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration name="MafiaStatisticsApi" default="false"
+        factoryName="Spring Boot" type="SpringBootApplicationConfigurationType">
+        <method v="2">
+            <option name="Make" enabled="true" />
+        </method>
+        <module name="MafiaStatisticsAPI.main" />
+        <option name="ALTERNATIVE_JRE_PATH" />
+        <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+        <option name="SPRING_BOOT_MAIN_CLASS"
+            value="com.mafia.statistics.MafiaStatisticsAPI.MafiaStatisticsApiApplication" />
+    </configuration>
+</component>
