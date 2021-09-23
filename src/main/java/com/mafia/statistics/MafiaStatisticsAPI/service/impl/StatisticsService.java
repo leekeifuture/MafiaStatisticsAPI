@@ -324,7 +324,7 @@ public class StatisticsService implements IStatisticsService {
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
             if (index == 3) {
-                dates.addAll(parseDates(row.get(2)));
+                dates.addAll(parseDates(row.get(1)));
             }
 
             if (index < start || index > finish) {
