@@ -20,9 +20,18 @@ dependencies {
     // DB
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
 
+    // Postgresql
+    implementation 'org.postgresql:postgresql:42.2.23.jre7'
+
+    // Flyway
+    implementation 'org.flywaydb:flyway-core:7.14.1'
+
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    // Reading from excel
+    implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
 }
 
 test {
