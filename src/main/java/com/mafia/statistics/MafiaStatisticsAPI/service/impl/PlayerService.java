@@ -9,6 +9,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RolesHistor
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.SerialityStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
@@ -55,6 +57,19 @@ public class PlayerService implements IPlayerService {
             default:
                 return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Player getPlayerById(Long id) throws PlayerNotFoundException {
+        Optional<Player> player = playerDao.findById(id);
+
+        if (player.isEmpty()) {
+            throw new PlayerNotFoundException(
+                    String.format("Player with ID %s not found", id)
+            );
+        }
+
+        return player.get();
     }
 
     private List<Player> savePlayersFromNumbersStatistics(List<Statistics> numbersStatistics) {
