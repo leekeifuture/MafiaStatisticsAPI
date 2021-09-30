@@ -1,5 +1,11 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IRatingStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IRolesHistoryStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.ISerialityStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IVisitingStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Place;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.CoupleStatistics;
@@ -10,6 +16,9 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RolesHistor
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.SerialityStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +35,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StatisticsService implements IStatisticsService {
+
+    private final IPlayerDao playerDao;
+
+    private final ISerialityStatisticsDao serialityStatisticsDao;
+    private final IRolesHistoryStatisticsDao rolesHistoryStatisticsDao;
+    private final IVisitingStatisticsDao visitingStatisticsDao;
+    private final IRatingStatisticsDao ratingStatisticsDao;
 
     @Override
     public List<Statistics> getStatistics(
@@ -50,6 +66,63 @@ public class StatisticsService implements IStatisticsService {
             default:
                 return new ArrayList<>();
         }
+    }
+
+    @Override
+    public DashboardInfo getDashboardInfo() {
+        SerialityStatistics winSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfWinDesc();
+        Player winSeriesPlayer = playerDao.findByNickname(winSeries.getNickname());
+
+        SerialityStatistics defeatSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfDefeatDesc();
+        Player defeatSeriesPlayer = playerDao.findByNickname(defeatSeries.getNickname());
+
+        RolesHistoryStatistics firstShooting = rolesHistoryStatisticsDao.findFirstByOrderByPercentFirstShootingDesc();
+        Player firstShootingPlayer = playerDao.findByNickname(firstShooting.getNickname());
+
+        Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
+        Player visitingSeriesPlayer = playerDao.findByNickname((String) visitingSeries[0]);
+
+        List<TopGamesTable> topGamesTable = new ArrayList<>();
+        playerDao.findTop15ByOrderByGamesTotalDesc().forEach(row -> {
+            topGamesTable.add(new TopGamesTable(
+                    row.getId(),
+                    row.getNickname(),
+                    row.getGamesTotal()
+            ));
+        });
+
+        List<TopRatingTable> topRatingTable = new ArrayList<>();
+        ratingStatisticsDao.findTop15ByOrderByPointsDesc().forEach(row -> {
+            Player player = playerDao.findByNickname(row.getNickname());
+            topRatingTable.add(new TopRatingTable(
+                    player.getId(),
+                    row.getNickname(),
+                    row.getPoints()
+            ));
+        });
+
+        DashboardInfo dashboardInfo = new DashboardInfo(
+                winSeriesPlayer.getId(),
+                winSeriesPlayer.getNickname(),
+                winSeries.getMaximumSeriesOfWin(),
+
+                defeatSeriesPlayer.getId(),
+                defeatSeriesPlayer.getNickname(),
+                defeatSeries.getMaximumSeriesOfDefeat(),
+
+                visitingSeriesPlayer.getId(),
+                visitingSeriesPlayer.getNickname(),
+                (Integer) visitingSeries[1],
+
+                firstShootingPlayer.getId(),
+                firstShootingPlayer.getNickname(),
+                firstShooting.getPercentFirstShooting(),
+
+                topGamesTable,
+                topRatingTable
+        );
+
+        return dashboardInfo;
     }
 
     private List<Statistics> parseNumbersStatistics(Map<Integer, List<String>> table) {

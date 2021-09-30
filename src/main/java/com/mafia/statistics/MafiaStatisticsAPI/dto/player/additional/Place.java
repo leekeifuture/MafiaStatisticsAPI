@@ -1,6 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
