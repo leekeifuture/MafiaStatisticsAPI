@@ -12,6 +12,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statis
 import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
+import com.vk.api.sdk.objects.base.Sex;
 
 import org.springframework.stereotype.Service;
 
@@ -75,7 +76,24 @@ public class PlayerService implements IPlayerService {
         Player player = optPlayer.get();
 
         if (player.getVkId() != null) {
-            player.setPhotoUrl(vkService.getPhotoByUserId(player.getVkId()));
+            String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
+            if (player.getPhotoUrl() == null) {
+                player.setPhotoUrl(vkPhoto);
+            } else {
+                if (!player.getPhotoUrl().equals(vkPhoto)) {
+                    player.setPhotoUrl(vkPhoto);
+                }
+            }
+
+            Sex vkGender = vkService.getGenderByUserId(player.getVkId());
+            if (player.getGender() == null) {
+                player.setGender(vkGender);
+            } else {
+                if (!player.getGender().equals(vkGender)) {
+                    player.setGender(vkGender);
+                }
+            }
+
             playerDao.save(player);
         }
 

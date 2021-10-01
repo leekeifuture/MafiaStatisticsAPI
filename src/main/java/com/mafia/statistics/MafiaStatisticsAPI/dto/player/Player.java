@@ -6,6 +6,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RatingStati
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RolesHistoryStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.SerialityStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingStatistics;
+import com.vk.api.sdk.objects.base.Sex;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class Player {
     private Long vkId;
 
     private String nickname;
+
+    private Sex gender;
 
     private String photoUrl;
 
