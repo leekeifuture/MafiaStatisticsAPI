@@ -93,7 +93,7 @@ public class StatisticsService implements IStatisticsService {
         });
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
-        ratingStatisticsDao.findTop15ByOrderByPointsDesc().forEach(row -> {
+        ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(10).forEach(row -> {
             Player player = playerDao.findByNickname(row.getNickname());
             topRatingTable.add(new TopRatingTable(
                     player.getId(),
