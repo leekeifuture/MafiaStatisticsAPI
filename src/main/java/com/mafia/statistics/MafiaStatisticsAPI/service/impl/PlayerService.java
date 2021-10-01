@@ -11,6 +11,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingSta
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
+import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PlayerService implements IPlayerService {
+
+    private final IVkService vkService;
 
     private final IPlayerDao playerDao;
 
@@ -61,15 +64,22 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public Player getPlayerById(Long id) throws PlayerNotFoundException {
-        Optional<Player> player = playerDao.findById(id);
+        Optional<Player> optPlayer = playerDao.findById(id);
 
-        if (player.isEmpty()) {
+        if (optPlayer.isEmpty()) {
             throw new PlayerNotFoundException(
                     String.format("Player with ID %s not found", id)
             );
         }
 
-        return player.get();
+        Player player = optPlayer.get();
+
+        if (player.getVkId() != null) {
+            player.setPhotoUrl(vkService.getPhotoByUserId(player.getVkId()));
+            playerDao.save(player);
+        }
+
+        return player;
     }
 
     private List<Player> savePlayersFromNumbersStatistics(List<Statistics> numbersStatistics) {

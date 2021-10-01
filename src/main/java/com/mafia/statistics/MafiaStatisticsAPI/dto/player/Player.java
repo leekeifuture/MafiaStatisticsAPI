@@ -30,7 +30,11 @@ public class Player {
     @GeneratedValue
     private Long id;
 
+    private Long vkId;
+
     private String nickname;
+
+    private String photoUrl;
 
     private Integer gamesTotal;
 
