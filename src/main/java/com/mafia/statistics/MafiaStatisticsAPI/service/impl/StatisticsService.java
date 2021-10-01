@@ -86,6 +86,7 @@ public class StatisticsService implements IStatisticsService {
         playerDao.findTop15ByOrderByGamesTotalDesc().forEach(row -> {
             topGamesTable.add(new TopGamesTable(
                     row.getId(),
+                    row.getGender(),
                     row.getNickname(),
                     row.getGamesTotal()
             ));
@@ -96,6 +97,7 @@ public class StatisticsService implements IStatisticsService {
             Player player = playerDao.findByNickname(row.getNickname());
             topRatingTable.add(new TopRatingTable(
                     player.getId(),
+                    player.getGender(),
                     row.getNickname(),
                     row.getPoints()
             ));
