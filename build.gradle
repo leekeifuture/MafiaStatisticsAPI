@@ -14,21 +14,21 @@ repositories {
 
 dependencies {
     // Spring
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 
     // DB
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
 
     // Postgresql
-    implementation 'org.postgresql:postgresql:42.2.23.jre7'
+    implementation 'org.postgresql:postgresql:42.2.24.jre7'
 
     // Flyway
-    implementation 'org.flywaydb:flyway-core:7.14.1'
+    implementation 'org.flywaydb:flyway-core:8.0.0'
 
     // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     // Reading from excel
     implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
