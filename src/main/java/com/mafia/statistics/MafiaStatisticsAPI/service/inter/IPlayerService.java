@@ -10,7 +10,7 @@ public interface IPlayerService {
 
     List<Player> getPlayers();
 
-    List<Player> savePlayers(List<Statistics> statistics);
+    void savePlayers(List<Statistics> statistics);
 
     Player getPlayerById(Long id) throws PlayerNotFoundException;
 }
