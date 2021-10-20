@@ -1,6 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Place;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
 import java.util.Date;
@@ -33,25 +32,25 @@ public class NumbersStatisticsAll extends Statistics {
     private Integer gamesTotal;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeOne;
+    private PlaceAll placeOne;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeTwo;
+    private PlaceAll placeTwo;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeThree;
+    private PlaceAll placeThree;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeFour;
+    private PlaceAll placeFour;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeFive;
+    private PlaceAll placeFive;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeSix;
+    private PlaceAll placeSix;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeSeven;
+    private PlaceAll placeSeven;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeEight;
+    private PlaceAll placeEight;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeNine;
+    private PlaceAll placeNine;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Place placeTen;
+    private PlaceAll placeTen;
 
     private Boolean isActive;
     private Date uploadingDate;

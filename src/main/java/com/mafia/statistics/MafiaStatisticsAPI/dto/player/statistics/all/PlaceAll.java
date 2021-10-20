@@ -1,4 +1,4 @@
-package com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional;
+package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Place {
+public class PlaceAll {
 
     @Id
     @GeneratedValue
