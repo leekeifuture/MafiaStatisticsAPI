@@ -1,6 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IExcelService;
@@ -41,9 +40,11 @@ public class ExcelService implements IExcelService {
 
         Map<Integer, List<String>> table = readExcel(xlsFile);
 
-        List<Statistics> statistics = statisticsService.getStatistics(table, statisticsType);
+        List<Statistics> statistics = statisticsService.parseStatistics(table, statisticsType);
 
-        List<Player> savedPlayers = playerService.savePlayers(statistics);
+        playerService.savePlayers(statistics);
+
+        statisticsService.saveStatistics(statistics);
 
         return new Object();
     }

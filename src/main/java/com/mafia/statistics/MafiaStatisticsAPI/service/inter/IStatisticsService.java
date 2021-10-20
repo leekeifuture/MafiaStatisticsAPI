@@ -9,7 +9,9 @@ import java.util.Map;
 
 public interface IStatisticsService {
 
-    List<Statistics> getStatistics(Map<Integer, List<String>> table, StatisticsType statisticsType);
-
     DashboardInfo getDashboardInfo();
+
+    List<Statistics> parseStatistics(Map<Integer, List<String>> table, StatisticsType statisticsType);
+
+    void saveStatistics(List<Statistics> statistics);
 }

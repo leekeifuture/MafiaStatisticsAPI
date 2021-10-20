@@ -1,20 +1,28 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IRatingStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IRolesHistoryStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.ISerialityStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.IVisitingStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRatingStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRolesHistoryStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ISerialityStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IVisitingStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ICoupleStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.INumbersStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRatingStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRolesHistoryStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerialityStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Place;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.CoupleStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.GamesPerNumberStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.NumbersStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RatingStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RolesHistoryStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.SerialityStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.GamesPerNumberStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.PlaceAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHistoryStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
@@ -43,30 +51,12 @@ public class StatisticsService implements IStatisticsService {
     private final IVisitingStatisticsDao visitingStatisticsDao;
     private final IRatingStatisticsDao ratingStatisticsDao;
 
-    @Override
-    public List<Statistics> getStatistics(
-            Map<Integer, List<String>> table,
-            StatisticsType statisticsType
-    ) {
-        switch (statisticsType) {
-            case NUMBERS:
-                return parseNumbersStatistics(table);
-            case COUPLE:
-                return parseCoupleStatistics(table);
-            case RATING:
-                return parseRatingStatistics(table);
-            case ROLES_HISTORY:
-                return parseRolesHistoryStatistics(table);
-            case VISITING:
-                return parseVisitingStatistics(table);
-            case GAMES_PER_NUMBER:
-                return parseGamesPerNumberStatistics(table);
-            case SERIALITY:
-                return parseSerialityStatistics(table);
-            default:
-                return new ArrayList<>();
-        }
-    }
+    private final INumbersStatisticsAllDao numbersStatisticsAllDao;
+    private final ICoupleStatisticsAllDao coupleStatisticsAllDao;
+    private final IRatingStatisticsAllDao ratingStatisticsAllDao;
+    private final IRolesHistoryStatisticsAllDao rolesHistoryStatisticsAllDao;
+    private final IVisitingStatisticsAllDao visitingStatisticsAllDao;
+    private final ISerialityStatisticsAllDao serialityStatisticsAllDao;
 
     @Override
     public DashboardInfo getDashboardInfo() {
@@ -103,7 +93,7 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
-        DashboardInfo dashboardInfo = new DashboardInfo(
+        return new DashboardInfo(
                 winSeriesPlayer.getId(),
                 winSeriesPlayer.getNickname(),
                 winSeries.getMaximumSeriesOfWin(),
@@ -123,8 +113,123 @@ public class StatisticsService implements IStatisticsService {
                 topGamesTable,
                 topRatingTable
         );
+    }
 
-        return dashboardInfo;
+    // Save statistics
+
+    @Override
+    public void saveStatistics(List<Statistics> statistics) {
+        if (statistics.isEmpty()) {
+            return;
+        }
+
+        switch (statistics.get(0).getClass().getSimpleName()) {
+            case "NumbersStatisticsAll":
+                saveNumbersStatistics(statistics);
+                break;
+            case "CoupleStatisticsAll":
+                saveCoupleStatistics(statistics);
+                break;
+            case "RatingStatisticsAll":
+                saveRatingStatistics(statistics);
+                break;
+            case "RolesHistoryStatisticsAll":
+                saveRolesHistoryStatistics(statistics);
+                break;
+            case "VisitingStatisticsAll":
+                saveVisitingStatistics(statistics);
+                break;
+            case "SerialityStatisticsAll":
+                saveSerialityStatistics(statistics);
+                break;
+        }
+    }
+
+    private void saveNumbersStatistics(List<Statistics> numbersStatistics) {
+        numbersStatistics.forEach(statisticsRow -> {
+            NumbersStatisticsAll numbersStatisticsAll =
+                    ((NumbersStatisticsAll) statisticsRow);
+            numbersStatisticsAll.setUploadingDate(new Date());
+
+            numbersStatisticsAllDao.save(numbersStatisticsAll);
+        });
+    }
+
+    private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
+        coupleStatistics.forEach(statisticsRow -> {
+            CoupleStatisticsAll coupleStatisticsAll =
+                    ((CoupleStatisticsAll) statisticsRow);
+            coupleStatisticsAll.setUploadingDate(new Date());
+
+            coupleStatisticsAllDao.save(coupleStatisticsAll);
+        });
+    }
+
+    private void saveRatingStatistics(List<Statistics> ratingStatistics) {
+        ratingStatistics.forEach(statisticsRow -> {
+            RatingStatisticsAll ratingStatisticsAll =
+                    ((RatingStatisticsAll) statisticsRow);
+            ratingStatisticsAll.setUploadingDate(new Date());
+
+            ratingStatisticsAllDao.save(ratingStatisticsAll);
+        });
+    }
+
+    private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
+        rolesHistoryStatistics.forEach(statisticsRow -> {
+            RolesHistoryStatisticsAll rolesHistoryStatisticsAll =
+                    ((RolesHistoryStatisticsAll) statisticsRow);
+            rolesHistoryStatisticsAll.setUploadingDate(new Date());
+
+            rolesHistoryStatisticsAllDao.save(rolesHistoryStatisticsAll);
+        });
+    }
+
+    private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
+        visitingStatistics.forEach(statisticsRow -> {
+            VisitingStatisticsAll visitingStatisticsAll =
+                    ((VisitingStatisticsAll) statisticsRow);
+            visitingStatisticsAll.setUploadingDate(new Date());
+
+            visitingStatisticsAllDao.save(visitingStatisticsAll);
+        });
+    }
+
+    private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
+        serialityStatistics.forEach(statisticsRow -> {
+            SerialityStatisticsAll serialityStatisticsAll =
+                    ((SerialityStatisticsAll) statisticsRow);
+            serialityStatisticsAll.setUploadingDate(new Date());
+
+            serialityStatisticsAllDao.save(serialityStatisticsAll);
+        });
+    }
+
+    // Parse statistics
+
+    @Override
+    public List<Statistics> parseStatistics(
+            Map<Integer, List<String>> table,
+            StatisticsType statisticsType
+    ) {
+        switch (statisticsType) {
+            case NUMBERS:
+                return parseNumbersStatistics(table);
+            case COUPLE:
+                return parseCoupleStatistics(table);
+            case RATING:
+                return parseRatingStatistics(table);
+            case ROLES_HISTORY:
+                return parseRolesHistoryStatistics(table);
+            case VISITING:
+                return parseVisitingStatistics(table);
+            case GAMES_PER_NUMBER:
+                return parseGamesPerNumberStatistics(table);
+            case SERIALITY:
+                return parseSerialityStatistics(table);
+            default:
+                return new ArrayList<>();
+        }
     }
 
     private List<Statistics> parseNumbersStatistics(Map<Integer, List<String>> table) {
@@ -142,48 +247,48 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            Place placeOne = new Place(null,
+            PlaceAll placeOne = new PlaceAll(null,
                     parseCellInteger(row.get(3)), parseCellInteger(row.get(4)),
                     parseCellInteger(row.get(5)), parseCellInteger(row.get(6)),
                     parseCellInteger(row.get(7)), parseCellInteger(row.get(8)));
-            Place placeTwo = new Place(null,
+            PlaceAll placeTwo = new PlaceAll(null,
                     parseCellInteger(row.get(9)), parseCellInteger(row.get(10)),
                     parseCellInteger(row.get(11)), parseCellInteger(row.get(12)),
                     parseCellInteger(row.get(13)), parseCellInteger(row.get(14)));
-            Place placeThree = new Place(null,
+            PlaceAll placeThree = new PlaceAll(null,
                     parseCellInteger(row.get(15)), parseCellInteger(row.get(16)),
                     parseCellInteger(row.get(17)), parseCellInteger(row.get(18)),
                     parseCellInteger(row.get(19)), parseCellInteger(row.get(20)));
-            Place placeFour = new Place(null,
+            PlaceAll placeFour = new PlaceAll(null,
                     parseCellInteger(row.get(21)), parseCellInteger(row.get(22)),
                     parseCellInteger(row.get(23)), parseCellInteger(row.get(24)),
                     parseCellInteger(row.get(25)), parseCellInteger(row.get(26)));
-            Place placeFive = new Place(null,
+            PlaceAll placeFive = new PlaceAll(null,
                     parseCellInteger(row.get(27)), parseCellInteger(row.get(28)),
                     parseCellInteger(row.get(29)), parseCellInteger(row.get(30)),
                     parseCellInteger(row.get(31)), parseCellInteger(row.get(32)));
-            Place placeSix = new Place(null,
+            PlaceAll placeSix = new PlaceAll(null,
                     parseCellInteger(row.get(33)), parseCellInteger(row.get(34)),
                     parseCellInteger(row.get(35)), parseCellInteger(row.get(36)),
                     parseCellInteger(row.get(37)), parseCellInteger(row.get(38)));
-            Place placeSeven = new Place(null,
+            PlaceAll placeSeven = new PlaceAll(null,
                     parseCellInteger(row.get(39)), parseCellInteger(row.get(40)),
                     parseCellInteger(row.get(41)), parseCellInteger(row.get(42)),
                     parseCellInteger(row.get(43)), parseCellInteger(row.get(44)));
-            Place placeEight = new Place(null,
+            PlaceAll placeEight = new PlaceAll(null,
                     parseCellInteger(row.get(45)), parseCellInteger(row.get(46)),
                     parseCellInteger(row.get(47)), parseCellInteger(row.get(48)),
                     parseCellInteger(row.get(49)), parseCellInteger(row.get(50)));
-            Place placeNine = new Place(null,
+            PlaceAll placeNine = new PlaceAll(null,
                     parseCellInteger(row.get(51)), parseCellInteger(row.get(52)),
                     parseCellInteger(row.get(53)), parseCellInteger(row.get(54)),
                     parseCellInteger(row.get(55)), parseCellInteger(row.get(56)));
-            Place placeTen = new Place(null,
+            PlaceAll placeTen = new PlaceAll(null,
                     parseCellInteger(row.get(57)), parseCellInteger(row.get(58)),
                     parseCellInteger(row.get(59)), parseCellInteger(row.get(60)),
                     parseCellInteger(row.get(61)), parseCellInteger(row.get(62)));
 
-            numbersStatistics.add(new NumbersStatistics(
+            numbersStatistics.add(new NumbersStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -198,7 +303,9 @@ public class StatisticsService implements IStatisticsService {
                     placeSeven,
                     placeEight,
                     placeNine,
-                    placeTen
+                    placeTen,
+                    null,
+                    new Date()
             ));
         });
 
@@ -220,7 +327,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            coupleStatistics.add(new CoupleStatistics(
+            coupleStatistics.add(new CoupleStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -229,7 +336,9 @@ public class StatisticsService implements IStatisticsService {
                     row.get(3),
                     parseCellInteger(row.get(4)),
                     parseCellInteger(row.get(5)),
-                    parseCellFloat(row.get(6))
+                    parseCellFloat(row.get(6)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -251,7 +360,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            ratingStatistics.add(new RatingStatistics(
+            ratingStatistics.add(new RatingStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -264,7 +373,9 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(7)),
                     parseCellFloat(row.get(8)),
                     parseCellFloat(row.get(9)),
-                    parseCellFloat(row.get(10))
+                    parseCellFloat(row.get(10)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -286,7 +397,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            rolesHistoryStatistics.add(new RolesHistoryStatistics(
+            rolesHistoryStatistics.add(new RolesHistoryStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -312,7 +423,9 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(31)),
                     parseCellInteger(row.get(32)),
                     parseCellInteger(row.get(33)),
-                    parseCellInteger(row.get(34))
+                    parseCellInteger(row.get(34)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -334,7 +447,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            visitingStatistics.add(new VisitingStatistics(
+            visitingStatistics.add(new VisitingStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -345,7 +458,9 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(5)),
                     parseCellInteger(row.get(6)),
                     parseCellInteger(row.get(7)),
-                    parseCellInteger(row.get(8))
+                    parseCellInteger(row.get(8)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -367,7 +482,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            gamesPerNumberStatistics.add(new GamesPerNumberStatistics(
+            gamesPerNumberStatistics.add(new GamesPerNumberStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -384,7 +499,9 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(11)),
                     parseCellInteger(row.get(12)),
                     parseCellInteger(row.get(13)),
-                    parseCellInteger(row.get(14))
+                    parseCellInteger(row.get(14)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -406,7 +523,7 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            serialityStatistics.add(new SerialityStatistics(
+            serialityStatistics.add(new SerialityStatisticsAll(
                     null,
                     dates.get(0),
                     dates.get(1),
@@ -425,7 +542,9 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(13)),
                     parseCellInteger(row.get(14)),
                     parseCellInteger(row.get(15)),
-                    parseCellInteger(row.get(16))
+                    parseCellInteger(row.get(16)),
+                    null,
+                    new Date()
             ));
         });
 
@@ -467,4 +586,5 @@ public class StatisticsService implements IStatisticsService {
 
         return dates;
     }
+
 }
