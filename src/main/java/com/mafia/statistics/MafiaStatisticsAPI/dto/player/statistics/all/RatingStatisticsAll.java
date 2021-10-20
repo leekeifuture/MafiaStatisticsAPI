@@ -1,4 +1,4 @@
-package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics;
+package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoupleStatistics extends Statistics {
+public class RatingStatisticsAll extends Statistics {
 
     @Id
     @GeneratedValue
@@ -27,12 +27,21 @@ public class CoupleStatistics extends Statistics {
 
     private Integer number;
 
-    private String nicknameOfMafiaOne;
-    private String nicknameOfMafiaTwo;
+    private String nickname;
 
-    private Integer games;
+    private Integer gamesTotal;
 
-    private Integer wins;
+    private Integer gamesRed;
+    private Integer gamesBlack;
+    private Integer gamesDon;
+    private Integer gamesSheriff;
 
-    private Float percentOfWins;
+    private Float bestMove;
+
+    private Float penaltyPoints; // best player / penalty
+
+    private Float points;
+
+    private Boolean isActive;
+    private Date uploadingDate;
 }

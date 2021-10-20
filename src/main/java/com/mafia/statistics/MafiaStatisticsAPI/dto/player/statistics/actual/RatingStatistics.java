@@ -1,4 +1,4 @@
-package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics;
+package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitingStatistics extends Statistics {
+public class RatingStatistics extends Statistics {
 
     @Id
     @GeneratedValue
@@ -25,19 +25,20 @@ public class VisitingStatistics extends Statistics {
     private Date fromDate;
     private Date toDate;
 
+    private Integer number;
+
     private String nickname;
 
-    private Integer byMonday;
+    private Integer gamesTotal;
 
-    private Integer byTuesday;
+    private Integer gamesRed;
+    private Integer gamesBlack;
+    private Integer gamesDon;
+    private Integer gamesSheriff;
 
-    private Integer byWednesday;
+    private Float bestMove;
 
-    private Integer byThursday;
+    private Float penaltyPoints; // best player / penalty
 
-    private Integer byFriday;
-
-    private Integer bySaturday;
-
-    private Integer bySunday;
+    private Float points;
 }

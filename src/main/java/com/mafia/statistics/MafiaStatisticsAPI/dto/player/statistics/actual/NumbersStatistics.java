@@ -1,4 +1,4 @@
-package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics;
+package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Place;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;

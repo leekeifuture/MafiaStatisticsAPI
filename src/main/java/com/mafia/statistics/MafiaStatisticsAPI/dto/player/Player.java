@@ -1,11 +1,11 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.CoupleStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.NumbersStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RatingStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.RolesHistoryStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.SerialityStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.VisitingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatistics;
 import com.vk.api.sdk.objects.base.Sex;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics;
+package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class GamesPerNumberStatistics extends Statistics {
+public class GamesPerNumberStatisticsAll extends Statistics {
 
     @Id
     @GeneratedValue
@@ -44,5 +44,8 @@ public class GamesPerNumberStatistics extends Statistics {
     private Integer percentWinningSheriff;
 
     private Integer percentWinningAllRed; // with sheriff
-    private Integer percentWinningAllBlack;  // with don
+    private Integer percentWinningAllBlack; // with don
+
+    private Boolean isActive;
+    private Date uploadingDate;
 }
