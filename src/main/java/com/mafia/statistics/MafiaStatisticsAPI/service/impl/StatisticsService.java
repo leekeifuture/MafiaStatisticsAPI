@@ -6,6 +6,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRol
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ISerialityStatisticsDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IVisitingStatisticsDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ICoupleStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IGamesPerNumberStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.INumbersStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRatingStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRolesHistoryStatisticsAllDao;
@@ -57,6 +58,7 @@ public class StatisticsService implements IStatisticsService {
     private final IRolesHistoryStatisticsAllDao rolesHistoryStatisticsAllDao;
     private final IVisitingStatisticsAllDao visitingStatisticsAllDao;
     private final ISerialityStatisticsAllDao serialityStatisticsAllDao;
+    private final IGamesPerNumberStatisticsAllDao gamesPerNumberStatisticsAllDao;
 
     @Override
     public DashboardInfo getDashboardInfo() {
@@ -142,6 +144,9 @@ public class StatisticsService implements IStatisticsService {
             case "SerialityStatisticsAll":
                 saveSerialityStatistics(statistics);
                 break;
+            case "GamesPerNumberStatisticsAll":
+                saveGamesPerNumberStatistics(statistics);
+                break;
         }
     }
 
@@ -202,6 +207,16 @@ public class StatisticsService implements IStatisticsService {
             serialityStatisticsAll.setUploadingDate(new Date());
 
             serialityStatisticsAllDao.save(serialityStatisticsAll);
+        });
+    }
+
+    private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
+        gamesPerNumberStatistics.forEach(statisticsRow -> {
+            GamesPerNumberStatisticsAll gamesPerNumberStatisticsAll =
+                    ((GamesPerNumberStatisticsAll) statisticsRow);
+            gamesPerNumberStatisticsAll.setUploadingDate(new Date());
+
+            gamesPerNumberStatisticsAllDao.save(gamesPerNumberStatisticsAll);
         });
     }
 
