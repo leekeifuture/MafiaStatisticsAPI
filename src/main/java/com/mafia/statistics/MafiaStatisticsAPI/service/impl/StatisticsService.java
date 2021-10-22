@@ -1,6 +1,9 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ICoupleStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IGamesPerNumberStatisticsDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.INumbersStatisticsDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRatingStatisticsDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRolesHistoryStatisticsDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ISerialityStatisticsDao;
@@ -36,8 +39,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,10 +53,13 @@ public class StatisticsService implements IStatisticsService {
 
     private final IPlayerDao playerDao;
 
-    private final ISerialityStatisticsDao serialityStatisticsDao;
+    private final INumbersStatisticsDao numbersStatisticsDao;
+    private final ICoupleStatisticsDao coupleStatisticsDao;
+    private final IRatingStatisticsDao ratingStatisticsDao;
     private final IRolesHistoryStatisticsDao rolesHistoryStatisticsDao;
     private final IVisitingStatisticsDao visitingStatisticsDao;
-    private final IRatingStatisticsDao ratingStatisticsDao;
+    private final ISerialityStatisticsDao serialityStatisticsDao;
+    private final IGamesPerNumberStatisticsDao gamesPerNumberStatisticsDao;
 
     private final INumbersStatisticsAllDao numbersStatisticsAllDao;
     private final ICoupleStatisticsAllDao coupleStatisticsAllDao;
@@ -151,73 +160,185 @@ public class StatisticsService implements IStatisticsService {
     }
 
     private void saveNumbersStatistics(List<Statistics> numbersStatistics) {
-        numbersStatistics.forEach(statisticsRow -> {
-            NumbersStatisticsAll numbersStatisticsAll =
-                    ((NumbersStatisticsAll) statisticsRow);
-            numbersStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeNumbersStatistics =
+                (List<Statistics>) (List<?>) numbersStatisticsAllDao.findAllByIsActive(true);
 
-            numbersStatisticsAllDao.save(numbersStatisticsAll);
-        });
+        List<NumbersStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        numbersStatistics,
+                        activeNumbersStatistics,
+                        NumbersStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        numbersStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        numbersStatisticsAllDao
+                .saveAll((List<NumbersStatisticsAll>) (List<?>) numbersStatistics);
     }
 
     private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
-        coupleStatistics.forEach(statisticsRow -> {
-            CoupleStatisticsAll coupleStatisticsAll =
-                    ((CoupleStatisticsAll) statisticsRow);
-            coupleStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeCoupleStatistics =
+                (List<Statistics>) (List<?>) coupleStatisticsAllDao.findAllByIsActive(true);
 
-            coupleStatisticsAllDao.save(coupleStatisticsAll);
-        });
+        List<CoupleStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        coupleStatistics,
+                        activeCoupleStatistics,
+                        CoupleStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        coupleStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        coupleStatisticsAllDao
+                .saveAll((List<CoupleStatisticsAll>) (List<?>) coupleStatistics);
     }
 
     private void saveRatingStatistics(List<Statistics> ratingStatistics) {
-        ratingStatistics.forEach(statisticsRow -> {
-            RatingStatisticsAll ratingStatisticsAll =
-                    ((RatingStatisticsAll) statisticsRow);
-            ratingStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeRatingStatistics =
+                (List<Statistics>) (List<?>) ratingStatisticsAllDao.findAllByIsActive(true);
 
-            ratingStatisticsAllDao.save(ratingStatisticsAll);
-        });
+        List<RatingStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        ratingStatistics,
+                        activeRatingStatistics,
+                        RatingStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        ratingStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        ratingStatisticsAllDao
+                .saveAll((List<RatingStatisticsAll>) (List<?>) ratingStatistics);
     }
 
     private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
-        rolesHistoryStatistics.forEach(statisticsRow -> {
-            RolesHistoryStatisticsAll rolesHistoryStatisticsAll =
-                    ((RolesHistoryStatisticsAll) statisticsRow);
-            rolesHistoryStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeRolesHistoryStatistics =
+                (List<Statistics>) (List<?>) rolesHistoryStatisticsAllDao.findAllByIsActive(true);
 
-            rolesHistoryStatisticsAllDao.save(rolesHistoryStatisticsAll);
-        });
+        List<RolesHistoryStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        rolesHistoryStatistics,
+                        activeRolesHistoryStatistics,
+                        RolesHistoryStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        rolesHistoryStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        rolesHistoryStatisticsAllDao
+                .saveAll((List<RolesHistoryStatisticsAll>) (List<?>) rolesHistoryStatistics);
     }
 
     private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
-        visitingStatistics.forEach(statisticsRow -> {
-            VisitingStatisticsAll visitingStatisticsAll =
-                    ((VisitingStatisticsAll) statisticsRow);
-            visitingStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeVisitingStatistics =
+                (List<Statistics>) (List<?>) visitingStatisticsAllDao.findAllByIsActive(true);
 
-            visitingStatisticsAllDao.save(visitingStatisticsAll);
-        });
+        List<VisitingStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        visitingStatistics,
+                        activeVisitingStatistics,
+                        VisitingStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        visitingStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        visitingStatisticsAllDao
+                .saveAll((List<VisitingStatisticsAll>) (List<?>) visitingStatistics);
     }
 
     private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
-        serialityStatistics.forEach(statisticsRow -> {
-            SerialityStatisticsAll serialityStatisticsAll =
-                    ((SerialityStatisticsAll) statisticsRow);
-            serialityStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeSerialityStatistics =
+                (List<Statistics>) (List<?>) serialityStatisticsAllDao.findAllByIsActive(true);
 
-            serialityStatisticsAllDao.save(serialityStatisticsAll);
-        });
+        List<SerialityStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        serialityStatistics,
+                        activeSerialityStatistics,
+                        SerialityStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        serialityStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        serialityStatisticsAllDao
+                .saveAll((List<SerialityStatisticsAll>) (List<?>) serialityStatistics);
     }
 
     private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
-        gamesPerNumberStatistics.forEach(statisticsRow -> {
-            GamesPerNumberStatisticsAll gamesPerNumberStatisticsAll =
-                    ((GamesPerNumberStatisticsAll) statisticsRow);
-            gamesPerNumberStatisticsAll.setUploadingDate(new Date());
+        List<Statistics> activeGamesPerNumberStatistics =
+                (List<Statistics>) (List<?>) gamesPerNumberStatisticsAllDao.findAllByIsActive(true);
 
-            gamesPerNumberStatisticsAllDao.save(gamesPerNumberStatisticsAll);
+        List<GamesPerNumberStatisticsAll> notActualStatistics =
+                getNotActualStatistics(
+                        gamesPerNumberStatistics,
+                        activeGamesPerNumberStatistics,
+                        GamesPerNumberStatisticsAll.class
+                );
+
+        // Save not actual statistics
+        gamesPerNumberStatisticsAllDao.saveAll(notActualStatistics);
+
+        // Save new statistics
+        gamesPerNumberStatisticsAllDao
+                .saveAll((List<GamesPerNumberStatisticsAll>) (List<?>) gamesPerNumberStatistics);
+    }
+
+    private <T> List<T> getNotActualStatistics(
+            List<Statistics> newStatistics,
+            List<Statistics> activeStatistics,
+            Class<T> statisticsTypeClass
+    ) {
+        // Collect all dates ranges
+        Set<List<Date>> datesSet = new HashSet();
+        activeStatistics.forEach(statisticsRow -> {
+            List<Date> dates = new ArrayList<>();
+            dates.add(statisticsRow.getFromDate());
+            dates.add(statisticsRow.getToDate());
+
+            datesSet.add(dates);
         });
+
+        // Range of uploaded statistics
+        Date statisticsFromDate = (newStatistics.get(0)).getFromDate();
+        Date statisticsToDate = (newStatistics.get(1)).getToDate();
+
+        // Filter not actual dates
+        Set<List<Date>> notActualDates = datesSet.stream().filter(actualDates -> {
+            Date actualDateFrom = actualDates.get(0);
+            Date actualDateTo = actualDates.get(1);
+
+            // Condition for replacing old data to new
+            return !(statisticsToDate.before(actualDateFrom) ||
+                    statisticsFromDate.after(actualDateTo));
+        }).collect(Collectors.toSet());
+
+        // Collect statistics for updating
+        List<Statistics> statisticsForSave = new ArrayList<>();
+        notActualDates.forEach(notActualDate -> {
+            Date notActualDateFrom = notActualDate.get(0);
+            Date notActualDateTo = notActualDate.get(1);
+
+            activeStatistics.forEach(statisticsRow -> {
+                if (statisticsRow.getFromDate().equals(notActualDateFrom) &&
+                        statisticsRow.getToDate().equals(notActualDateTo)) {
+                    // Deactivating statistics
+                    statisticsRow.setIsActive(false);
+                    statisticsForSave.add(
+                            (Statistics) statisticsTypeClass.cast(statisticsRow)
+                    );
+                }
+            });
+        });
+        return (List<T>) statisticsForSave;
     }
 
     // Parse statistics
@@ -251,6 +372,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 7;
         int finish = table.size() - 1;
         List<Statistics> numbersStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -319,8 +441,8 @@ public class StatisticsService implements IStatisticsService {
                     placeEight,
                     placeNine,
                     placeTen,
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -331,6 +453,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 6;
         int finish = table.size() - 1;
         List<Statistics> coupleStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -352,8 +475,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(4)),
                     parseCellInteger(row.get(5)),
                     parseCellFloat(row.get(6)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -364,6 +487,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 6;
         int finish = table.size() - 3;
         List<Statistics> ratingStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -389,8 +513,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellFloat(row.get(8)),
                     parseCellFloat(row.get(9)),
                     parseCellFloat(row.get(10)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -401,6 +525,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 6;
         int finish = table.size() - 3;
         List<Statistics> rolesHistoryStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -439,8 +564,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(32)),
                     parseCellInteger(row.get(33)),
                     parseCellInteger(row.get(34)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -451,6 +576,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 7;
         int finish = table.size() - 1;
         List<Statistics> visitingStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -474,8 +600,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(6)),
                     parseCellInteger(row.get(7)),
                     parseCellInteger(row.get(8)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -486,6 +612,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 7;
         int finish = table.size() - 1;
         List<Statistics> gamesPerNumberStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -515,8 +642,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(12)),
                     parseCellInteger(row.get(13)),
                     parseCellInteger(row.get(14)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -527,6 +654,7 @@ public class StatisticsService implements IStatisticsService {
         int start = 6;
         int finish = table.size() - 1;
         List<Statistics> serialityStatistics = new ArrayList<>();
+        Date currentDate = new Date();
 
         List<Date> dates = new ArrayList<>();
         table.forEach((index, row) -> {
@@ -558,8 +686,8 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(14)),
                     parseCellInteger(row.get(15)),
                     parseCellInteger(row.get(16)),
-                    null,
-                    new Date()
+                    true,
+                    currentDate
             ));
         });
 
@@ -601,5 +729,4 @@ public class StatisticsService implements IStatisticsService {
 
         return dates;
     }
-
 }
