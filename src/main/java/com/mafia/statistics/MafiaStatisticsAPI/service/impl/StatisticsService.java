@@ -309,7 +309,7 @@ public class StatisticsService implements IStatisticsService {
 
         // Range of uploaded statistics
         Date statisticsFromDate = (newStatistics.get(0)).getFromDate();
-        Date statisticsToDate = (newStatistics.get(1)).getToDate();
+        Date statisticsToDate = (newStatistics.get(0)).getToDate();
 
         // Filter not actual dates
         Set<List<Date>> notActualDates = datesSet.stream().filter(actualDates -> {
