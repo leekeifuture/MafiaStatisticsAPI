@@ -24,7 +24,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.2.24.jre7'
 
     // Flyway
-    implementation 'org.flywaydb:flyway-core:8.0.0'
+    implementation 'org.flywaydb:flyway-core:8.0.1'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
