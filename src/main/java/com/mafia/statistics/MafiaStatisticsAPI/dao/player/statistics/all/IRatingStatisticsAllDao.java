@@ -14,7 +14,7 @@ public interface IRatingStatisticsAllDao extends JpaRepository<RatingStatisticsA
 
     List<RatingStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT new RatingStatistics(t.nickname, " +
+    @Query("SELECT NEW RatingStatistics(t.nickname, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +

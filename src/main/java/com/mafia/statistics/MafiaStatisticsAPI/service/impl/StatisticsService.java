@@ -17,6 +17,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerial
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
@@ -177,6 +178,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         numbersStatisticsAllDao
                 .saveAll((List<NumbersStatisticsAll>) (List<?>) numbersStatistics);
+
+        // Group data by nickname and aggregate it
+        List<NumbersStatistics> aggregatedStatistics =
+                numbersStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        numbersStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        numbersStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
@@ -216,12 +227,12 @@ public class StatisticsService implements IStatisticsService {
         ratingStatisticsAllDao
                 .saveAll((List<RatingStatisticsAll>) (List<?>) ratingStatistics);
 
-        // Remove all actual statistics for updating with new one
-        ratingStatisticsDao.deleteAll();
-
         // Group data by nickname and aggregate it
         List<RatingStatistics> aggregatedStatistics =
                 ratingStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        ratingStatisticsDao.deleteAll();
 
         // Update actual statistics
         ratingStatisticsDao.saveAll(aggregatedStatistics);
@@ -437,23 +448,23 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(61)), parseCellInteger(row.get(62)));
 
             numbersStatistics.add(new NumbersStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    row.get(1),
-                    parseCellInteger(row.get(2)),
-                    placeOne,
-                    placeTwo,
-                    placeThree,
-                    placeFour,
-                    placeFive,
-                    placeSix,
-                    placeSeven,
-                    placeEight,
-                    placeNine,
-                    placeTen,
-                    true,
-                    currentDate
+                    null, // id
+                    row.get(1), // nickname
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    parseCellInteger(row.get(2)), // gamesTotal
+                    placeOne, // placeOne
+                    placeTwo, // placeTwo
+                    placeThree, // placeThree
+                    placeFour, // placeFour
+                    placeFive, // placeFive
+                    placeSix, // placeSix
+                    placeSeven, // placeSeven
+                    placeEight, // placeEight
+                    placeNine, // placeNine
+                    placeTen, // placeTen
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

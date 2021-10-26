@@ -7,22 +7,31 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Place {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Integer gamesRed;
-    private Integer gamesBlack;
-    private Integer gamesDon;
-    private Integer gamesSheriff;
+    @NonNull
+    private Long GamesRed;
+    @NonNull
+    private Long GamesBlack;
+    @NonNull
+    private Long GamesDon;
+    @NonNull
+    private Long GamesSheriff;
 
-    private Integer percentWinRed;
-    private Integer percentWinBlack;
+    @NonNull
+    private Double PercentWinRed;
+    @NonNull
+    private Double PercentWinBlack;
 }
