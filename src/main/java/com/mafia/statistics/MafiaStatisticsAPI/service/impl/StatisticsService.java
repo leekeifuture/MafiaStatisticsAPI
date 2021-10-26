@@ -515,14 +515,14 @@ public class StatisticsService implements IStatisticsService {
                     row.get(2), // nickname
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
-                    parseCellLong(row.get(3)), // gamesTotal
-                    parseCellLong(row.get(4)), // gamesRed
-                    parseCellLong(row.get(5)), // gamesBlack
-                    parseCellLong(row.get(6)), // gamesDon
-                    parseCellLong(row.get(7)), // gamesSheriff
-                    parseCellDouble(row.get(8)), // bestMove
-                    parseCellDouble(row.get(9)), // penaltyPoints
-                    parseCellDouble(row.get(10)), // points
+                    parseCellInteger(row.get(3)), // gamesTotal
+                    parseCellInteger(row.get(4)), // gamesRed
+                    parseCellInteger(row.get(5)), // gamesBlack
+                    parseCellInteger(row.get(6)), // gamesDon
+                    parseCellInteger(row.get(7)), // gamesSheriff
+                    parseCellFloat(row.get(8)), // bestMove
+                    parseCellFloat(row.get(9)), // penaltyPoints
+                    parseCellFloat(row.get(10)), // points
                     parseCellInteger(row.get(1)), // number
                     true, // isActive
                     currentDate // uploadingDate
@@ -705,28 +705,12 @@ public class StatisticsService implements IStatisticsService {
         return serialityStatistics;
     }
 
-    private Long parseCellLong(String cell) {
-        if (cell.equals("Нет")) {
-            cell = "0";
-        }
-
-        return Long.valueOf(cell);
-    }
-
     private Integer parseCellInteger(String cell) {
         if (cell.equals("Нет")) {
             cell = "0";
         }
 
         return Integer.valueOf(cell);
-    }
-
-    private Double parseCellDouble(String cell) {
-        if (cell.equals("Нет")) {
-            cell = "0";
-        }
-
-        return Double.valueOf(cell);
     }
 
     private Float parseCellFloat(String cell) {
