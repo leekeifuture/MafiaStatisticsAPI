@@ -17,5 +17,5 @@ public class TopRatingTable {
 
     private String playerNickname;
 
-    private Float points;
+    private Double points;
 }

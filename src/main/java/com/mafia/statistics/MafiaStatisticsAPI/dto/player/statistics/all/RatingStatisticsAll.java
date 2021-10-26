@@ -33,8 +33,6 @@ public class RatingStatisticsAll extends Statistics {
     @NonNull
     private Date toDate;
 
-    private Integer number;
-
     @NonNull
     private Long gamesTotal;
 
@@ -55,6 +53,8 @@ public class RatingStatisticsAll extends Statistics {
 
     @NonNull
     private Double points;
+
+    private Integer number;
 
     private Boolean isActive;
     private Date uploadingDate;

@@ -11,6 +11,7 @@ import com.vk.api.sdk.objects.base.Sex;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,6 +34,7 @@ public class Player {
 
     private Long vkId;
 
+    @Column(unique = true)
     private String nickname;
 
     private Sex gender;

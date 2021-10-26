@@ -11,34 +11,46 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class RatingStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date fromDate;
-    private Date toDate;
-
-    private Integer number;
-
+    @NonNull
     private String nickname;
 
-    private Integer gamesTotal;
+    @NonNull
+    private Date fromDate;
+    @NonNull
+    private Date toDate;
 
-    private Integer gamesRed;
-    private Integer gamesBlack;
-    private Integer gamesDon;
-    private Integer gamesSheriff;
+    @NonNull
+    private Long gamesTotal;
 
-    private Float bestMove;
+    @NonNull
+    private Long gamesRed;
+    @NonNull
+    private Long gamesBlack;
+    @NonNull
+    private Long gamesDon;
+    @NonNull
+    private Long gamesSheriff;
 
-    private Float penaltyPoints; // best player / penalty
+    @NonNull
+    private Double bestMove;
 
-    private Float points;
+    @NonNull
+    private Double penaltyPoints; // best player / penalty
+
+    @NonNull
+    private Double points;
 }

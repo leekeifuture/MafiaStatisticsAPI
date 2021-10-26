@@ -17,6 +17,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerial
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
@@ -214,6 +215,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         ratingStatisticsAllDao
                 .saveAll((List<RatingStatisticsAll>) (List<?>) ratingStatistics);
+
+        // Remove all actual statistics for updating with new one
+        ratingStatisticsDao.deleteAll();
+
+        // Group data by nickname and aggregate it
+        List<RatingStatistics> aggregatedStatistics =
+                ratingStatisticsAllDao.getAggregatedData();
+
+        // Update actual statistics
+        ratingStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
@@ -504,7 +515,6 @@ public class StatisticsService implements IStatisticsService {
                     row.get(2), // nickname
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
-                    parseCellInteger(row.get(1)), // number
                     parseCellLong(row.get(3)), // gamesTotal
                     parseCellLong(row.get(4)), // gamesRed
                     parseCellLong(row.get(5)), // gamesBlack
@@ -513,6 +523,7 @@ public class StatisticsService implements IStatisticsService {
                     parseCellDouble(row.get(8)), // bestMove
                     parseCellDouble(row.get(9)), // penaltyPoints
                     parseCellDouble(row.get(10)), // points
+                    parseCellInteger(row.get(1)), // number
                     true, // isActive
                     currentDate // uploadingDate
             ));
