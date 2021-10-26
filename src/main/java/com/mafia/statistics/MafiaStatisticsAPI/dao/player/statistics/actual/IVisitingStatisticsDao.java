@@ -20,6 +20,6 @@ public interface IVisitingStatisticsDao extends JpaRepository<VisitingStatistics
             "         FROM visiting_statistics AS t " +
             "     ) AS t2 " +
             "ORDER BY total DESC " +
-            "LIMIT 1 ", nativeQuery = true)
+            "LIMIT 1", nativeQuery = true)
     Object findMostVisitedPlayer();
 }

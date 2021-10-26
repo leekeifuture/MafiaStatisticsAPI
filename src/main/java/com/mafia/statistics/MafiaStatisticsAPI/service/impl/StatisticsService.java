@@ -500,21 +500,21 @@ public class StatisticsService implements IStatisticsService {
             }
 
             ratingStatistics.add(new RatingStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    parseCellInteger(row.get(1)),
-                    row.get(2),
-                    parseCellInteger(row.get(3)),
-                    parseCellInteger(row.get(4)),
-                    parseCellInteger(row.get(5)),
-                    parseCellInteger(row.get(6)),
-                    parseCellInteger(row.get(7)),
-                    parseCellFloat(row.get(8)),
-                    parseCellFloat(row.get(9)),
-                    parseCellFloat(row.get(10)),
-                    true,
-                    currentDate
+                    null, // id
+                    row.get(2), // nickname
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    parseCellInteger(row.get(1)), // number
+                    parseCellLong(row.get(3)), // gamesTotal
+                    parseCellLong(row.get(4)), // gamesRed
+                    parseCellLong(row.get(5)), // gamesBlack
+                    parseCellLong(row.get(6)), // gamesDon
+                    parseCellLong(row.get(7)), // gamesSheriff
+                    parseCellDouble(row.get(8)), // bestMove
+                    parseCellDouble(row.get(9)), // penaltyPoints
+                    parseCellDouble(row.get(10)), // points
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 
@@ -694,12 +694,28 @@ public class StatisticsService implements IStatisticsService {
         return serialityStatistics;
     }
 
+    private Long parseCellLong(String cell) {
+        if (cell.equals("Нет")) {
+            cell = "0";
+        }
+
+        return Long.valueOf(cell);
+    }
+
     private Integer parseCellInteger(String cell) {
         if (cell.equals("Нет")) {
             cell = "0";
         }
 
         return Integer.valueOf(cell);
+    }
+
+    private Double parseCellDouble(String cell) {
+        if (cell.equals("Нет")) {
+            cell = "0";
+        }
+
+        return Double.valueOf(cell);
     }
 
     private Float parseCellFloat(String cell) {
