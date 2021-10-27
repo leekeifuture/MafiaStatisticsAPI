@@ -11,28 +11,36 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CoupleStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
-    private Integer number;
-
+    @NonNull
     private String nicknameOfMafiaOne;
+    @NonNull
     private String nicknameOfMafiaTwo;
 
+    @NonNull
     private Integer games;
 
+    @NonNull
     private Integer wins;
 
+    @NonNull
     private Float percentOfWins;
 }

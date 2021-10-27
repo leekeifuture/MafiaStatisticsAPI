@@ -17,6 +17,8 @@ import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerial
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
@@ -208,6 +210,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         coupleStatisticsAllDao
                 .saveAll((List<CoupleStatisticsAll>) (List<?>) coupleStatistics);
+
+        // Group data by nickname and aggregate it
+        List<CoupleStatistics> aggregatedStatistics =
+                coupleStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        coupleStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        coupleStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveRatingStatistics(List<Statistics> ratingStatistics) {
@@ -529,17 +541,17 @@ public class StatisticsService implements IStatisticsService {
             }
 
             coupleStatistics.add(new CoupleStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    parseCellInteger(row.get(1)),
-                    row.get(2),
-                    row.get(3),
-                    parseCellInteger(row.get(4)),
-                    parseCellInteger(row.get(5)),
-                    parseCellFloat(row.get(6)),
-                    true,
-                    currentDate
+                    null, // id
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    row.get(2), // nicknameOfMafiaOne
+                    row.get(3), // nicknameOfMafiaTwo
+                    parseCellInteger(row.get(4)), // games
+                    parseCellInteger(row.get(5)), // wins
+                    parseCellFloat(row.get(6)), // percentOfWins
+                    parseCellInteger(row.get(1)), // number
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

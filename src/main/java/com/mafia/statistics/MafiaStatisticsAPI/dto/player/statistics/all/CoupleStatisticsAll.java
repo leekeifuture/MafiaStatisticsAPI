@@ -25,8 +25,6 @@ public class CoupleStatisticsAll extends Statistics {
     private Date fromDate;
     private Date toDate;
 
-    private Integer number;
-
     private String nicknameOfMafiaOne;
     private String nicknameOfMafiaTwo;
 
@@ -35,6 +33,8 @@ public class CoupleStatisticsAll extends Statistics {
     private Integer wins;
 
     private Float percentOfWins;
+
+    private Integer number;
 
     private Boolean isActive;
     private Date uploadingDate;
