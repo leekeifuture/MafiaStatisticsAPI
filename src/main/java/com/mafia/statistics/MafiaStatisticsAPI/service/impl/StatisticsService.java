@@ -314,6 +314,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         serialityStatisticsAllDao
                 .saveAll((List<SerialityStatisticsAll>) (List<?>) serialityStatistics);
+
+        // Group data by nickname and aggregate it
+        List<SerialityStatistics> aggregatedStatistics =
+                serialityStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        serialityStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        serialityStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
@@ -710,27 +720,27 @@ public class StatisticsService implements IStatisticsService {
             }
 
             serialityStatistics.add(new SerialityStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    row.get(1),
-                    parseCellInteger(row.get(2)),
-                    parseCellInteger(row.get(3)),
-                    parseCellInteger(row.get(4)),
-                    parseCellInteger(row.get(5)),
-                    parseCellInteger(row.get(6)),
-                    parseCellInteger(row.get(7)),
-                    parseCellInteger(row.get(8)),
-                    parseCellInteger(row.get(9)),
-                    parseCellInteger(row.get(10)),
-                    parseCellInteger(row.get(11)),
-                    parseCellInteger(row.get(12)),
-                    parseCellInteger(row.get(13)),
-                    parseCellInteger(row.get(14)),
-                    parseCellInteger(row.get(15)),
-                    parseCellInteger(row.get(16)),
-                    true,
-                    currentDate
+                    null, // id
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    row.get(1), // nickname
+                    parseCellInteger(row.get(2)), // gamesTotal
+                    parseCellInteger(row.get(3)), // successivelyPlayedByRed
+                    parseCellInteger(row.get(4)), // successivelyPlayedBySheriff
+                    parseCellInteger(row.get(5)), // successivelyPlayedByBlack
+                    parseCellInteger(row.get(6)), // successivelyPlayedByDon
+                    parseCellInteger(row.get(7)), // successivelyWonByRed
+                    parseCellInteger(row.get(8)), // successivelyWonBySheriff
+                    parseCellInteger(row.get(9)), // successivelyWonByBlack
+                    parseCellInteger(row.get(10)), // successivelyWonByDon
+                    parseCellInteger(row.get(11)), // successivelyLostByRed
+                    parseCellInteger(row.get(12)), // successivelyLostBySheriff
+                    parseCellInteger(row.get(13)), // successivelyLostByBlack
+                    parseCellInteger(row.get(14)), // successivelyLostByDon
+                    parseCellInteger(row.get(15)), // maximumSeriesOfWin
+                    parseCellInteger(row.get(16)), // maximumSeriesOfDefeat
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

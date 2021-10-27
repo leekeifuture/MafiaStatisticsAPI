@@ -11,39 +11,60 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class SerialityStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date fromDate;
-    private Date toDate;
-
+    @NonNull
     private String nickname;
 
-    private Integer gamesTotal;
+    @NonNull
+    private Date fromDate;
+    @NonNull
+    private Date toDate;
 
-    private Integer successivelyPlayedByRed; // with sheriff
-    private Integer successivelyPlayedBySheriff;
-    private Integer successivelyPlayedByBlack; // with don
-    private Integer successivelyPlayedByDon;
+    @NonNull
+    private Long gamesTotal;
 
-    private Integer successivelyWonByRed; // with sheriff
-    private Integer successivelyWonBySheriff;
-    private Integer successivelyWonByBlack; // with don
-    private Integer successivelyWonByDon;
+    @NonNull
+    private Long successivelyPlayedByRed; // with sheriff
+    @NonNull
+    private Long successivelyPlayedBySheriff;
+    @NonNull
+    private Long successivelyPlayedByBlack; // with don
+    @NonNull
+    private Long successivelyPlayedByDon;
 
-    private Integer successivelyLostByRed; // with sheriff
-    private Integer successivelyLostBySheriff;
-    private Integer successivelyLostByBlack; // with don
-    private Integer successivelyLostByDon;
+    @NonNull
+    private Long successivelyWonByRed; // with sheriff
+    @NonNull
+    private Long successivelyWonBySheriff;
+    @NonNull
+    private Long successivelyWonByBlack; // with don
+    @NonNull
+    private Long successivelyWonByDon;
 
-    private Integer maximumSeriesOfWin;
-    private Integer maximumSeriesOfDefeat;
+    @NonNull
+    private Long successivelyLostByRed; // with sheriff
+    @NonNull
+    private Long successivelyLostBySheriff;
+    @NonNull
+    private Long successivelyLostByBlack; // with don
+    @NonNull
+    private Long successivelyLostByDon;
+
+    @NonNull
+    private Long maximumSeriesOfWin;
+    @NonNull
+    private Long maximumSeriesOfDefeat;
 }
