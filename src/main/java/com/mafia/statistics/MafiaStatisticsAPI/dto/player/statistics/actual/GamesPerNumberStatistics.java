@@ -11,38 +11,58 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class GamesPerNumberStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date fromDate;
-    private Date toDate;
-
+    @NonNull
     private Integer number;
 
-    private Integer gamesTotal;
+    @NonNull
+    private Date fromDate;
+    @NonNull
+    private Date toDate;
 
-    private Integer firstShot;
+    @NonNull
+    private Long gamesTotal;
 
-    private Integer percentFirstShot;
+    @NonNull
+    private Long firstShot;
 
-    private Integer percentSelectedRed;
-    private Integer percentSelectedBlack;
-    private Integer percentSelectedDon;
-    private Integer percentSelectedSheriff;
+    @NonNull
+    private Double percentFirstShot;
 
-    private Integer percentWinningRed;
-    private Integer percentWinningBlack;
-    private Integer percentWinningDon;
-    private Integer percentWinningSheriff;
+    @NonNull
+    private Double percentSelectedRed;
+    @NonNull
+    private Double percentSelectedBlack;
+    @NonNull
+    private Double percentSelectedDon;
+    @NonNull
+    private Double percentSelectedSheriff;
 
-    private Integer percentWinningAllRed; // with sheriff
-    private Integer percentWinningAllBlack; // with don
+    @NonNull
+    private Double percentWinningRed;
+    @NonNull
+    private Double percentWinningBlack;
+    @NonNull
+    private Double percentWinningDon;
+    @NonNull
+    private Double percentWinningSheriff;
+
+    @NonNull
+    private Double percentWinningAllRed; // with sheriff
+    @NonNull
+    private Double percentWinningAllBlack; // with don
+
 }

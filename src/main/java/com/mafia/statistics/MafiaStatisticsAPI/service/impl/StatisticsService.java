@@ -343,6 +343,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         gamesPerNumberStatisticsAllDao
                 .saveAll((List<GamesPerNumberStatisticsAll>) (List<?>) gamesPerNumberStatistics);
+
+        // Group data by nickname and aggregate it
+        List<GamesPerNumberStatistics> aggregatedStatistics =
+                gamesPerNumberStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        gamesPerNumberStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        gamesPerNumberStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private <T> List<T> getNotActualStatistics(
@@ -678,25 +688,25 @@ public class StatisticsService implements IStatisticsService {
             }
 
             gamesPerNumberStatistics.add(new GamesPerNumberStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    parseCellInteger(row.get(1)),
-                    parseCellInteger(row.get(2)),
-                    parseCellInteger(row.get(3)),
-                    parseCellInteger(row.get(4)),
-                    parseCellInteger(row.get(5)),
-                    parseCellInteger(row.get(6)),
-                    parseCellInteger(row.get(7)),
-                    parseCellInteger(row.get(8)),
-                    parseCellInteger(row.get(9)),
-                    parseCellInteger(row.get(10)),
-                    parseCellInteger(row.get(11)),
-                    parseCellInteger(row.get(12)),
-                    parseCellInteger(row.get(13)),
-                    parseCellInteger(row.get(14)),
-                    true,
-                    currentDate
+                    null, // id
+                    parseCellInteger(row.get(1)), // number
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    parseCellInteger(row.get(2)), // gamesTotal
+                    parseCellInteger(row.get(3)), // firstShot
+                    parseCellInteger(row.get(4)), // percentFirstShot
+                    parseCellInteger(row.get(5)), // percentSelectedRed
+                    parseCellInteger(row.get(6)), // percentSelectedBlack
+                    parseCellInteger(row.get(7)), // percentSelectedDon
+                    parseCellInteger(row.get(8)), // percentSelectedSheriff
+                    parseCellInteger(row.get(9)), // percentWinningRed
+                    parseCellInteger(row.get(10)), // percentWinningBlack
+                    parseCellInteger(row.get(11)), // percentWinningDon
+                    parseCellInteger(row.get(12)), // percentWinningSheriff
+                    parseCellInteger(row.get(13)), // percentWinningAllRed
+                    parseCellInteger(row.get(14)), // percentWinningAllBlack
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

@@ -22,10 +22,10 @@ public class GamesPerNumberStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    private Integer number;
+
     private Date fromDate;
     private Date toDate;
-
-    private Integer number;
 
     private Integer gamesTotal;
 
