@@ -21,6 +21,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Numb
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.GamesPerNumberStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
@@ -274,6 +275,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         visitingStatisticsAllDao
                 .saveAll((List<VisitingStatisticsAll>) (List<?>) visitingStatistics);
+
+        // Group data by nickname and aggregate it
+        List<VisitingStatistics> aggregatedStatistics =
+                visitingStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        visitingStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        visitingStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
@@ -611,19 +622,19 @@ public class StatisticsService implements IStatisticsService {
             }
 
             visitingStatistics.add(new VisitingStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    row.get(1),
-                    parseCellInteger(row.get(2)),
-                    parseCellInteger(row.get(3)),
-                    parseCellInteger(row.get(4)),
-                    parseCellInteger(row.get(5)),
-                    parseCellInteger(row.get(6)),
-                    parseCellInteger(row.get(7)),
-                    parseCellInteger(row.get(8)),
-                    true,
-                    currentDate
+                    null, // id
+                    row.get(1), // nickname
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    parseCellInteger(row.get(2)), // byMonday
+                    parseCellInteger(row.get(3)), // byTuesday
+                    parseCellInteger(row.get(4)), // byWednesday
+                    parseCellInteger(row.get(5)), // byThursday
+                    parseCellInteger(row.get(6)), // byFriday
+                    parseCellInteger(row.get(7)), // bySaturday
+                    parseCellInteger(row.get(8)), // bySunday
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

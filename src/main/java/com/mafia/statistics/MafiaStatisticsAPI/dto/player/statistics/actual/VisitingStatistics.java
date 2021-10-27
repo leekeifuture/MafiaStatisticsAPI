@@ -11,33 +11,46 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class VisitingStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date fromDate;
-    private Date toDate;
-
+    @NonNull
     private String nickname;
 
-    private Integer byMonday;
+    @NonNull
+    private Date fromDate;
+    @NonNull
+    private Date toDate;
 
-    private Integer byTuesday;
+    @NonNull
+    private Double byMonday;
 
-    private Integer byWednesday;
+    @NonNull
+    private Double byTuesday;
 
-    private Integer byThursday;
+    @NonNull
+    private Double byWednesday;
 
-    private Integer byFriday;
+    @NonNull
+    private Double byThursday;
 
-    private Integer bySaturday;
+    @NonNull
+    private Double byFriday;
 
-    private Integer bySunday;
+    @NonNull
+    private Double bySaturday;
+
+    @NonNull
+    private Double bySunday;
 }

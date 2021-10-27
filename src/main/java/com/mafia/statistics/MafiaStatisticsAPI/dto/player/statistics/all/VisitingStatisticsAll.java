@@ -22,10 +22,10 @@ public class VisitingStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    private String nickname;
+
     private Date fromDate;
     private Date toDate;
-
-    private String nickname;
 
     private Integer byMonday;
 
