@@ -11,52 +11,77 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class RolesHistoryStatistics extends Statistics {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date fromDate;
-    private Date toDate;
-
-    private Integer number;
-
+    @NonNull
     private String nickname;
 
-    private Integer gamesTotal;
+    @NonNull
+    private Date fromDate;
+    @NonNull
+    private Date toDate;
 
-    private Integer gamesRed;
-    private Integer gamesBlack;
-    private Integer gamesDon;
-    private Integer gamesSheriff;
+    @NonNull
+    private Long gamesTotal;
 
-    private Integer shooting;
+    @NonNull
+    private Long gamesRed;
+    @NonNull
+    private Long gamesBlack;
+    @NonNull
+    private Long gamesDon;
+    @NonNull
+    private Long gamesSheriff;
 
-    private Integer percentSelectedRed;
-    private Integer percentSelectedBlack;
-    private Integer percentSelectedDon;
-    private Integer percentSelectedSheriff;
+    @NonNull
+    private Long shooting;
 
-    private Integer percentSelectedAllRed; // with sheriff
-    private Integer percentSelectedAllBlack; // with don
+    @NonNull
+    private Double percentSelectedRed;
+    @NonNull
+    private Double percentSelectedBlack;
+    @NonNull
+    private Double percentSelectedDon;
+    @NonNull
+    private Double percentSelectedSheriff;
 
-    private Integer percentWinningRed;
-    private Integer percentWinningBlack;
-    private Integer percentWinningDon;
-    private Integer percentWinningSheriff;
+    @NonNull
+    private Double percentSelectedAllRed; // with sheriff
+    @NonNull
+    private Double percentSelectedAllBlack; // with don
 
-    private Integer percentWinning;
+    @NonNull
+    private Double percentWinningRed;
+    @NonNull
+    private Double percentWinningBlack;
+    @NonNull
+    private Double percentWinningDon;
+    @NonNull
+    private Double percentWinningSheriff;
 
-    private Integer percentWinningAllRed; // with sheriff
-    private Integer percentWinningAllBlack; // with don
+    @NonNull
+    private Double percentWinning;
 
-    private Integer percentBestPlayer;
+    @NonNull
+    private Double percentWinningAllRed; // with sheriff
+    @NonNull
+    private Double percentWinningAllBlack; // with don
 
-    private Integer percentFirstShooting;
+    @NonNull
+    private Double percentBestPlayer;
+
+    @NonNull
+    private Double percentFirstShooting;
 }

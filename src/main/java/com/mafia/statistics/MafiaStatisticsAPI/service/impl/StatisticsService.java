@@ -256,6 +256,16 @@ public class StatisticsService implements IStatisticsService {
         // Save new statistics
         rolesHistoryStatisticsAllDao
                 .saveAll((List<RolesHistoryStatisticsAll>) (List<?>) rolesHistoryStatistics);
+
+        // Group data by nickname and aggregate it
+        List<RolesHistoryStatistics> aggregatedStatistics =
+                rolesHistoryStatisticsAllDao.getAggregatedData();
+
+        // Remove all actual statistics for updating with new one
+        rolesHistoryStatisticsDao.deleteAll();
+
+        // Update actual statistics
+        rolesHistoryStatisticsDao.saveAll(aggregatedStatistics);
     }
 
     private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
@@ -571,34 +581,34 @@ public class StatisticsService implements IStatisticsService {
             }
 
             rolesHistoryStatistics.add(new RolesHistoryStatisticsAll(
-                    null,
-                    dates.get(0),
-                    dates.get(1),
-                    parseCellInteger(row.get(1)),
-                    row.get(12),
-                    parseCellInteger(row.get(13)),
-                    parseCellInteger(row.get(14)),
-                    parseCellInteger(row.get(15)),
-                    parseCellInteger(row.get(16)),
-                    parseCellInteger(row.get(17)),
-                    parseCellInteger(row.get(18)),
-                    parseCellInteger(row.get(20)),
-                    parseCellInteger(row.get(21)),
-                    parseCellInteger(row.get(22)),
-                    parseCellInteger(row.get(23)),
-                    parseCellInteger(row.get(24)),
-                    parseCellInteger(row.get(25)),
-                    parseCellInteger(row.get(26)),
-                    parseCellInteger(row.get(27)),
-                    parseCellInteger(row.get(28)),
-                    parseCellInteger(row.get(29)),
-                    parseCellInteger(row.get(30)),
-                    parseCellInteger(row.get(31)),
-                    parseCellInteger(row.get(32)),
-                    parseCellInteger(row.get(33)),
-                    parseCellInteger(row.get(34)),
-                    true,
-                    currentDate
+                    null, // id;
+                    row.get(12), // nickname;
+                    dates.get(0), // fromDate;
+                    dates.get(1), // toDate;
+                    parseCellInteger(row.get(13)), // gamesTotal;
+                    parseCellInteger(row.get(14)), // gamesRed;
+                    parseCellInteger(row.get(15)), // gamesBlack;
+                    parseCellInteger(row.get(16)), // gamesDon;
+                    parseCellInteger(row.get(17)), // gamesSheriff;
+                    parseCellInteger(row.get(18)), // shooting;
+                    parseCellInteger(row.get(20)), // percentSelectedRed;
+                    parseCellInteger(row.get(21)), // percentSelectedBlack;
+                    parseCellInteger(row.get(22)), // percentSelectedDon;
+                    parseCellInteger(row.get(23)), // percentSelectedSheriff;
+                    parseCellInteger(row.get(24)), // percentSelectedAllRed;
+                    parseCellInteger(row.get(25)), // percentSelectedAllBlack;
+                    parseCellInteger(row.get(26)), // percentWinningRed;
+                    parseCellInteger(row.get(27)), // percentWinningBlack;
+                    parseCellInteger(row.get(28)), // percentWinningDon;
+                    parseCellInteger(row.get(29)), // percentWinningSheriff;
+                    parseCellInteger(row.get(30)), // percentWinning;
+                    parseCellInteger(row.get(31)), // percentWinningAllRed;
+                    parseCellInteger(row.get(32)), // percentWinningAllBlack;
+                    parseCellInteger(row.get(33)), // percentBestPlayer;
+                    parseCellInteger(row.get(34)), // percentFirstShooting;
+                    parseCellInteger(row.get(1)), // number;
+                    true, // isActive
+                    currentDate // uploadingDate
             ));
         });
 

@@ -22,12 +22,10 @@ public class RolesHistoryStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    private String nickname;
+
     private Date fromDate;
     private Date toDate;
-
-    private Integer number;
-
-    private String nickname;
 
     private Integer gamesTotal;
 
@@ -59,6 +57,8 @@ public class RolesHistoryStatisticsAll extends Statistics {
     private Integer percentBestPlayer;
 
     private Integer percentFirstShooting;
+
+    private Integer number;
 
     private Boolean isActive;
     private Date uploadingDate;

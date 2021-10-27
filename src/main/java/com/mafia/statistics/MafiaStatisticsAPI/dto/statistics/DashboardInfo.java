@@ -28,7 +28,7 @@ public class DashboardInfo {
 
     private Long firstShootingSeriesPlayerId;
     private String firstShootingSeriesPlayerNickname;
-    private Integer firstShootingSeriesPercent;
+    private Double firstShootingSeriesPercent;
 
     private List<TopGamesTable> topGamesTable;
     private List<TopRatingTable> topRatingTable;
