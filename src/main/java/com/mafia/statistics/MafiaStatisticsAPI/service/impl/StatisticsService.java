@@ -99,7 +99,7 @@ public class StatisticsService implements IStatisticsService {
         });
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
-        ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(10).forEach(row -> {
+        ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(10L).forEach(row -> {
             Player player = playerDao.findByNickname(row.getNickname());
             topRatingTable.add(new TopRatingTable(
                     player.getId(),
@@ -120,7 +120,7 @@ public class StatisticsService implements IStatisticsService {
 
                 visitingSeriesPlayer.getId(),
                 visitingSeriesPlayer.getNickname(),
-                (Integer) visitingSeries[1],
+                (Double) visitingSeries[1],
 
                 firstShootingPlayer.getId(),
                 firstShootingPlayer.getNickname(),

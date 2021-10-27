@@ -24,7 +24,7 @@ public class DashboardInfo {
 
     private Long visitingSeriesPlayerId;
     private String visitingSeriesPlayerNickname;
-    private Integer visitingSeriesPercent;
+    private Double visitingSeriesPercent;
 
     private Long firstShootingSeriesPlayerId;
     private String firstShootingSeriesPlayerNickname;

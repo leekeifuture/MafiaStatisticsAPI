@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface IRatingStatisticsDao extends JpaRepository<RatingStatistics, Long> {
 
-    List<RatingStatistics> findTop15ByGamesTotalGreaterThanOrderByPointsDesc(Integer gamesTotal);
+    List<RatingStatistics> findTop15ByGamesTotalGreaterThanOrderByPointsDesc(Long gamesTotal);
 }
