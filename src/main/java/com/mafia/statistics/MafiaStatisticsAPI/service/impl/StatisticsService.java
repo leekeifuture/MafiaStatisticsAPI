@@ -38,6 +38,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGame
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -89,7 +90,7 @@ public class StatisticsService implements IStatisticsService {
         Player visitingSeriesPlayer = playerDao.findByNickname((String) visitingSeries[0]);
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
-        playerDao.findTop15ByOrderByGamesTotalDesc().forEach(row -> {
+        playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
             topGamesTable.add(new TopGamesTable(
                     row.getId(),
                     row.getGender(),

@@ -33,7 +33,7 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public List<Player> getPlayers() {
-        return playerDao.findAll();
+        return playerDao.findAllByGamesTotalNotNull();
     }
 
     @Override

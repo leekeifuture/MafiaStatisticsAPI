@@ -17,5 +17,5 @@ public class TopGamesTable {
 
     private String playerNickname;
 
-    private Integer gamesTotal;
+    private Long gamesTotal;
 }

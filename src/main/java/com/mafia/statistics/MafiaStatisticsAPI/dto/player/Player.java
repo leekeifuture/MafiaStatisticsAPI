@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,23 +41,30 @@ public class Player {
 
     private String photoUrl;
 
-    private Integer gamesTotal;
+    private Long gamesTotal;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private NumbersStatistics numbersStatistics;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<CoupleStatistics> coupleStatistics;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private RatingStatistics ratingStatistics;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private RolesHistoryStatistics rolesHistoryStatistics;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private VisitingStatistics visitingStatistics;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private SerialityStatistics serialityStatistics;
+
+    public Player(Long id, String nickname, Sex gender, Long gamesTotal) {
+        this.id = id;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.gamesTotal = gamesTotal;
+    }
 }
