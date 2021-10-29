@@ -188,10 +188,31 @@ public class StatisticsService implements IStatisticsService {
                 numbersStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        numbersStatisticsDao.deleteAll();
+        numbersStatisticsDao.findAll().forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setNumbersStatistics(null);
+            playerDao.save(player);
+
+            numbersStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         numbersStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setNumbersStatistics(statistics);
+
+            if (player.getGamesTotal() == null) {
+                player.setGamesTotal(statistics.getGamesTotal());
+            }
+
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
@@ -217,10 +238,47 @@ public class StatisticsService implements IStatisticsService {
                 coupleStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        coupleStatisticsDao.deleteAll();
+        coupleStatisticsDao.findAll().forEach(statistics -> {
+            // Player one
+            Player playerOne = playerDao.findByNickname(statistics.getNicknameOfMafiaOne());
+            playerOne.setCoupleStatistics(null);
+            playerDao.save(playerOne);
+
+            // Player two
+            Player playerTwo = playerDao.findByNickname(statistics.getNicknameOfMafiaTwo());
+            playerTwo.setCoupleStatistics(null);
+            playerDao.save(playerTwo);
+
+            coupleStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         coupleStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+
+        Set<String> couplePlayers = new HashSet<>();
+        aggregatedStatistics.forEach(statistics -> {
+            couplePlayers.add(statistics.getNicknameOfMafiaOne());
+            couplePlayers.add(statistics.getNicknameOfMafiaTwo());
+        });
+
+        couplePlayers.forEach(playerNickname -> {
+            List<CoupleStatistics> coupleStatisticsList = new ArrayList<>();
+            aggregatedStatistics.forEach(statistics -> {
+                if (statistics.getNicknameOfMafiaOne().equals(playerNickname) ||
+                        statistics.getNicknameOfMafiaTwo().equals(playerNickname)) {
+                    coupleStatisticsList.add(statistics);
+                }
+            });
+
+            Player player = playerDao.findByNickname(playerNickname);
+            player.setCoupleStatistics(coupleStatisticsList);
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveRatingStatistics(List<Statistics> ratingStatistics) {
@@ -246,10 +304,28 @@ public class StatisticsService implements IStatisticsService {
                 ratingStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        ratingStatisticsDao.deleteAll();
+        ratingStatisticsDao.findAll().forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setRatingStatistics(null);
+            playerDao.save(player);
+
+            ratingStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         ratingStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setRatingStatistics(statistics);
+            player.setGamesTotal(statistics.getGamesTotal());
+
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
@@ -275,10 +351,31 @@ public class StatisticsService implements IStatisticsService {
                 rolesHistoryStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        rolesHistoryStatisticsDao.deleteAll();
+        rolesHistoryStatisticsDao.findAll().forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setRolesHistoryStatistics(null);
+            playerDao.save(player);
+
+            rolesHistoryStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         rolesHistoryStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setRolesHistoryStatistics(statistics);
+
+            if (player.getGamesTotal() == null) {
+                player.setGamesTotal(statistics.getGamesTotal());
+            }
+
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
@@ -304,10 +401,27 @@ public class StatisticsService implements IStatisticsService {
                 visitingStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        visitingStatisticsDao.deleteAll();
+        visitingStatisticsDao.findAll().forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setVisitingStatistics(null);
+            playerDao.save(player);
+
+            visitingStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         visitingStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setVisitingStatistics(statistics);
+
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
@@ -333,10 +447,31 @@ public class StatisticsService implements IStatisticsService {
                 serialityStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
-        serialityStatisticsDao.deleteAll();
+        serialityStatisticsDao.findAll().forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setSerialityStatistics(null);
+            playerDao.save(player);
+
+            serialityStatisticsDao.delete(statistics);
+        });
 
         // Update actual statistics
         serialityStatisticsDao.saveAll(aggregatedStatistics);
+
+        // Update actual statistics for players
+        List<Player> updatedPlayers = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Player player = playerDao.findByNickname(statistics.getNickname());
+            player.setSerialityStatistics(statistics);
+
+            if (player.getGamesTotal() == null) {
+                player.setGamesTotal(statistics.getGamesTotal());
+            }
+
+            updatedPlayers.add(player);
+        });
+
+        playerDao.saveAll(updatedPlayers);
     }
 
     private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
