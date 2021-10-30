@@ -18,20 +18,20 @@ public interface ISerialityStatisticsAllDao extends JpaRepository<SerialityStati
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +
-            "      SUM(t.successivelyPlayedByRed), " +
-            "      SUM(t.successivelyPlayedBySheriff), " +
-            "      SUM(t.successivelyPlayedByBlack), " +
-            "      SUM(t.successivelyPlayedByDon), " +
-            "      SUM(t.successivelyWonByRed), " +
-            "      SUM(t.successivelyWonBySheriff), " +
-            "      SUM(t.successivelyWonByBlack), " +
-            "      SUM(t.successivelyWonByDon), " +
-            "      SUM(t.successivelyLostByRed), " +
-            "      SUM(t.successivelyLostBySheriff), " +
-            "      SUM(t.successivelyLostByBlack), " +
-            "      SUM(t.successivelyLostByDon), " +
-            "      SUM(t.maximumSeriesOfWin), " +
-            "      SUM(t.maximumSeriesOfDefeat)) " +
+            "      MAX(t.successivelyPlayedByRed), " +
+            "      MAX(t.successivelyPlayedBySheriff), " +
+            "      MAX(t.successivelyPlayedByBlack), " +
+            "      MAX(t.successivelyPlayedByDon), " +
+            "      MAX(t.successivelyWonByRed), " +
+            "      MAX(t.successivelyWonBySheriff), " +
+            "      MAX(t.successivelyWonByBlack), " +
+            "      MAX(t.successivelyWonByDon), " +
+            "      MAX(t.successivelyLostByRed), " +
+            "      MAX(t.successivelyLostBySheriff), " +
+            "      MAX(t.successivelyLostByBlack), " +
+            "      MAX(t.successivelyLostByDon), " +
+            "      MAX(t.maximumSeriesOfWin), " +
+            "      MAX(t.maximumSeriesOfDefeat)) " +
             "FROM SerialityStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")

@@ -37,34 +37,34 @@ public class SerialityStatistics extends Statistics {
     private Long gamesTotal;
 
     @NonNull
-    private Long successivelyPlayedByRed; // with sheriff
+    private Integer successivelyPlayedByRed; // with sheriff
     @NonNull
-    private Long successivelyPlayedBySheriff;
+    private Integer successivelyPlayedBySheriff;
     @NonNull
-    private Long successivelyPlayedByBlack; // with don
+    private Integer successivelyPlayedByBlack; // with don
     @NonNull
-    private Long successivelyPlayedByDon;
+    private Integer successivelyPlayedByDon;
 
     @NonNull
-    private Long successivelyWonByRed; // with sheriff
+    private Integer successivelyWonByRed; // with sheriff
     @NonNull
-    private Long successivelyWonBySheriff;
+    private Integer successivelyWonBySheriff;
     @NonNull
-    private Long successivelyWonByBlack; // with don
+    private Integer successivelyWonByBlack; // with don
     @NonNull
-    private Long successivelyWonByDon;
+    private Integer successivelyWonByDon;
 
     @NonNull
-    private Long successivelyLostByRed; // with sheriff
+    private Integer successivelyLostByRed; // with sheriff
     @NonNull
-    private Long successivelyLostBySheriff;
+    private Integer successivelyLostBySheriff;
     @NonNull
-    private Long successivelyLostByBlack; // with don
+    private Integer successivelyLostByBlack; // with don
     @NonNull
-    private Long successivelyLostByDon;
+    private Integer successivelyLostByDon;
 
     @NonNull
-    private Long maximumSeriesOfWin;
+    private Integer maximumSeriesOfWin;
     @NonNull
-    private Long maximumSeriesOfDefeat;
+    private Integer maximumSeriesOfDefeat;
 }

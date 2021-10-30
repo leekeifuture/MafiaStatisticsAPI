@@ -16,11 +16,11 @@ public class DashboardInfo {
 
     private Long winSeriesPlayerId;
     private String winSeriesPlayerNickname;
-    private Long winSeriesGames;
+    private Integer winSeriesGames;
 
     private Long defeatSeriesPlayerId;
     private String defeatSeriesPlayerNickname;
-    private Long defeatSeriesGames;
+    private Integer defeatSeriesGames;
 
     private Long visitingSeriesPlayerId;
     private String visitingSeriesPlayerNickname;
