@@ -1,6 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class StatisticsController {
     private final IStatisticsService statisticsService;
 
     @GetMapping("/dashboard")
-    public ResponseEntity<DashboardInfo> getDashboardInfo() {
+    public ResponseEntity<DashboardInfo> getDashboardInfo() throws PlayerNotFoundException {
         DashboardInfo dashboardInfo = statisticsService.getDashboardInfo();
         return new ResponseEntity<>(dashboardInfo, HttpStatus.OK);
     }

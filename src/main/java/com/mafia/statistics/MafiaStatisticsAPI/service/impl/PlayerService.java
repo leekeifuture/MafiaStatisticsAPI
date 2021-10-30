@@ -78,23 +78,33 @@ public class PlayerService implements IPlayerService {
 
         Player player = optPlayer.get();
 
+        return getPlayer(player);
+    }
+
+    public Player getPlayerByNickname(String nickname) throws PlayerNotFoundException {
+        Optional<Player> optPlayer = Optional.ofNullable(playerDao.findByNickname(nickname));
+
+        if (optPlayer.isEmpty()) {
+            throw new PlayerNotFoundException(
+                    String.format("Player with Nickname %s not found", nickname)
+            );
+        }
+
+        Player player = optPlayer.get();
+
+        return getPlayer(player);
+    }
+
+    public Player getPlayer(Player player) {
         if (player.getVkId() != null) {
-            String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
             if (player.getPhotoUrl() == null) {
+                String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
                 player.setPhotoUrl(vkPhoto);
-            } else {
-                if (!player.getPhotoUrl().equals(vkPhoto)) {
-                    player.setPhotoUrl(vkPhoto);
-                }
             }
 
-            Sex vkGender = vkService.getGenderByUserId(player.getVkId());
             if (player.getGender() == null) {
+                Sex vkGender = vkService.getGenderByUserId(player.getVkId());
                 player.setGender(vkGender);
-            } else {
-                if (!player.getGender().equals(vkGender)) {
-                    player.setGender(vkGender);
-                }
             }
 
             playerDao.save(player);

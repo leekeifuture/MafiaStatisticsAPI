@@ -36,6 +36,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statis
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,8 @@ public class StatisticsService implements IStatisticsService {
 
     private final IPlayerDao playerDao;
 
+    private final PlayerService playerService;
+
     private final INumbersStatisticsDao numbersStatisticsDao;
     private final ICoupleStatisticsDao coupleStatisticsDao;
     private final IRatingStatisticsDao ratingStatisticsDao;
@@ -76,18 +79,18 @@ public class StatisticsService implements IStatisticsService {
     private final IGamesPerNumberStatisticsAllDao gamesPerNumberStatisticsAllDao;
 
     @Override
-    public DashboardInfo getDashboardInfo() {
+    public DashboardInfo getDashboardInfo() throws PlayerNotFoundException {
         SerialityStatistics winSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfWinDesc();
-        Player winSeriesPlayer = playerDao.findByNickname(winSeries.getNickname());
+        Player winSeriesPlayer = playerService.getPlayerByNickname(winSeries.getNickname());
 
         SerialityStatistics defeatSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfDefeatDesc();
-        Player defeatSeriesPlayer = playerDao.findByNickname(defeatSeries.getNickname());
+        Player defeatSeriesPlayer = playerService.getPlayerByNickname(defeatSeries.getNickname());
 
         RolesHistoryStatistics firstShooting = rolesHistoryStatisticsDao.findFirstByOrderByPercentFirstShootingDesc();
-        Player firstShootingPlayer = playerDao.findByNickname(firstShooting.getNickname());
+        Player firstShootingPlayer = playerService.getPlayerByNickname(firstShooting.getNickname());
 
         Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
-        Player visitingSeriesPlayer = playerDao.findByNickname((String) visitingSeries[0]);
+        Player visitingSeriesPlayer = playerService.getPlayerByNickname((String) visitingSeries[0]);
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
@@ -101,13 +104,18 @@ public class StatisticsService implements IStatisticsService {
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
         ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(10L).forEach(row -> {
-            Player player = playerDao.findByNickname(row.getNickname());
-            topRatingTable.add(new TopRatingTable(
-                    player.getId(),
-                    player.getGender(),
-                    row.getNickname(),
-                    row.getPoints()
-            ));
+            try {
+                Player player = playerService.getPlayerByNickname(row.getNickname());
+
+                topRatingTable.add(new TopRatingTable(
+                        player.getId(),
+                        player.getGender(),
+                        row.getNickname(),
+                        row.getPoints()
+                ));
+            } catch (PlayerNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 
         return new DashboardInfo(
