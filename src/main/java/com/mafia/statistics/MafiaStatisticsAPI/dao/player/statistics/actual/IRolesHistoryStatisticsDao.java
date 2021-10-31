@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IRolesHistoryStatisticsDao extends JpaRepository<RolesHistoryStatistics, Long> {
 
-    RolesHistoryStatistics findFirstByOrderByPercentFirstShootingDesc();
+    RolesHistoryStatistics findFirstByGamesTotalGreaterThanOrderByPercentFirstShootingDesc(Long gamesTotal);
 }

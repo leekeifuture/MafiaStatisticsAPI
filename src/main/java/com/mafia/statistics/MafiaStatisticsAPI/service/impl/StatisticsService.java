@@ -80,13 +80,18 @@ public class StatisticsService implements IStatisticsService {
 
     @Override
     public DashboardInfo getDashboardInfo() throws PlayerNotFoundException {
-        SerialityStatistics winSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfWinDesc();
+        Long minimalExperienceGames = 10L;
+
+        SerialityStatistics winSeries = serialityStatisticsDao
+                .findFirstByOrderByMaximumSeriesOfWinDesc();
         Player winSeriesPlayer = playerService.getPlayerByNickname(winSeries.getNickname());
 
-        SerialityStatistics defeatSeries = serialityStatisticsDao.findFirstByOrderByMaximumSeriesOfDefeatDesc();
+        SerialityStatistics defeatSeries = serialityStatisticsDao
+                .findFirstByOrderByMaximumSeriesOfDefeatDesc();
         Player defeatSeriesPlayer = playerService.getPlayerByNickname(defeatSeries.getNickname());
 
-        RolesHistoryStatistics firstShooting = rolesHistoryStatisticsDao.findFirstByOrderByPercentFirstShootingDesc();
+        RolesHistoryStatistics firstShooting = rolesHistoryStatisticsDao
+                .findFirstByGamesTotalGreaterThanOrderByPercentFirstShootingDesc(minimalExperienceGames);
         Player firstShootingPlayer = playerService.getPlayerByNickname(firstShooting.getNickname());
 
         Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
@@ -103,20 +108,21 @@ public class StatisticsService implements IStatisticsService {
         });
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
-        ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(10L).forEach(row -> {
-            try {
-                Player player = playerService.getPlayerByNickname(row.getNickname());
+        ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(minimalExperienceGames)
+                .forEach(row -> {
+                    try {
+                        Player player = playerService.getPlayerByNickname(row.getNickname());
 
-                topRatingTable.add(new TopRatingTable(
-                        player.getId(),
-                        player.getGender(),
-                        row.getNickname(),
-                        row.getPoints()
-                ));
-            } catch (PlayerNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
+                        topRatingTable.add(new TopRatingTable(
+                                player.getId(),
+                                player.getGender(),
+                                row.getNickname(),
+                                row.getPoints()
+                        ));
+                    } catch (PlayerNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                });
 
         return new DashboardInfo(
                 winSeriesPlayer.getId(),
