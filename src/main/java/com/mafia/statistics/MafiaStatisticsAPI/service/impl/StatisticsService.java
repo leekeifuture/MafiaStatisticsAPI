@@ -99,12 +99,18 @@ public class StatisticsService implements IStatisticsService {
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
-            topGamesTable.add(new TopGamesTable(
-                    row.getId(),
-                    row.getGender(),
-                    row.getNickname(),
-                    row.getGamesTotal()
-            ));
+            try {
+                Player player = playerService.getPlayerByNickname(row.getNickname());
+
+                topGamesTable.add(new TopGamesTable(
+                        player.getId(),
+                        player.getGender(),
+                        row.getNickname(),
+                        row.getGamesTotal()
+                ));
+            } catch (PlayerNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
