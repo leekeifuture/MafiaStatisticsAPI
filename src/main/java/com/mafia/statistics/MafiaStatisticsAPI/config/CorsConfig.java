@@ -17,7 +17,7 @@ public class CorsConfig {
     private String clientUrl;
 
     @Bean
-    public FilterRegistrationBean corsFilter() {
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
@@ -26,7 +26,8 @@ public class CorsConfig {
         config.addAllowedMethod("*");
         config.setExposedHeaders(Collections.singletonList("Set-Cookie"));
         source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        FilterRegistrationBean<CorsFilter> bean =
+                new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(0);
         return bean;
     }
