@@ -96,6 +96,7 @@ public class StatisticsService implements IStatisticsService {
 
         Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
         Player visitingSeriesPlayer = playerService.getPlayerByNickname((String) visitingSeries[0]);
+        Double visitingSeriesPercent = (Double) visitingSeries[1];
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
@@ -132,18 +133,22 @@ public class StatisticsService implements IStatisticsService {
 
         return new DashboardInfo(
                 winSeriesPlayer.getId(),
+                winSeriesPlayer.getGender(),
                 winSeriesPlayer.getNickname(),
                 winSeries.getMaximumSeriesOfWin(),
 
                 defeatSeriesPlayer.getId(),
+                defeatSeriesPlayer.getGender(),
                 defeatSeriesPlayer.getNickname(),
                 defeatSeries.getMaximumSeriesOfDefeat(),
 
                 visitingSeriesPlayer.getId(),
+                visitingSeriesPlayer.getGender(),
                 visitingSeriesPlayer.getNickname(),
-                (Double) visitingSeries[1],
+                visitingSeriesPercent,
 
                 firstShootingPlayer.getId(),
+                firstShootingPlayer.getGender(),
                 firstShootingPlayer.getNickname(),
                 firstShooting.getPercentFirstShooting(),
 
