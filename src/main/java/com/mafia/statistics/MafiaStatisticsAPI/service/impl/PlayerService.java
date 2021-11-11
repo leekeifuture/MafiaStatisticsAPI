@@ -2,6 +2,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Role;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
@@ -165,6 +166,7 @@ public class PlayerService implements IPlayerService {
         if (!playerDao.existsByNickname(playerNickname)) {
             Player player = new Player();
             player.setNickname(playerNickname);
+            player.setRoles(new HashSet<>(List.of(new Role("USER"))));
 
             playerDao.save(player);
         }

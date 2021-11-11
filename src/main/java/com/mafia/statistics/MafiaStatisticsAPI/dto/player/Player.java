@@ -1,5 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player;
 
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Role;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
@@ -9,10 +10,12 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Visi
 import com.vk.api.sdk.objects.base.Sex;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -34,6 +37,9 @@ public class Player {
 
     @Column(unique = true)
     private String nickname;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     private Long gamesTotal;
 
