@@ -6,6 +6,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IExcelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/upload", produces = "application/json")
+@RequestMapping(value = "/upload", produces = "application/json")
 public class UploadController {
 
     private final IExcelService excelService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/excel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> uploadExcel( // TODO: Object
                                                @RequestParam StatisticsType statisticsType,

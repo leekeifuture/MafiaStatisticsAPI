@@ -22,11 +22,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VkService implements IVkService {
 
-    @Value("${vk.app_id}")
+    @Value("${app.vk.appId}")
     private Integer appId;
-    @Value("${vk.client_secret}")
+    @Value("${app.vk.clientSecret}")
     private String clientSecret;
-    @Value("${vk.access_token}")
+    @Value("${app.vk.accessToken}")
     private String accessToken;
 
     private VkApiClient vkApiClient = new VkApiClient(

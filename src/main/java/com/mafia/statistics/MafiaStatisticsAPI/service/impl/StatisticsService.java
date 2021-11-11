@@ -36,7 +36,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statis
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
-import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.data.domain.PageRequest;
@@ -79,7 +78,7 @@ public class StatisticsService implements IStatisticsService {
     private final IGamesPerNumberStatisticsAllDao gamesPerNumberStatisticsAllDao;
 
     @Override
-    public DashboardInfo getDashboardInfo() throws PlayerNotFoundException {
+    public DashboardInfo getDashboardInfo() {
         Long minimalExperienceGames = 10L;
 
         SerialityStatistics winSeries = serialityStatisticsDao
@@ -100,35 +99,27 @@ public class StatisticsService implements IStatisticsService {
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
-            try {
-                Player player = playerService.getPlayerByNickname(row.getNickname());
+            Player player = playerService.getPlayerByNickname(row.getNickname());
 
-                topGamesTable.add(new TopGamesTable(
-                        player.getId(),
-                        player.getGender(),
-                        row.getNickname(),
-                        row.getGamesTotal()
-                ));
-            } catch (PlayerNotFoundException e) {
-                e.printStackTrace();
-            }
+            topGamesTable.add(new TopGamesTable(
+                    player.getId(),
+                    player.getGender(),
+                    row.getNickname(),
+                    row.getGamesTotal()
+            ));
         });
 
         List<TopRatingTable> topRatingTable = new ArrayList<>();
         ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(minimalExperienceGames)
                 .forEach(row -> {
-                    try {
-                        Player player = playerService.getPlayerByNickname(row.getNickname());
+                    Player player = playerService.getPlayerByNickname(row.getNickname());
 
-                        topRatingTable.add(new TopRatingTable(
-                                player.getId(),
-                                player.getGender(),
-                                row.getNickname(),
-                                row.getPoints()
-                        ));
-                    } catch (PlayerNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    topRatingTable.add(new TopRatingTable(
+                            player.getId(),
+                            player.getGender(),
+                            row.getNickname(),
+                            row.getPoints()
+                    ));
                 });
 
         return new DashboardInfo(

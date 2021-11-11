@@ -2,7 +2,6 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.inter;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
-import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 
 import java.util.List;
 
@@ -12,5 +11,7 @@ public interface IPlayerService {
 
     void savePlayers(List<Statistics> statistics);
 
-    Player getPlayerById(Long id) throws PlayerNotFoundException;
+    Player getPlayerById(Long id);
+
+    Player getPlayerByNickname(String nickname);
 }

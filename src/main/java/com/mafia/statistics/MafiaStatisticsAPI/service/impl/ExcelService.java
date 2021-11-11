@@ -30,7 +30,7 @@ public class ExcelService implements IExcelService {
 
     private final IPlayerService playerService;
 
-    @Value("${statistics.folder.path}")
+    @Value("${app.statistics.folder.path}")
     private String statisticsFolderPath;
 
     @Override

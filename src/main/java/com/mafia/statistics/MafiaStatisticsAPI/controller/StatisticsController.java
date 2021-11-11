@@ -1,7 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
-import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.http.HttpStatus;
@@ -14,13 +13,13 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/statistics", produces = "application/json")
+@RequestMapping(value = "/statistics", produces = "application/json")
 public class StatisticsController {
 
     private final IStatisticsService statisticsService;
 
     @GetMapping("/dashboard")
-    public ResponseEntity<DashboardInfo> getDashboardInfo() throws PlayerNotFoundException {
+    public ResponseEntity<DashboardInfo> getDashboardInfo() {
         DashboardInfo dashboardInfo = statisticsService.getDashboardInfo();
         return new ResponseEntity<>(dashboardInfo, HttpStatus.OK);
     }

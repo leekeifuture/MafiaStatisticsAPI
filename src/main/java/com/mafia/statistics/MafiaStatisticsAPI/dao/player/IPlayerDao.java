@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IPlayerDao extends JpaRepository<Player, Long> {
@@ -15,6 +16,8 @@ public interface IPlayerDao extends JpaRepository<Player, Long> {
     Boolean existsByNickname(String nickname);
 
     Player findByNickname(String nickname);
+
+    Optional<Player> findByVkId(Long id);
 
     List<Player> findAllByGamesTotalNotNull();
 

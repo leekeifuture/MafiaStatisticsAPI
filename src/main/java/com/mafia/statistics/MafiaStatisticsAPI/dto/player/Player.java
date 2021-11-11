@@ -32,16 +32,16 @@ public class Player {
     @GeneratedValue
     private Long id;
 
-    private Long vkId;
-
     @Column(unique = true)
     private String nickname;
 
-    private Sex gender;
-
-    private String photoUrl;
-
     private Long gamesTotal;
+
+    private Long vkId;
+    private Sex gender;
+    private String firstName;
+    private String lastName;
+    private String photoUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
     private NumbersStatistics numbersStatistics;

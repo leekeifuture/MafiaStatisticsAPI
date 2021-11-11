@@ -1,9 +1,13 @@
 package com.mafia.statistics.MafiaStatisticsAPI;
 
+import com.mafia.statistics.MafiaStatisticsAPI.config.AppProperties;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(AppProperties.class)
 public class MafiaStatisticsApiApplication {
 
     public static void main(String[] args) {

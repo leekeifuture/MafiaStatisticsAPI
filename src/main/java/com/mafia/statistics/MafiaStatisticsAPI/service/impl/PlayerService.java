@@ -9,7 +9,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHi
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
-import com.mafia.statistics.MafiaStatisticsAPI.exception.PlayerNotFoundException;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 import com.vk.api.sdk.objects.base.Sex;
@@ -67,30 +67,21 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Player getPlayerById(Long id) throws PlayerNotFoundException {
-        Optional<Player> optPlayer = playerDao.findById(id);
-
-        if (optPlayer.isEmpty()) {
-            throw new PlayerNotFoundException(
-                    String.format("Player with ID %s not found", id)
-            );
-        }
-
-        Player player = optPlayer.get();
+    public Player getPlayerById(Long id) {
+        Player player = playerDao.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Player", "id", id)
+                );
 
         return getPlayer(player);
     }
 
-    public Player getPlayerByNickname(String nickname) throws PlayerNotFoundException {
-        Optional<Player> optPlayer = Optional.ofNullable(playerDao.findByNickname(nickname));
-
-        if (optPlayer.isEmpty()) {
-            throw new PlayerNotFoundException(
-                    String.format("Player with Nickname %s not found", nickname)
-            );
-        }
-
-        Player player = optPlayer.get();
+    @Override
+    public Player getPlayerByNickname(String nickname) {
+        Player player = Optional.ofNullable(playerDao.findByNickname(nickname))
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Player", "nickname", nickname)
+                );
 
         return getPlayer(player);
     }
