@@ -49,6 +49,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -281,11 +282,16 @@ public class StatisticsService implements IStatisticsService {
         });
 
         couplePlayers.forEach(playerNickname -> {
+            AtomicReference<Integer> counter = new AtomicReference<>(0);
             List<CoupleStatistics> coupleStatisticsList = new ArrayList<>();
+
             aggregatedStatistics.forEach(statistics -> {
-                if (statistics.getNicknameOfMafiaOne().equals(playerNickname) ||
-                        statistics.getNicknameOfMafiaTwo().equals(playerNickname)) {
+                if ((statistics.getNicknameOfMafiaOne().equals(playerNickname) ||
+                        statistics.getNicknameOfMafiaTwo().equals(playerNickname)) &&
+                        statistics.getWins() > 1 &&
+                        counter.get() <= 10) {
                     coupleStatisticsList.add(statistics);
+                    counter.updateAndGet(v -> v + 1);
                 }
             });
 

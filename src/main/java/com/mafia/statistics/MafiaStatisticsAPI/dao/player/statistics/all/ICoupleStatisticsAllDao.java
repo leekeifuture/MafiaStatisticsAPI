@@ -15,14 +15,16 @@ public interface ICoupleStatisticsAllDao extends JpaRepository<CoupleStatisticsA
     List<CoupleStatisticsAll> findAllByIsActive(Boolean isActive);
 
     @Query("SELECT NEW CoupleStatistics( " +
-            "      t.fromDate, " +
-            "      t.toDate, " +
+            "      MIN(t.fromDate), " +
+            "      MAX(t.toDate), " +
             "      t.nicknameOfMafiaOne, " +
             "      t.nicknameOfMafiaTwo, " +
-            "      t.games, " +
-            "      t.wins, " +
-            "      t.percentOfWins) " +
+            "      SUM(t.games), " +
+            "      SUM(t.wins), " +
+            "      AVG(t.percentOfWins)) " +
             "FROM CoupleStatisticsAll AS t " +
-            "WHERE t.isActive = true")
+            "WHERE t.isActive = true " +
+            "GROUP BY t.nicknameOfMafiaOne, t.nicknameOfMafiaTwo " +
+            "ORDER BY SUM(t.wins) DESC")
     List<CoupleStatistics> getAggregatedData();
 }

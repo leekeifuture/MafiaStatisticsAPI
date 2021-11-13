@@ -36,11 +36,11 @@ public class CoupleStatistics extends Statistics {
     private String nicknameOfMafiaTwo;
 
     @NonNull
-    private Integer games;
+    private Long games;
 
     @NonNull
-    private Integer wins;
+    private Long wins;
 
     @NonNull
-    private Float percentOfWins;
+    private Double percentOfWins;
 }
