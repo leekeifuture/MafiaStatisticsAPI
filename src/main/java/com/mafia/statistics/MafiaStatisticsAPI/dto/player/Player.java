@@ -43,6 +43,7 @@ public class Player {
 
     private Long gamesTotal;
 
+    @Column(unique = true)
     private Long vkId;
     private Sex gender;
     private String firstName;
