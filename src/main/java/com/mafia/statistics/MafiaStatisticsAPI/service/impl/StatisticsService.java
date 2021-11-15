@@ -743,7 +743,7 @@ public class StatisticsService implements IStatisticsService {
                     parseCellInteger(row.get(6)), // gamesDon
                     parseCellInteger(row.get(7)), // gamesSheriff
                     parseCellFloat(row.get(8)), // bestMove
-                    parseCellFloat(row.get(9)), // penaltyPoints
+                    parseCellFloat(row.get(9)), // additionalPoints
                     parseCellFloat(row.get(10)), // points
                     parseCellInteger(row.get(1)), // number
                     true, // isActive

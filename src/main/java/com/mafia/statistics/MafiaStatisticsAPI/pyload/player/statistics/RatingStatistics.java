@@ -23,7 +23,7 @@ public class RatingStatistics {
 
     private Double bestMove;
 
-    private Double penaltyPoints; // best player / penalty
+    private Double additionalPoints; // best player / penalty
 
     private Double points;
 }

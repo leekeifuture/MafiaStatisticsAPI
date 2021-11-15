@@ -25,7 +25,7 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
                 ratingStatisticsDto.getGamesDon(),
                 ratingStatisticsDto.getGamesSheriff(),
                 ratingStatisticsDto.getBestMove(),
-                ratingStatisticsDto.getPenaltyPoints(),
+                ratingStatisticsDto.getAdditionalPoints(),
                 ratingStatisticsDto.getPoints()
         );
     }

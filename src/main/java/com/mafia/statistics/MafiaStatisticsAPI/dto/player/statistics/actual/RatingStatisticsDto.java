@@ -56,7 +56,7 @@ public class RatingStatisticsDto extends Statistics {
     private Double bestMove;
 
     @NonNull
-    private Double penaltyPoints; // best player / penalty
+    private Double additionalPoints; // best player / penalty
 
     @NonNull
     private Double points;

@@ -43,7 +43,7 @@ public class RatingStatisticsAll extends Statistics {
 
     private Float bestMove;
 
-    private Float penaltyPoints; // best player / penalty
+    private Float additionalPoints; // best player / penalty
 
     private Float points;
 

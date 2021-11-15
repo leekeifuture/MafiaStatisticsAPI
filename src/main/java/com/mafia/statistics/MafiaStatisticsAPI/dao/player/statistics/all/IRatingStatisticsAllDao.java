@@ -23,8 +23,8 @@ public interface IRatingStatisticsAllDao extends JpaRepository<RatingStatisticsA
             "      SUM(t.gamesDon), " +
             "      SUM(t.gamesSheriff), " +
             "      SUM(t.bestMove), " +
-            "      SUM(t.penaltyPoints), " +
-            "      SUM(t.points)) " +
+            "      SUM(t.additionalPoints), " +
+            "      AVG(t.points)) " +
             "FROM RatingStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")
