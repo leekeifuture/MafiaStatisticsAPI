@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface IRatingStatisticsAllDao extends JpaRepository<RatingStatisticsA
 
     List<RatingStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW RatingStatistics(t.nickname, " +
+    @Query("SELECT NEW RatingStatisticsDto(t.nickname, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +
@@ -28,5 +28,5 @@ public interface IRatingStatisticsAllDao extends JpaRepository<RatingStatisticsA
             "FROM RatingStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")
-    List<RatingStatistics> getAggregatedData();
+    List<RatingStatisticsDto> getAggregatedData();
 }

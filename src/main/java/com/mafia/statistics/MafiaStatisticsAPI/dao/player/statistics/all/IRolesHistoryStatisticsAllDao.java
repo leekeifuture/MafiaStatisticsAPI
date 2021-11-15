@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHistoryStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface IRolesHistoryStatisticsAllDao extends JpaRepository<RolesHistor
 
     List<RolesHistoryStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW RolesHistoryStatistics(t.nickname, " +
+    @Query("SELECT NEW RolesHistoryStatisticsDto(t.nickname, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +
@@ -41,5 +41,5 @@ public interface IRolesHistoryStatisticsAllDao extends JpaRepository<RolesHistor
             "FROM RolesHistoryStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")
-    List<RolesHistoryStatistics> getAggregatedData();
+    List<RolesHistoryStatisticsDto> getAggregatedData();
 }

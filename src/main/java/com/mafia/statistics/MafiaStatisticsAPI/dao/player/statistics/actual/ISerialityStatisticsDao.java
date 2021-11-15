@@ -1,14 +1,14 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ISerialityStatisticsDao extends JpaRepository<SerialityStatistics, Long> {
+public interface ISerialityStatisticsDao extends JpaRepository<SerialityStatisticsDto, Long> {
 
-    SerialityStatistics findFirstByOrderByMaximumSeriesOfWinDesc();
+    SerialityStatisticsDto findFirstByOrderByMaximumSeriesOfWinDesc();
 
-    SerialityStatistics findFirstByOrderByMaximumSeriesOfDefeatDesc();
+    SerialityStatisticsDto findFirstByOrderByMaximumSeriesOfDefeatDesc();
 }

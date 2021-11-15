@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface ICoupleStatisticsAllDao extends JpaRepository<CoupleStatisticsA
 
     List<CoupleStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW CoupleStatistics( " +
+    @Query("SELECT NEW CoupleStatisticsDto( " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      t.nicknameOfMafiaOne, " +
@@ -26,5 +26,5 @@ public interface ICoupleStatisticsAllDao extends JpaRepository<CoupleStatisticsA
             "WHERE t.isActive = true " +
             "GROUP BY t.nicknameOfMafiaOne, t.nicknameOfMafiaTwo " +
             "ORDER BY SUM(t.wins) DESC")
-    List<CoupleStatistics> getAggregatedData();
+    List<CoupleStatisticsDto> getAggregatedData();
 }

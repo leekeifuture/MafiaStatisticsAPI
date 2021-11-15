@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.security;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +28,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     private Map<String, Object> attributes;
 
-    public static UserPrincipal create(Player player) {
+    public static UserPrincipal create(PlayerDto player) {
         return new UserPrincipal(
                 player.getId(),
                 player.getNickname(),
@@ -36,7 +36,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         );
     }
 
-    public static UserPrincipal create(Player player, Map<String, Object> attributes) {
+    public static UserPrincipal create(PlayerDto player, Map<String, Object> attributes) {
         UserPrincipal userPrincipal = UserPrincipal.create(player);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;

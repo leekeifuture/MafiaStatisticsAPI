@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.GamesPerNumberStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface IGamesPerNumberStatisticsAllDao extends JpaRepository<GamesPerN
 
     List<GamesPerNumberStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW GamesPerNumberStatistics(t.number, " +
+    @Query("SELECT NEW GamesPerNumberStatisticsDto(t.number, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +
@@ -33,5 +33,5 @@ public interface IGamesPerNumberStatisticsAllDao extends JpaRepository<GamesPerN
             "FROM GamesPerNumberStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.number")
-    List<GamesPerNumberStatistics> getAggregatedData();
+    List<GamesPerNumberStatisticsDto> getAggregatedData();
 }

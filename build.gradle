@@ -16,7 +16,7 @@ dependencies {
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.6'
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
 
     // Security
@@ -36,6 +36,7 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     // Reading from excel
     implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
@@ -49,6 +50,10 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    implementation 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
 
 test {

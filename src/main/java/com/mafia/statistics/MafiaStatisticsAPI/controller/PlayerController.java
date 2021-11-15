@@ -1,6 +1,8 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.IPlayerMapper;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.security.CurrentUser;
 import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
@@ -22,19 +24,21 @@ public class PlayerController {
 
     private final IPlayerService playerService;
 
+    private final IPlayerMapper playerMapper;
+
     @GetMapping
-    public List<Player> getPlayers() {
+    public List<PlayerDto> getPlayers() {
         return playerService.getPlayers();
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/me")
     public Player getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return playerService.getPlayerById(userPrincipal.getId());
+        return playerMapper.dtoToPlayer(playerService.getPlayerById(userPrincipal.getId()));
     }
 
     @GetMapping("/{id}")
     public Player getPlayerById(@PathVariable Long id) {
-        return playerService.getPlayerById(id);
+        return playerMapper.dtoToPlayer(playerService.getPlayerById(id));
     }
 }

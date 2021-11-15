@@ -15,15 +15,15 @@ import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRating
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRolesHistoryStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerialityStatisticsAllDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.GamesPerNumberStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
@@ -82,25 +82,25 @@ public class StatisticsService implements IStatisticsService {
     public DashboardInfo getDashboardInfo() {
         Long minimalExperienceGames = 10L;
 
-        SerialityStatistics winSeries = serialityStatisticsDao
+        SerialityStatisticsDto winSeries = serialityStatisticsDao
                 .findFirstByOrderByMaximumSeriesOfWinDesc();
-        Player winSeriesPlayer = playerService.getPlayerByNickname(winSeries.getNickname());
+        PlayerDto winSeriesPlayer = playerService.getPlayerByNickname(winSeries.getNickname());
 
-        SerialityStatistics defeatSeries = serialityStatisticsDao
+        SerialityStatisticsDto defeatSeries = serialityStatisticsDao
                 .findFirstByOrderByMaximumSeriesOfDefeatDesc();
-        Player defeatSeriesPlayer = playerService.getPlayerByNickname(defeatSeries.getNickname());
+        PlayerDto defeatSeriesPlayer = playerService.getPlayerByNickname(defeatSeries.getNickname());
 
-        RolesHistoryStatistics firstShooting = rolesHistoryStatisticsDao
+        RolesHistoryStatisticsDto firstShooting = rolesHistoryStatisticsDao
                 .findFirstByGamesTotalGreaterThanOrderByPercentFirstShootingDesc(minimalExperienceGames);
-        Player firstShootingPlayer = playerService.getPlayerByNickname(firstShooting.getNickname());
+        PlayerDto firstShootingPlayer = playerService.getPlayerByNickname(firstShooting.getNickname());
 
         Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
-        Player visitingSeriesPlayer = playerService.getPlayerByNickname((String) visitingSeries[0]);
+        PlayerDto visitingSeriesPlayer = playerService.getPlayerByNickname((String) visitingSeries[0]);
         Double visitingSeriesPercent = (Double) visitingSeries[1];
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
-            Player player = playerService.getPlayerByNickname(row.getNickname());
+            PlayerDto player = playerService.getPlayerByNickname(row.getNickname());
 
             topGamesTable.add(new TopGamesTable(
                     player.getId(),
@@ -113,7 +113,7 @@ public class StatisticsService implements IStatisticsService {
         List<TopRatingTable> topRatingTable = new ArrayList<>();
         ratingStatisticsDao.findTop15ByGamesTotalGreaterThanOrderByPointsDesc(minimalExperienceGames)
                 .forEach(row -> {
-                    Player player = playerService.getPlayerByNickname(row.getNickname());
+                    PlayerDto player = playerService.getPlayerByNickname(row.getNickname());
 
                     topRatingTable.add(new TopRatingTable(
                             player.getId(),
@@ -201,12 +201,12 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<NumbersStatisticsAll>) (List<?>) numbersStatistics);
 
         // Group data by nickname and aggregate it
-        List<NumbersStatistics> aggregatedStatistics =
+        List<NumbersStatisticsDto> aggregatedStatistics =
                 numbersStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         numbersStatisticsDao.findAll().forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setNumbersStatistics(null);
             playerDao.save(player);
 
@@ -217,9 +217,9 @@ public class StatisticsService implements IStatisticsService {
         numbersStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
         aggregatedStatistics.forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setNumbersStatistics(statistics);
 
             if (player.getGamesTotal() == null) {
@@ -251,18 +251,18 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<CoupleStatisticsAll>) (List<?>) coupleStatistics);
 
         // Group data by nickname and aggregate it
-        List<CoupleStatistics> aggregatedStatistics =
+        List<CoupleStatisticsDto> aggregatedStatistics =
                 coupleStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         coupleStatisticsDao.findAll().forEach(statistics -> {
             // Player one
-            Player playerOne = playerDao.findByNickname(statistics.getNicknameOfMafiaOne());
+            PlayerDto playerOne = playerDao.findByNickname(statistics.getNicknameOfMafiaOne());
             playerOne.setCoupleStatistics(null);
             playerDao.save(playerOne);
 
             // Player two
-            Player playerTwo = playerDao.findByNickname(statistics.getNicknameOfMafiaTwo());
+            PlayerDto playerTwo = playerDao.findByNickname(statistics.getNicknameOfMafiaTwo());
             playerTwo.setCoupleStatistics(null);
             playerDao.save(playerTwo);
 
@@ -273,7 +273,7 @@ public class StatisticsService implements IStatisticsService {
         coupleStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
 
         Set<String> couplePlayers = new HashSet<>();
         aggregatedStatistics.forEach(statistics -> {
@@ -283,7 +283,7 @@ public class StatisticsService implements IStatisticsService {
 
         couplePlayers.forEach(playerNickname -> {
             AtomicReference<Integer> counter = new AtomicReference<>(0);
-            List<CoupleStatistics> coupleStatisticsList = new ArrayList<>();
+            List<CoupleStatisticsDto> coupleStatisticsList = new ArrayList<>();
 
             aggregatedStatistics.forEach(statistics -> {
                 if ((statistics.getNicknameOfMafiaOne().equals(playerNickname) ||
@@ -295,7 +295,7 @@ public class StatisticsService implements IStatisticsService {
                 }
             });
 
-            Player player = playerDao.findByNickname(playerNickname);
+            PlayerDto player = playerDao.findByNickname(playerNickname);
             player.setCoupleStatistics(coupleStatisticsList);
             updatedPlayers.add(player);
         });
@@ -322,12 +322,12 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<RatingStatisticsAll>) (List<?>) ratingStatistics);
 
         // Group data by nickname and aggregate it
-        List<RatingStatistics> aggregatedStatistics =
+        List<RatingStatisticsDto> aggregatedStatistics =
                 ratingStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         ratingStatisticsDao.findAll().forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setRatingStatistics(null);
             playerDao.save(player);
 
@@ -338,9 +338,9 @@ public class StatisticsService implements IStatisticsService {
         ratingStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
         aggregatedStatistics.forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setRatingStatistics(statistics);
             player.setGamesTotal(statistics.getGamesTotal());
 
@@ -369,12 +369,12 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<RolesHistoryStatisticsAll>) (List<?>) rolesHistoryStatistics);
 
         // Group data by nickname and aggregate it
-        List<RolesHistoryStatistics> aggregatedStatistics =
+        List<RolesHistoryStatisticsDto> aggregatedStatistics =
                 rolesHistoryStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         rolesHistoryStatisticsDao.findAll().forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setRolesHistoryStatistics(null);
             playerDao.save(player);
 
@@ -385,9 +385,9 @@ public class StatisticsService implements IStatisticsService {
         rolesHistoryStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
         aggregatedStatistics.forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setRolesHistoryStatistics(statistics);
 
             if (player.getGamesTotal() == null) {
@@ -419,12 +419,12 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<VisitingStatisticsAll>) (List<?>) visitingStatistics);
 
         // Group data by nickname and aggregate it
-        List<VisitingStatistics> aggregatedStatistics =
+        List<VisitingStatisticsDto> aggregatedStatistics =
                 visitingStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         visitingStatisticsDao.findAll().forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setVisitingStatistics(null);
             playerDao.save(player);
 
@@ -435,9 +435,9 @@ public class StatisticsService implements IStatisticsService {
         visitingStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
         aggregatedStatistics.forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setVisitingStatistics(statistics);
 
             updatedPlayers.add(player);
@@ -465,12 +465,12 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<SerialityStatisticsAll>) (List<?>) serialityStatistics);
 
         // Group data by nickname and aggregate it
-        List<SerialityStatistics> aggregatedStatistics =
+        List<SerialityStatisticsDto> aggregatedStatistics =
                 serialityStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one
         serialityStatisticsDao.findAll().forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setSerialityStatistics(null);
             playerDao.save(player);
 
@@ -481,9 +481,9 @@ public class StatisticsService implements IStatisticsService {
         serialityStatisticsDao.saveAll(aggregatedStatistics);
 
         // Update actual statistics for players
-        List<Player> updatedPlayers = new ArrayList<>();
+        List<PlayerDto> updatedPlayers = new ArrayList<>();
         aggregatedStatistics.forEach(statistics -> {
-            Player player = playerDao.findByNickname(statistics.getNickname());
+            PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setSerialityStatistics(statistics);
 
             if (player.getGamesTotal() == null) {
@@ -515,7 +515,7 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<GamesPerNumberStatisticsAll>) (List<?>) gamesPerNumberStatistics);
 
         // Group data by nickname and aggregate it
-        List<GamesPerNumberStatistics> aggregatedStatistics =
+        List<GamesPerNumberStatisticsDto> aggregatedStatistics =
                 gamesPerNumberStatisticsAllDao.getAggregatedData();
 
         // Remove all actual statistics for updating with new one

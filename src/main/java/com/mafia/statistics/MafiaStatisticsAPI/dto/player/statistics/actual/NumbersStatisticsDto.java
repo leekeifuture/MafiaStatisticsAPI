@@ -2,7 +2,10 @@ package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
+import org.hibernate.Hibernate;
+
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,14 +14,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@Entity
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
-public class NumbersStatistics extends Statistics {
+@RequiredArgsConstructor
+@Entity
+public class NumbersStatisticsDto extends Statistics {
 
     @Id
     @GeneratedValue
@@ -32,27 +39,27 @@ public class NumbersStatistics extends Statistics {
     private Long gamesTotal;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeOne;
+    private PlaceDto placeOne;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeTwo;
+    private PlaceDto placeTwo;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeThree;
+    private PlaceDto placeThree;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeFour;
+    private PlaceDto placeFour;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeFive;
+    private PlaceDto placeFive;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeSix;
+    private PlaceDto placeSix;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeSeven;
+    private PlaceDto placeSeven;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeEight;
+    private PlaceDto placeEight;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeNine;
+    private PlaceDto placeNine;
     @OneToOne(cascade = CascadeType.ALL)
-    private Place placeTen;
+    private PlaceDto placeTen;
 
-    public NumbersStatistics(
+    public NumbersStatisticsDto(
             String nickname, Date fromDate, Date toDate, Long gamesTotal,
 
             Long placeOneGamesRed, Long placeOneGamesBlack, Long placeOneGamesDon,
@@ -91,64 +98,78 @@ public class NumbersStatistics extends Statistics {
         this.gamesTotal = gamesTotal;
 
         this.placeOne =
-                new Place(
+                new PlaceDto(
                         placeOneGamesRed, placeOneGamesBlack,
                         placeOneGamesDon, placeOneGamesSheriff,
                         placeOnePercentWinRed, placeOnePercentWinBlack
                 );
         this.placeTwo =
-                new Place(
+                new PlaceDto(
                         placeTwoGamesRed, placeTwoGamesBlack,
                         placeTwoGamesDon, placeTwoGamesSheriff,
                         placeTwoPercentWinRed, placeTwoPercentWinBlack
                 );
         this.placeThree =
-                new Place(
+                new PlaceDto(
                         placeThreeGamesRed, placeThreeGamesBlack,
                         placeThreeGamesDon, placeThreeGamesSheriff,
                         placeThreePercentWinRed, placeThreePercentWinBlack
                 );
         this.placeFour =
-                new Place(
+                new PlaceDto(
                         placeFourGamesRed, placeFourGamesBlack,
                         placeFourGamesDon, placeFourGamesSheriff,
                         placeFourPercentWinRed, placeFourPercentWinBlack
                 );
         this.placeFive =
-                new Place(
+                new PlaceDto(
                         placeFiveGamesRed, placeFiveGamesBlack,
                         placeFiveGamesDon, placeFiveGamesSheriff,
                         placeFivePercentWinRed, placeFivePercentWinBlack
                 );
         this.placeSix =
-                new Place(
+                new PlaceDto(
                         placeSixGamesRed, placeSixGamesBlack,
                         placeSixGamesDon, placeSixGamesSheriff,
                         placeSixPercentWinRed, placeSixPercentWinBlack
                 );
         this.placeSeven =
-                new Place(
+                new PlaceDto(
                         placeSevenGamesRed, placeSevenGamesBlack,
                         placeSevenGamesDon, placeSevenGamesSheriff,
                         placeSevenPercentWinRed, placeSevenPercentWinBlack
                 );
         this.placeEight =
-                new Place(
+                new PlaceDto(
                         placeEightGamesRed, placeEightGamesBlack,
                         placeEightGamesDon, placeEightGamesSheriff,
                         placeEightPercentWinRed, placeEightPercentWinBlack
                 );
         this.placeNine =
-                new Place(
+                new PlaceDto(
                         placeNineGamesRed, placeNineGamesBlack,
                         placeNineGamesDon, placeNineGamesSheriff,
                         placeNinePercentWinRed, placeNinePercentWinBlack
                 );
         this.placeTen =
-                new Place(
+                new PlaceDto(
                         placeTenGamesRed, placeTenGamesBlack,
                         placeTenGamesDon, placeTenGamesSheriff,
                         placeTenPercentWinRed, placeTenPercentWinBlack
                 );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        NumbersStatisticsDto that = (NumbersStatisticsDto) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

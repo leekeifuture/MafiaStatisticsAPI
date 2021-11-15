@@ -1,7 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.security.oauth2;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.OAuth2AuthenticationProcessingException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
@@ -165,7 +165,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("ID not found from OAuth2 provider");
         }
 
-        Player player = playerDao
+        PlayerDto player = playerDao
                 .findByVkId(Long.valueOf(oAuth2UserInfo.getVkId()))
                 .orElseThrow(() ->
                         new ResourceNotFoundException("User", "VK id", oAuth2UserInfo.getVkId())
@@ -176,7 +176,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return UserPrincipal.create(player, userAttributes);
     }
 
-    private Player updateExistingUser(Player existingPlayer, OAuth2UserInfo oAuth2UserInfo) {
+    private PlayerDto updateExistingUser(PlayerDto existingPlayer, OAuth2UserInfo oAuth2UserInfo) {
         existingPlayer.setFirstName(oAuth2UserInfo.getFirstName());
         existingPlayer.setLastName(oAuth2UserInfo.getLastName());
         existingPlayer.setPhotoUrl(oAuth2UserInfo.getImageUrl());

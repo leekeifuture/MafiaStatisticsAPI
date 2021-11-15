@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface IVisitingStatisticsAllDao extends JpaRepository<VisitingStatist
 
     List<VisitingStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW VisitingStatistics(t.nickname, " +
+    @Query("SELECT NEW VisitingStatisticsDto(t.nickname, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      AVG(t.byMonday), " +
@@ -27,5 +27,5 @@ public interface IVisitingStatisticsAllDao extends JpaRepository<VisitingStatist
             "FROM VisitingStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")
-    List<VisitingStatistics> getAggregatedData();
+    List<VisitingStatisticsDto> getAggregatedData();
 }

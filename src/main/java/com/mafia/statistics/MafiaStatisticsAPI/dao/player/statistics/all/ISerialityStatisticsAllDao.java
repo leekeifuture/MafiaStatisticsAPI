@@ -1,6 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ public interface ISerialityStatisticsAllDao extends JpaRepository<SerialityStati
 
     List<SerialityStatisticsAll> findAllByIsActive(Boolean isActive);
 
-    @Query("SELECT NEW SerialityStatistics(t.nickname, " +
+    @Query("SELECT NEW SerialityStatisticsDto(t.nickname, " +
             "      MIN(t.fromDate), " +
             "      MAX(t.toDate), " +
             "      SUM(t.gamesTotal), " +
@@ -35,5 +35,5 @@ public interface ISerialityStatisticsAllDao extends JpaRepository<SerialityStati
             "FROM SerialityStatisticsAll AS t " +
             "WHERE t.isActive = true " +
             "GROUP BY t.nickname")
-    List<SerialityStatistics> getAggregatedData();
+    List<SerialityStatisticsDto> getAggregatedData();
 }

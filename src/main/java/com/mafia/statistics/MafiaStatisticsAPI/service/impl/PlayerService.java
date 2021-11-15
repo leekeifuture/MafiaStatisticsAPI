@@ -1,8 +1,8 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.Player;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.Role;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.RoleDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
@@ -33,7 +33,7 @@ public class PlayerService implements IPlayerService {
     private final IPlayerDao playerDao;
 
     @Override
-    public List<Player> getPlayers() {
+    public List<PlayerDto> getPlayers() {
         return playerDao.findAllByGamesTotalNotNull();
     }
 
@@ -68,8 +68,8 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Player getPlayerById(Long id) {
-        Player player = playerDao.findById(id)
+    public PlayerDto getPlayerById(Long id) {
+        PlayerDto player = playerDao.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Player", "id", id)
                 );
@@ -78,8 +78,8 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public Player getPlayerByNickname(String nickname) {
-        Player player = Optional.ofNullable(playerDao.findByNickname(nickname))
+    public PlayerDto getPlayerByNickname(String nickname) {
+        PlayerDto player = Optional.ofNullable(playerDao.findByNickname(nickname))
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Player", "nickname", nickname)
                 );
@@ -87,14 +87,14 @@ public class PlayerService implements IPlayerService {
         return getPlayer(player);
     }
 
-    public Player getPlayer(Player player) {
+    public PlayerDto getPlayer(PlayerDto player) {
         if (player.getVkId() != null) {
             if (player.getPhotoUrl() == null) {
                 String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
                 player.setPhotoUrl(vkPhoto);
             }
 
-            if (player.getGender() == null) {
+            if (player.getGender() == null || player.getGender().equals(Sex.UNKNOWN)) {
                 Sex vkGender = vkService.getGenderByUserId(player.getVkId());
                 player.setGender(vkGender);
             }
@@ -164,9 +164,10 @@ public class PlayerService implements IPlayerService {
 
     private void savePlayer(String playerNickname) {
         if (!playerDao.existsByNickname(playerNickname)) {
-            Player player = new Player();
+            PlayerDto player = new PlayerDto();
             player.setNickname(playerNickname);
-            player.setRoles(new HashSet<>(List.of(new Role("USER"))));
+            player.setGender(Sex.UNKNOWN);
+            player.setRoles(new HashSet<>(List.of(new RoleDto("USER"))));
 
             playerDao.save(player);
         }
