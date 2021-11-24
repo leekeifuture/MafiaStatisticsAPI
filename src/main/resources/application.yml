@@ -20,8 +20,8 @@ spring:
           redirect-uri: ${baseUrl}/oauth2/callback/{registrationId}
   datasource:
     username: postgres
-    password: toor
-    url: jdbc:postgresql://localhost/mafia
+    password: ${dbPassword}
+    url: jdbc:postgresql://${dbUrl}/${dbName}
   jpa.hibernate.ddl-auto: update
 
 app:
@@ -47,6 +47,8 @@ app:
 
 server.error.include-message: always
 
+aws.secretsmanager.region: eu-central-1
+
 logging:
   level:
     root: INFO
@@ -55,4 +57,3 @@ logging:
     org.springframework.security.oauth2: INFO
     org.springframework.web.client.RestTemplate: DEBUG
     org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
-

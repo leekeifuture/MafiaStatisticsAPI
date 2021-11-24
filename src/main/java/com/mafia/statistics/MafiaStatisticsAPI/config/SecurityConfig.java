@@ -33,7 +33,6 @@ import java.util.Arrays;
 
 import lombok.RequiredArgsConstructor;
 
-@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(
@@ -41,6 +40,7 @@ import lombok.RequiredArgsConstructor;
         jsr250Enabled = true,
         prePostEnabled = true
 )
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
