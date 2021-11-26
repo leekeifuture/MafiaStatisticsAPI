@@ -19,9 +19,9 @@ spring:
           client-id: ${app.vk.appId}
           redirect-uri: ${baseUrl}/oauth2/callback/{registrationId}
   datasource:
-    username: postgres
+    username: ${dbUsername}
     password: ${dbPassword}
-    url: jdbc:postgresql://${dbUrl}/${dbName}
+    url: ${dbUrl}
   jpa.hibernate.ddl-auto: update
 
 app:
