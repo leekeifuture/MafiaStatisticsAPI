@@ -45,6 +45,8 @@ public class PlayerDto {
 
     @Column(unique = true)
     private String nickname;
+    @Column(unique = true)
+    private String customNickname;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleDto> roles;

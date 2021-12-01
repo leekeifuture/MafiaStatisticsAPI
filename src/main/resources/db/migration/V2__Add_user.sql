@@ -1,5 +1,5 @@
-INSERT INTO player_dto (id, games_total, nickname, vk_id)
-VALUES (1, 0, 'Орк', 142419761);
+INSERT INTO player_dto (id, games_total, nickname, custom_nickname, vk_id)
+VALUES (1, 0, 'Орк', 'Орк', 142419761);
 
 INSERT INTO role_dto (id, name)
 VALUES (2, 'USER');

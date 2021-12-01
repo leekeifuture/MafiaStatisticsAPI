@@ -166,6 +166,7 @@ public class PlayerService implements IPlayerService {
         if (!playerDao.existsByNickname(playerNickname)) {
             PlayerDto player = new PlayerDto();
             player.setNickname(playerNickname);
+            player.setCustomNickname(playerNickname);
             player.setGender(Sex.UNKNOWN);
             player.setRoles(new HashSet<>(List.of(new RoleDto("USER"))));
 

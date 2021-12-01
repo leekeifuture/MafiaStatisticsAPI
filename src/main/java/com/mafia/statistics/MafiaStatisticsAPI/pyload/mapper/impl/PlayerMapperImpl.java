@@ -42,7 +42,7 @@ public class PlayerMapperImpl implements IPlayerMapper {
 
         return new Player(
                 playerDto.getId(),
-                playerDto.getNickname(),
+                playerDto.getCustomNickname(),
                 playerDto.getGamesTotal(),
                 playerDto.getGender(),
                 playerDto.getPhotoUrl(),
