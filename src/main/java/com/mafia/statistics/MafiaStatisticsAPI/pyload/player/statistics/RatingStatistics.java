@@ -21,6 +21,8 @@ public class RatingStatistics {
     private Long gamesDon;
     private Long gamesSheriff;
 
+    private Long gamesWon;
+
     private Double bestMove;
 
     private Double additionalPoints; // best player / penalty

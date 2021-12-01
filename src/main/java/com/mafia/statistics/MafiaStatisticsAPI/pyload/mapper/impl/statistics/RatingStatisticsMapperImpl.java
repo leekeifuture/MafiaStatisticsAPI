@@ -15,6 +15,11 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
             return null;
         }
 
+        Long gamesWon = ratingStatisticsDto.getGamesRed() +
+                ratingStatisticsDto.getGamesBlack() +
+                ratingStatisticsDto.getGamesDon() +
+                ratingStatisticsDto.getGamesSheriff();
+
         return new RatingStatistics(
                 ratingStatisticsDto.getNickname(),
                 ratingStatisticsDto.getFromDate(),
@@ -24,6 +29,7 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
                 ratingStatisticsDto.getGamesBlack(),
                 ratingStatisticsDto.getGamesDon(),
                 ratingStatisticsDto.getGamesSheriff(),
+                gamesWon,
                 ratingStatisticsDto.getBestMove(),
                 ratingStatisticsDto.getAdditionalPoints(),
                 ratingStatisticsDto.getPoints()
