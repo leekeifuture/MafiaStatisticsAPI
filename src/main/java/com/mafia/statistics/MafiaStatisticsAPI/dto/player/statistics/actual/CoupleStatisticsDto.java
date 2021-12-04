@@ -51,6 +51,8 @@ public class CoupleStatisticsDto extends Statistics {
     @NonNull
     private Double percentOfWins;
 
+    private Long calculatedPercentOfWins;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

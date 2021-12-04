@@ -28,7 +28,7 @@ public class CoupleStatisticsMapperImpl implements ICoupleStatisticsMapper {
                         statistics.getNicknameOfMafiaTwo(),
                         statistics.getGames(),
                         statistics.getWins(),
-                        statistics.getPercentOfWins()
+                        statistics.getCalculatedPercentOfWins()
                 )
         ));
 

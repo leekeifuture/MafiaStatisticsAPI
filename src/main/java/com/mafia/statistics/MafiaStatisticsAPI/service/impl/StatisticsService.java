@@ -269,8 +269,16 @@ public class StatisticsService implements IStatisticsService {
             coupleStatisticsDao.delete(statistics);
         });
 
+        // Calculate percent of wins
+        List<CoupleStatisticsDto> actualStatistics = new ArrayList<>();
+        aggregatedStatistics.forEach(statistics -> {
+            Long percentOfWins = 100 * statistics.getWins() / statistics.getGames();
+            statistics.setCalculatedPercentOfWins(percentOfWins);
+            actualStatistics.add(statistics);
+        });
+
         // Update actual statistics
-        coupleStatisticsDao.saveAll(aggregatedStatistics);
+        coupleStatisticsDao.saveAll(actualStatistics);
 
         // Update actual statistics for players
         List<PlayerDto> updatedPlayers = new ArrayList<>();

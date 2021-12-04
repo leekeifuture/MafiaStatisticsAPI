@@ -3,6 +3,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.impl.statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IRatingStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.RatingStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
 
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
                 gamesWon,
                 ratingStatisticsDto.getBestMove(),
                 ratingStatisticsDto.getAdditionalPoints(),
-                ratingStatisticsDto.getPoints()
+                DigitsUtil.roundDouble(ratingStatisticsDto.getPoints(), 1)
         );
     }
 }

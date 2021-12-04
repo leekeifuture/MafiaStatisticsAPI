@@ -19,5 +19,5 @@ public class CoupleStatistics {
 
     private Long wins;
 
-    private Double percentOfWins;
+    private Long percentOfWins;
 }
