@@ -222,7 +222,7 @@ public class StatisticsService implements IStatisticsService {
             PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setNumbersStatistics(statistics);
 
-            if (player.getGamesTotal() == null) {
+            if (player.getGamesTotal() == null || player.getGamesTotal() == 0) {
                 player.setGamesTotal(statistics.getGamesTotal());
             }
 
@@ -398,7 +398,7 @@ public class StatisticsService implements IStatisticsService {
             PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setRolesHistoryStatistics(statistics);
 
-            if (player.getGamesTotal() == null) {
+            if (player.getGamesTotal() == null || player.getGamesTotal() == 0) {
                 player.setGamesTotal(statistics.getGamesTotal());
             }
 
@@ -494,7 +494,7 @@ public class StatisticsService implements IStatisticsService {
             PlayerDto player = playerDao.findByNickname(statistics.getNickname());
             player.setSerialityStatistics(statistics);
 
-            if (player.getGamesTotal() == null) {
+            if (player.getGamesTotal() == null || player.getGamesTotal() == 0) {
                 player.setGamesTotal(statistics.getGamesTotal());
             }
 
