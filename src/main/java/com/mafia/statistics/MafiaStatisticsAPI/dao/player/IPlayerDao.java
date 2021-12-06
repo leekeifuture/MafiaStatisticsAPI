@@ -6,6 +6,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,4 +33,17 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
             "WHERE t.gamesTotal IS NOT NULL " +
             "ORDER BY t.gamesTotal DESC")
     List<Player> findTopPlayersByGamesTotal(Pageable pageable);
+
+    @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
+            "   t.id, " +
+            "   t.nickname, " +
+            "   t.gamesTotal, " +
+            "   t.gender" +
+            ") " +
+            "FROM PlayerDto AS t " +
+            "WHERE LOWER(t.nickname)       LIKE LOWER(concat('%', :nickname, '%')) AND " +
+            "      LOWER(t.customNickname) LIKE LOWER(concat('%', :nickname, '%')) AND " +
+            "      t.gamesTotal IS NOT NULL " +
+            "ORDER BY t.gamesTotal DESC")
+    List<Player> findByNicknameFree(@Param("nickname") String nickname, Pageable pageable);
 }

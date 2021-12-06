@@ -11,10 +11,12 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.Seriali
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 import com.vk.api.sdk.objects.base.Sex;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -65,6 +67,14 @@ public class PlayerService implements IPlayerService {
                 savePlayersFromSerialityStatistics(statistics);
                 break;
         }
+    }
+
+    @Override
+    public List<Player> searchPlayersByNickname(String query) {
+        return playerDao.findByNicknameFree(
+                query.strip(),
+                PageRequest.of(0, 15)
+        );
     }
 
     @Override
