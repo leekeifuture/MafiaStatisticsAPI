@@ -50,7 +50,10 @@ public class PlayerMapperImpl implements IPlayerMapper {
                 numbersStatisticsMapper
                         .dtoToNumbersStatistics(playerDto.getNumbersStatistics()),
                 coupleStatisticsMapper
-                        .dtoToCoupleStatistics(playerDto.getCoupleStatistics()),
+                        .dtoToCoupleStatistics(
+                                playerDto.getCoupleStatistics(),
+                                playerDto.getNickname()
+                        ),
                 ratingStatisticsMapper
                         .dtoToRatingStatistics(playerDto.getRatingStatistics()),
                 rolesHistoryStatisticsMapper

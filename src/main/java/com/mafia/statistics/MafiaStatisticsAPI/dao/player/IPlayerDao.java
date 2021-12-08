@@ -30,6 +30,16 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
             "   t.gender" +
             ") " +
             "FROM PlayerDto AS t " +
+            "WHERE t.nickname = :nickname")
+    Player findMinimalInfoByNickname(String nickname);
+
+    @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
+            "   t.id, " +
+            "   t.nickname, " +
+            "   t.gamesTotal, " +
+            "   t.gender" +
+            ") " +
+            "FROM PlayerDto AS t " +
             "WHERE t.gamesTotal IS NOT NULL " +
             "ORDER BY t.gamesTotal DESC")
     List<Player> findTopPlayersByGamesTotal(Pageable pageable);

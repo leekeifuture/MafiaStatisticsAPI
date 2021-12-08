@@ -10,5 +10,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ICoupleStatisticsMapper {
 
-    List<CoupleStatistics> dtoToCoupleStatistics(List<CoupleStatisticsDto> coupleStatisticsDto);
+    List<CoupleStatistics> dtoToCoupleStatistics(
+            List<CoupleStatisticsDto> coupleStatisticsDto,
+            String playerNickname
+    );
 }

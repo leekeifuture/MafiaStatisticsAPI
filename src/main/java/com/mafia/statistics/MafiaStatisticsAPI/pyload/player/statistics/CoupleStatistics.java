@@ -1,5 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics;
 
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -12,8 +14,7 @@ public class CoupleStatistics {
     private Date fromDate;
     private Date toDate;
 
-    private String nicknameOfMafiaOne;
-    private String nicknameOfMafiaTwo;
+    private Player couplePlayer;
 
     private Long games;
 
