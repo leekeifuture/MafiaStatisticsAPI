@@ -297,7 +297,7 @@ public class StatisticsService implements IStatisticsService {
                 if ((statistics.getNicknameOfMafiaOne().equals(playerNickname) ||
                         statistics.getNicknameOfMafiaTwo().equals(playerNickname)) &&
                         statistics.getWins() > 1 &&
-                        counter.get() <= 7) {
+                        counter.get() <= 3) {
                     coupleStatisticsList.add(statistics);
                     counter.updateAndGet(v -> v + 1);
                 }
