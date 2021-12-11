@@ -36,6 +36,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statis
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
 import org.springframework.data.domain.PageRequest;
@@ -969,6 +970,7 @@ public class StatisticsService implements IStatisticsService {
             dates.add(new SimpleDateFormat(pattern).parse(strDate2));
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new InternalServerException(e.getMessage());
         }
 
         return dates;

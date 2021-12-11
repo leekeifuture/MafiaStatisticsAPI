@@ -94,6 +94,7 @@ public class ExcelService implements IExcelService {
         try {
             multipartFile.transferTo(statisticsFile.toPath());
         } catch (IOException e) {
+            e.printStackTrace();
             throw new InternalServerException(e.getMessage());
         }
 
