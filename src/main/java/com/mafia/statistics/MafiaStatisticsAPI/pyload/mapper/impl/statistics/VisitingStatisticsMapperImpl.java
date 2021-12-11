@@ -16,7 +16,6 @@ public class VisitingStatisticsMapperImpl implements IVisitingStatisticsMapper {
         }
 
         return new VisitingStatistics(
-                visitingStatisticsDto.getNickname(),
                 visitingStatisticsDto.getFromDate(),
                 visitingStatisticsDto.getToDate(),
                 visitingStatisticsDto.getByMonday(),

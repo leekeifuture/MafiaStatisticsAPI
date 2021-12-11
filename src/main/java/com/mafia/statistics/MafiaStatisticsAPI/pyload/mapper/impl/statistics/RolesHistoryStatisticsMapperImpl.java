@@ -16,7 +16,6 @@ public class RolesHistoryStatisticsMapperImpl implements IRolesHistoryStatistics
         }
 
         return new RolesHistoryStatistics(
-                rolesHistoryStatisticsDto.getNickname(),
                 rolesHistoryStatisticsDto.getFromDate(),
                 rolesHistoryStatisticsDto.getToDate(),
                 rolesHistoryStatisticsDto.getGamesTotal(),

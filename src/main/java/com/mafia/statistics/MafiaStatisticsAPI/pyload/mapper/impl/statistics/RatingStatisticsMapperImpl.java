@@ -22,7 +22,6 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
                 ratingStatisticsDto.getGamesSheriff();
 
         return new RatingStatistics(
-                ratingStatisticsDto.getNickname(),
                 ratingStatisticsDto.getFromDate(),
                 ratingStatisticsDto.getToDate(),
                 ratingStatisticsDto.getGamesTotal(),

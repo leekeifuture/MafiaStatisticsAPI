@@ -17,7 +17,6 @@ public class NumbersStatisticsMapperImpl implements INumbersStatisticsMapper {
         }
 
         return new NumbersStatistics(
-                numbersStatisticsDto.getNickname(),
                 numbersStatisticsDto.getFromDate(),
                 numbersStatisticsDto.getToDate(),
                 numbersStatisticsDto.getGamesTotal(),

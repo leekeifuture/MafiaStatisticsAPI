@@ -9,8 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class RolesHistoryStatistics {
 
-    private String nickname;
-
     private Date fromDate;
     private Date toDate;
 

@@ -9,8 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class SerialityStatistics {
 
-    private String nickname;
-
     private Date fromDate;
     private Date toDate;
 
