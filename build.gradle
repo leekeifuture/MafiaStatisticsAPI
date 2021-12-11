@@ -24,6 +24,7 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-jose:5.5.3'
 
     // AWS
+    implementation 'com.amazonaws:aws-java-sdk:1.12.128'
     implementation 'io.awspring.cloud:spring-cloud-starter-aws-secrets-manager-config:2.3.2'
 
     // DB

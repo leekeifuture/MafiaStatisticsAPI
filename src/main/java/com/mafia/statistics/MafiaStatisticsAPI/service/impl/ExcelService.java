@@ -1,5 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
@@ -33,12 +35,20 @@ public class ExcelService implements IExcelService {
 
     private final IPlayerService playerService;
 
-    @Value("${app.statistics.folder.path}")
+    @Value("${app.statistics.path.folder}")
     private String statisticsFolderPath;
+
+    @Value("${app.statistics.path.s3}")
+    private String statisticsS3Path;
+
+    @Value("${aws.secretsmanager.region}")
+    private String AwsRegion;
 
     @Override
     public void uploadExcel(MultipartFile multipartFile, StatisticsType statisticsType) {
-        File xlsFile = saveFileToFilesystem(multipartFile);
+        File xlsFile = saveFileToFilesystem(multipartFile, statisticsType);
+
+        saveFileToS3(xlsFile);
 
         Map<Integer, List<String>> table = readExcel(xlsFile);
 
@@ -49,7 +59,23 @@ public class ExcelService implements IExcelService {
         statisticsService.saveStatistics(statistics);
     }
 
-    private File saveFileToFilesystem(MultipartFile multipartFile) {
+    private void saveFileToS3(File file) {
+        AmazonS3 s3client = AmazonS3ClientBuilder
+                .standard()
+                .withRegion(AwsRegion)
+                .build();
+
+        if (!s3client.doesBucketExistV2(statisticsS3Path)) {
+            s3client.createBucket(statisticsS3Path);
+        }
+
+        s3client.putObject(statisticsS3Path, file.getName(), file);
+    }
+
+    private File saveFileToFilesystem(
+            MultipartFile multipartFile,
+            StatisticsType statisticsType
+    ) {
         if (!Objects.requireNonNull(multipartFile.getContentType())
                 .split("\\.")[1].equals("xls")) {
             throw new ResourceNotFoundException("File", "extension", ".xls");
@@ -59,7 +85,11 @@ public class ExcelService implements IExcelService {
         statisticsFolder.mkdirs(); // create if not exists
 
         long unixTime = System.currentTimeMillis() / 1000L;
-        File statisticsFile = new File(statisticsFolderPath + "/" + unixTime + ".xls");
+        String filename = statisticsType + "_" + unixTime + ".xls";
+
+        File statisticsFile = new File(
+                statisticsFolderPath + "/" + filename
+        );
 
         try {
             multipartFile.transferTo(statisticsFile.toPath());

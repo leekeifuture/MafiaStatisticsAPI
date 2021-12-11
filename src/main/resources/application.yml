@@ -43,7 +43,9 @@ app:
       - ${clientUrl}/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
-  statistics.folder.path: ../MafiaStatisticsFiles/statistics
+  statistics.path:
+    folder: ../MafiaStatisticsFiles/statistics
+    s3: mafia-statistics-files
 
 server.error.include-message: always
 
