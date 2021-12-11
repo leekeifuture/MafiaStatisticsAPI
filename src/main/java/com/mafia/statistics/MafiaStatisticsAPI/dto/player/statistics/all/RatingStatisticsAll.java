@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class RatingStatisticsAll extends Statistics {
 
@@ -29,27 +32,41 @@ public class RatingStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private String nickname;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private Integer gamesTotal;
 
+    @NonNull
     private Integer gamesRed;
+    @NonNull
     private Integer gamesBlack;
+    @NonNull
     private Integer gamesDon;
+    @NonNull
     private Integer gamesSheriff;
 
+    @NonNull
     private Float bestMove;
 
+    @NonNull
     private Float additionalPoints; // best player / penalty
 
+    @NonNull
     private Float points;
 
+    @NonNull
     private Integer number;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override

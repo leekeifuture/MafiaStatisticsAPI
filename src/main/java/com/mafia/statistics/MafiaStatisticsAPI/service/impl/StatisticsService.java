@@ -625,49 +625,58 @@ public class StatisticsService implements IStatisticsService {
                 return;
             }
 
-            PlaceAll placeOne = new PlaceAll(null,
+            PlaceAll placeOne = new PlaceAll(
                     parseCellInteger(row.get(3)), parseCellInteger(row.get(4)),
                     parseCellInteger(row.get(5)), parseCellInteger(row.get(6)),
-                    parseCellInteger(row.get(7)), parseCellInteger(row.get(8)));
-            PlaceAll placeTwo = new PlaceAll(null,
+                    parseCellInteger(row.get(7)), parseCellInteger(row.get(8))
+            );
+            PlaceAll placeTwo = new PlaceAll(
                     parseCellInteger(row.get(9)), parseCellInteger(row.get(10)),
                     parseCellInteger(row.get(11)), parseCellInteger(row.get(12)),
-                    parseCellInteger(row.get(13)), parseCellInteger(row.get(14)));
-            PlaceAll placeThree = new PlaceAll(null,
+                    parseCellInteger(row.get(13)), parseCellInteger(row.get(14))
+            );
+            PlaceAll placeThree = new PlaceAll(
                     parseCellInteger(row.get(15)), parseCellInteger(row.get(16)),
                     parseCellInteger(row.get(17)), parseCellInteger(row.get(18)),
-                    parseCellInteger(row.get(19)), parseCellInteger(row.get(20)));
-            PlaceAll placeFour = new PlaceAll(null,
+                    parseCellInteger(row.get(19)), parseCellInteger(row.get(20))
+            );
+            PlaceAll placeFour = new PlaceAll(
                     parseCellInteger(row.get(21)), parseCellInteger(row.get(22)),
                     parseCellInteger(row.get(23)), parseCellInteger(row.get(24)),
-                    parseCellInteger(row.get(25)), parseCellInteger(row.get(26)));
-            PlaceAll placeFive = new PlaceAll(null,
+                    parseCellInteger(row.get(25)), parseCellInteger(row.get(26))
+            );
+            PlaceAll placeFive = new PlaceAll(
                     parseCellInteger(row.get(27)), parseCellInteger(row.get(28)),
                     parseCellInteger(row.get(29)), parseCellInteger(row.get(30)),
-                    parseCellInteger(row.get(31)), parseCellInteger(row.get(32)));
-            PlaceAll placeSix = new PlaceAll(null,
+                    parseCellInteger(row.get(31)), parseCellInteger(row.get(32))
+            );
+            PlaceAll placeSix = new PlaceAll(
                     parseCellInteger(row.get(33)), parseCellInteger(row.get(34)),
                     parseCellInteger(row.get(35)), parseCellInteger(row.get(36)),
-                    parseCellInteger(row.get(37)), parseCellInteger(row.get(38)));
-            PlaceAll placeSeven = new PlaceAll(null,
+                    parseCellInteger(row.get(37)), parseCellInteger(row.get(38))
+            );
+            PlaceAll placeSeven = new PlaceAll(
                     parseCellInteger(row.get(39)), parseCellInteger(row.get(40)),
                     parseCellInteger(row.get(41)), parseCellInteger(row.get(42)),
-                    parseCellInteger(row.get(43)), parseCellInteger(row.get(44)));
-            PlaceAll placeEight = new PlaceAll(null,
+                    parseCellInteger(row.get(43)), parseCellInteger(row.get(44))
+            );
+            PlaceAll placeEight = new PlaceAll(
                     parseCellInteger(row.get(45)), parseCellInteger(row.get(46)),
                     parseCellInteger(row.get(47)), parseCellInteger(row.get(48)),
-                    parseCellInteger(row.get(49)), parseCellInteger(row.get(50)));
-            PlaceAll placeNine = new PlaceAll(null,
+                    parseCellInteger(row.get(49)), parseCellInteger(row.get(50))
+            );
+            PlaceAll placeNine = new PlaceAll(
                     parseCellInteger(row.get(51)), parseCellInteger(row.get(52)),
                     parseCellInteger(row.get(53)), parseCellInteger(row.get(54)),
-                    parseCellInteger(row.get(55)), parseCellInteger(row.get(56)));
-            PlaceAll placeTen = new PlaceAll(null,
+                    parseCellInteger(row.get(55)), parseCellInteger(row.get(56))
+            );
+            PlaceAll placeTen = new PlaceAll(
                     parseCellInteger(row.get(57)), parseCellInteger(row.get(58)),
                     parseCellInteger(row.get(59)), parseCellInteger(row.get(60)),
-                    parseCellInteger(row.get(61)), parseCellInteger(row.get(62)));
+                    parseCellInteger(row.get(61)), parseCellInteger(row.get(62))
+            );
 
             numbersStatistics.add(new NumbersStatisticsAll(
-                    null, // id
                     row.get(1), // nickname
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
@@ -707,7 +716,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             coupleStatistics.add(new CoupleStatisticsAll(
-                    null, // id
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
                     row.get(2), // nicknameOfMafiaOne
@@ -741,7 +749,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             ratingStatistics.add(new RatingStatisticsAll(
-                    null, // id
                     row.get(2), // nickname
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
@@ -779,7 +786,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             rolesHistoryStatistics.add(new RolesHistoryStatisticsAll(
-                    null, // id;
                     row.get(12), // nickname;
                     dates.get(0), // fromDate;
                     dates.get(1), // toDate;
@@ -830,7 +836,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             visitingStatistics.add(new VisitingStatisticsAll(
-                    null, // id
                     row.get(1), // nickname
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
@@ -866,7 +871,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             gamesPerNumberStatistics.add(new GamesPerNumberStatisticsAll(
-                    null, // id
                     parseCellInteger(row.get(1)), // number
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
@@ -908,7 +912,6 @@ public class StatisticsService implements IStatisticsService {
             }
 
             serialityStatistics.add(new SerialityStatisticsAll(
-                    null, // id
                     dates.get(0), // fromDate
                     dates.get(1), // toDate
                     row.get(1), // nickname

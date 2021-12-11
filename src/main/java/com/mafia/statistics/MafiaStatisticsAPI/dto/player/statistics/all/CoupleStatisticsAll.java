@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class CoupleStatisticsAll extends Statistics {
 
@@ -29,21 +32,31 @@ public class CoupleStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private String nicknameOfMafiaOne;
+    @NonNull
     private String nicknameOfMafiaTwo;
 
+    @NonNull
     private Integer games;
 
+    @NonNull
     private Integer wins;
 
+    @NonNull
     private Float percentOfWins;
 
+    @NonNull
     private Integer number;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override

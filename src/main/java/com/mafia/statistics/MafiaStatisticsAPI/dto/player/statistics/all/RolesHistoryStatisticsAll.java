@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class RolesHistoryStatisticsAll extends Statistics {
 
@@ -29,45 +32,72 @@ public class RolesHistoryStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private String nickname;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private Integer gamesTotal;
 
+    @NonNull
     private Integer gamesRed;
+    @NonNull
     private Integer gamesBlack;
+    @NonNull
     private Integer gamesDon;
+    @NonNull
     private Integer gamesSheriff;
 
+    @NonNull
     private Integer shooting;
 
+    @NonNull
     private Integer percentSelectedRed;
+    @NonNull
     private Integer percentSelectedBlack;
+    @NonNull
     private Integer percentSelectedDon;
+    @NonNull
     private Integer percentSelectedSheriff;
 
+    @NonNull
     private Integer percentSelectedAllRed; // with sheriff
+    @NonNull
     private Integer percentSelectedAllBlack; // with don
 
+    @NonNull
     private Integer percentWinningRed;
+    @NonNull
     private Integer percentWinningBlack;
+    @NonNull
     private Integer percentWinningDon;
+    @NonNull
     private Integer percentWinningSheriff;
 
+    @NonNull
     private Integer percentWinning;
 
+    @NonNull
     private Integer percentWinningAllRed; // with sheriff
+    @NonNull
     private Integer percentWinningAllBlack; // with don
 
+    @NonNull
     private Integer percentBestPlayer;
 
+    @NonNull
     private Integer percentFirstShooting;
 
+    @NonNull
     private Integer number;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override

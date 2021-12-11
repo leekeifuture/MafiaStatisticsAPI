@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,6 +26,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class NumbersStatisticsAll extends Statistics {
 
@@ -31,35 +34,51 @@ public class NumbersStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private String nickname;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private Integer gamesTotal;
 
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeOne;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeTwo;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeThree;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeFour;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeFive;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeSix;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeSeven;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeEight;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeNine;
+    @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
     private PlaceAll placeTen;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override

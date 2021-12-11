@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,6 +21,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class PlaceAll {
 
@@ -26,12 +29,18 @@ public class PlaceAll {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private Integer gamesRed;
+    @NonNull
     private Integer gamesBlack;
+    @NonNull
     private Integer gamesDon;
+    @NonNull
     private Integer gamesSheriff;
 
+    @NonNull
     private Integer percentWinRed;
+    @NonNull
     private Integer percentWinBlack;
 
     @Override

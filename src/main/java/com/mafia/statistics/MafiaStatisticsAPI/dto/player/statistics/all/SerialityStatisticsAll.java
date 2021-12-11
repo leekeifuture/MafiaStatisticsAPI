@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class SerialityStatisticsAll extends Statistics {
 
@@ -29,32 +32,52 @@ public class SerialityStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private String nickname;
 
+    @NonNull
     private Integer gamesTotal;
 
+    @NonNull
     private Integer successivelyPlayedByRed; // with sheriff
+    @NonNull
     private Integer successivelyPlayedBySheriff;
+    @NonNull
     private Integer successivelyPlayedByBlack; // with don
+    @NonNull
     private Integer successivelyPlayedByDon;
 
+    @NonNull
     private Integer successivelyWonByRed; // with sheriff
+    @NonNull
     private Integer successivelyWonBySheriff;
+    @NonNull
     private Integer successivelyWonByBlack; // with don
+    @NonNull
     private Integer successivelyWonByDon;
 
+    @NonNull
     private Integer successivelyLostByRed; // with sheriff
+    @NonNull
     private Integer successivelyLostBySheriff;
+    @NonNull
     private Integer successivelyLostByBlack; // with don
+    @NonNull
     private Integer successivelyLostByDon;
 
+    @NonNull
     private Integer maximumSeriesOfWin;
+    @NonNull
     private Integer maximumSeriesOfDefeat;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override

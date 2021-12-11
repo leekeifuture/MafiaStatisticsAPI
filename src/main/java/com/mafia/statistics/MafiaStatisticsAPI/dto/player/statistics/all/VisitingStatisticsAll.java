@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class VisitingStatisticsAll extends Statistics {
 
@@ -29,26 +32,38 @@ public class VisitingStatisticsAll extends Statistics {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private String nickname;
 
+    @NonNull
     private Date fromDate;
+    @NonNull
     private Date toDate;
 
+    @NonNull
     private Integer byMonday;
 
+    @NonNull
     private Integer byTuesday;
 
+    @NonNull
     private Integer byWednesday;
 
+    @NonNull
     private Integer byThursday;
 
+    @NonNull
     private Integer byFriday;
 
+    @NonNull
     private Integer bySaturday;
 
+    @NonNull
     private Integer bySunday;
 
+    @NonNull
     private Boolean isActive;
+    @NonNull
     private Date uploadingDate;
 
     @Override
