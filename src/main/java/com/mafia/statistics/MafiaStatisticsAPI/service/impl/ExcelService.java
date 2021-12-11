@@ -2,6 +2,8 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IExcelService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -34,8 +37,7 @@ public class ExcelService implements IExcelService {
     private String statisticsFolderPath;
 
     @Override
-    public Object uploadExcel(MultipartFile multipartFile, StatisticsType statisticsType) // TODO: Object
-            throws Exception { // TODO: Exception
+    public void uploadExcel(MultipartFile multipartFile, StatisticsType statisticsType) {
         File xlsFile = saveFileToFilesystem(multipartFile);
 
         Map<Integer, List<String>> table = readExcel(xlsFile);
@@ -45,13 +47,12 @@ public class ExcelService implements IExcelService {
         playerService.savePlayers(statistics);
 
         statisticsService.saveStatistics(statistics);
-
-        return new Object();
     }
 
-    private File saveFileToFilesystem(MultipartFile multipartFile) throws Exception { // TODO: Exception
-        if (!multipartFile.getContentType().split("\\.")[1].equals("xls")) { // check if .xls
-            throw new Exception(); // TODO: Exception
+    private File saveFileToFilesystem(MultipartFile multipartFile) {
+        if (!Objects.requireNonNull(multipartFile.getContentType())
+                .split("\\.")[1].equals("xls")) {
+            throw new ResourceNotFoundException("File", "extension", ".xls");
         }
 
         File statisticsFolder = new File(statisticsFolderPath);
@@ -60,17 +61,26 @@ public class ExcelService implements IExcelService {
         long unixTime = System.currentTimeMillis() / 1000L;
         File statisticsFile = new File(statisticsFolderPath + "/" + unixTime + ".xls");
 
-        multipartFile.transferTo(statisticsFile.toPath());
+        try {
+            multipartFile.transferTo(statisticsFile.toPath());
+        } catch (IOException e) {
+            throw new InternalServerException(e.getMessage());
+        }
 
         return statisticsFile;
     }
 
-    private Map<Integer, List<String>> readExcel(File file)
-            throws IOException, BiffException { // TODO: Exception
+    private Map<Integer, List<String>> readExcel(File file) {
         Map<Integer, List<String>> data = new HashMap<>();
 
-        Workbook workbook = Workbook.getWorkbook(file);
-        Sheet sheet = workbook.getSheet(0);
+        Sheet sheet;
+        try {
+            Workbook workbook = Workbook.getWorkbook(file);
+            sheet = workbook.getSheet(0);
+        } catch (IOException | BiffException e) {
+            throw new ResourceNotFoundException("Workbook or Sheet", "index", 0);
+        }
+
         int rows = sheet.getRows();
         int columns = sheet.getColumns();
 

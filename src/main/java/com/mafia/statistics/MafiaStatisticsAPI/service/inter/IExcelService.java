@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IExcelService {
 
-    Object uploadExcel(MultipartFile file, StatisticsType statisticsType) throws Exception; // TODO: Object and Exception
+    void uploadExcel(MultipartFile file, StatisticsType statisticsType);
 }
