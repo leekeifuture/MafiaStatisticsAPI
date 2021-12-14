@@ -108,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/statistics/*",
                         "/players/*",
                         "/error",
+                        "/actuator/health",
                         "/favicon.ico",
                         "/**/*.png",
                         "/**/*.gif",
