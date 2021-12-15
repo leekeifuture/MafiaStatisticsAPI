@@ -99,7 +99,7 @@ public class PlayerService implements IPlayerService {
 
     public PlayerDto getPlayer(PlayerDto player) {
         if (player.getVkId() != null) {
-            if (player.getPhotoUrl() == null) {
+            if (player.getPhotoUrl() == null || player.getPhotoUrl().equals("")) {
                 String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
                 player.setPhotoUrl(vkPhoto);
             }

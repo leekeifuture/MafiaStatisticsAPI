@@ -1,7 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.google.gson.Gson;
-import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.ServiceActor;
@@ -36,7 +35,7 @@ public class VkService implements IVkService {
 
     @Override
     public String getPhotoByUserId(Long userId) {
-        String photoUrl;
+        String photoUrl = "";
         try {
             List<GetResponse> response = vkApiClient.users().get(getActor())
                     .userIds(String.valueOf(userId))
@@ -45,7 +44,6 @@ public class VkService implements IVkService {
         } catch (ApiException | ClientException e) {
             refreshVkClient();
             e.printStackTrace();
-            throw new InternalServerException(e.getMessage());
         }
 
         return photoUrl;
@@ -53,7 +51,7 @@ public class VkService implements IVkService {
 
     @Override
     public Sex getGenderByUserId(Long userId) {
-        Sex gender;
+        Sex gender = Sex.UNKNOWN;
         try {
             List<GetResponse> response = vkApiClient.users().get(getActor())
                     .userIds(String.valueOf(userId))
@@ -62,7 +60,6 @@ public class VkService implements IVkService {
         } catch (ApiException | ClientException e) {
             refreshVkClient();
             e.printStackTrace();
-            throw new InternalServerException(e.getMessage());
         }
 
         return gender;
