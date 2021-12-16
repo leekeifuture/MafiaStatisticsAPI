@@ -3,6 +3,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.impl.statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IGamesPerNumberStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.GamesPerNumberStatistics;
+import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
 
 import org.springframework.stereotype.Component;
 
@@ -17,17 +18,17 @@ public class GamesPerNumberStatisticsMapperImpl implements IGamesPerNumberStatis
                 gamesPerNumberStatisticsDto.getToDate(),
                 gamesPerNumberStatisticsDto.getGamesTotal(),
                 gamesPerNumberStatisticsDto.getFirstShot(),
-                gamesPerNumberStatisticsDto.getPercentFirstShot(),
-                gamesPerNumberStatisticsDto.getPercentSelectedRed(),
-                gamesPerNumberStatisticsDto.getPercentSelectedBlack(),
-                gamesPerNumberStatisticsDto.getPercentSelectedDon(),
-                gamesPerNumberStatisticsDto.getPercentSelectedSheriff(),
-                gamesPerNumberStatisticsDto.getPercentWinningRed(),
-                gamesPerNumberStatisticsDto.getPercentWinningBlack(),
-                gamesPerNumberStatisticsDto.getPercentWinningDon(),
-                gamesPerNumberStatisticsDto.getPercentWinningSheriff(),
-                gamesPerNumberStatisticsDto.getPercentWinningAllRed(),
-                gamesPerNumberStatisticsDto.getPercentWinningAllBlack()
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentFirstShot(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentSelectedRed(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentSelectedBlack(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentSelectedDon(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentSelectedSheriff(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningRed(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningBlack(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningDon(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningSheriff(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningAllRed(), 1),
+                DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentWinningAllBlack(), 1)
         );
     }
 }

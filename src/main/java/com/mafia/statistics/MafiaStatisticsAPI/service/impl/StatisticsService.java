@@ -38,6 +38,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGame
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
+import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +125,7 @@ public class StatisticsService implements IStatisticsService {
                             player.getId(),
                             player.getGender(),
                             row.getNickname(),
-                            row.getPoints()
+                            DigitsUtil.roundDouble(row.getPoints(), 1)
                     ));
                 });
 

@@ -30,8 +30,8 @@ public class RatingStatisticsMapperImpl implements IRatingStatisticsMapper {
                 ratingStatisticsDto.getGamesDon(),
                 ratingStatisticsDto.getGamesSheriff(),
                 gamesWon,
-                ratingStatisticsDto.getBestMove(),
-                ratingStatisticsDto.getAdditionalPoints(),
+                DigitsUtil.roundDouble(ratingStatisticsDto.getBestMove(), 1),
+                DigitsUtil.roundDouble(ratingStatisticsDto.getAdditionalPoints(), 1),
                 DigitsUtil.roundDouble(ratingStatisticsDto.getPoints(), 1)
         );
     }
