@@ -39,6 +39,8 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRati
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +60,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class StatisticsService implements IStatisticsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(StatisticsService.class);
 
     private final IPlayerDao playerDao;
 
@@ -184,6 +188,8 @@ public class StatisticsService implements IStatisticsService {
     }
 
     private void saveNumbersStatistics(List<Statistics> numbersStatistics) {
+        logger.info("Saving numbers statistics...");
+
         List<Statistics> activeNumbersStatistics =
                 (List<Statistics>) (List<?>) numbersStatisticsAllDao.findAllByIsActive(true);
 
@@ -231,9 +237,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved numbers statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
+        logger.info("Saving couple statistics...");
+
         List<Statistics> activeCoupleStatistics =
                 (List<Statistics>) (List<?>) coupleStatisticsAllDao.findAllByIsActive(true);
 
@@ -310,9 +321,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved couple statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveRatingStatistics(List<Statistics> ratingStatistics) {
+        logger.info("Saving rating statistics...");
+
         List<Statistics> activeRatingStatistics =
                 (List<Statistics>) (List<?>) ratingStatisticsAllDao.findAllByIsActive(true);
 
@@ -357,9 +373,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved rating statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
+        logger.info("Saving roles history statistics...");
+
         List<Statistics> activeRolesHistoryStatistics =
                 (List<Statistics>) (List<?>) rolesHistoryStatisticsAllDao.findAllByIsActive(true);
 
@@ -407,9 +428,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved roles history statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
+        logger.info("Saving visiting statistics...");
+
         List<Statistics> activeVisitingStatistics =
                 (List<Statistics>) (List<?>) visitingStatisticsAllDao.findAllByIsActive(true);
 
@@ -453,9 +479,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved visiting statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
+        logger.info("Saving seriality statistics...");
+
         List<Statistics> activeSerialityStatistics =
                 (List<Statistics>) (List<?>) serialityStatisticsAllDao.findAllByIsActive(true);
 
@@ -503,9 +534,14 @@ public class StatisticsService implements IStatisticsService {
         });
 
         playerDao.saveAll(updatedPlayers);
+
+        logger.info("Saved seriality statistics. " +
+                "Updated players: " + updatedPlayers);
     }
 
     private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
+        logger.info("Saving games per number statistics...");
+
         List<Statistics> activeGamesPerNumberStatistics =
                 (List<Statistics>) (List<?>) gamesPerNumberStatisticsAllDao.findAllByIsActive(true);
 
@@ -532,6 +568,9 @@ public class StatisticsService implements IStatisticsService {
 
         // Update actual statistics
         gamesPerNumberStatisticsDao.saveAll(aggregatedStatistics);
+
+        logger.info("Saved games per number statistics. " +
+                "Aggregated statistics: " + aggregatedStatistics);
     }
 
     private <T> List<T> getNotActualStatistics(
@@ -611,6 +650,8 @@ public class StatisticsService implements IStatisticsService {
     }
 
     private List<Statistics> parseNumbersStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing numbers statistics...");
+
         int start = 7;
         int finish = table.size() - 1;
         List<Statistics> numbersStatistics = new ArrayList<>();
@@ -697,10 +738,15 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed numbers statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return numbersStatistics;
     }
 
     private List<Statistics> parseCoupleStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing couple statistics...");
+
         int start = 6;
         int finish = table.size() - 1;
         List<Statistics> coupleStatistics = new ArrayList<>();
@@ -730,10 +776,15 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed couple statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return coupleStatistics;
     }
 
     private List<Statistics> parseRatingStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing rating statistics...");
+
         int start = 6;
         int finish = table.size() - 3;
         List<Statistics> ratingStatistics = new ArrayList<>();
@@ -767,10 +818,15 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed rating statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return ratingStatistics;
     }
 
     private List<Statistics> parseRolesHistoryStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing roles history statistics...");
+
         int start = 6;
         int finish = table.size() - 3;
         List<Statistics> rolesHistoryStatistics = new ArrayList<>();
@@ -817,10 +873,15 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed roles history statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return rolesHistoryStatistics;
     }
 
     private List<Statistics> parseVisitingStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing visiting statistics...");
+
         int start = 7;
         int finish = table.size() - 1;
         List<Statistics> visitingStatistics = new ArrayList<>();
@@ -852,51 +913,15 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed visiting statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return visitingStatistics;
     }
 
-    private List<Statistics> parseGamesPerNumberStatistics(Map<Integer, List<String>> table) {
-        int start = 7;
-        int finish = table.size() - 1;
-        List<Statistics> gamesPerNumberStatistics = new ArrayList<>();
-        Date currentDate = new Date();
-
-        List<Date> dates = new ArrayList<>();
-        table.forEach((index, row) -> {
-            if (index == 3) {
-                dates.addAll(parseDates(row.get(2)));
-            }
-
-            if (index < start || index > finish) {
-                return;
-            }
-
-            gamesPerNumberStatistics.add(new GamesPerNumberStatisticsAll(
-                    parseCellInteger(row.get(1)), // number
-                    dates.get(0), // fromDate
-                    dates.get(1), // toDate
-                    parseCellInteger(row.get(2)), // gamesTotal
-                    parseCellInteger(row.get(3)), // firstShot
-                    parseCellInteger(row.get(4)), // percentFirstShot
-                    parseCellInteger(row.get(5)), // percentSelectedRed
-                    parseCellInteger(row.get(6)), // percentSelectedBlack
-                    parseCellInteger(row.get(7)), // percentSelectedDon
-                    parseCellInteger(row.get(8)), // percentSelectedSheriff
-                    parseCellInteger(row.get(9)), // percentWinningRed
-                    parseCellInteger(row.get(10)), // percentWinningBlack
-                    parseCellInteger(row.get(11)), // percentWinningDon
-                    parseCellInteger(row.get(12)), // percentWinningSheriff
-                    parseCellInteger(row.get(13)), // percentWinningAllRed
-                    parseCellInteger(row.get(14)), // percentWinningAllBlack
-                    true, // isActive
-                    currentDate // uploadingDate
-            ));
-        });
-
-        return gamesPerNumberStatistics;
-    }
-
     private List<Statistics> parseSerialityStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing seriality statistics...");
+
         int start = 6;
         int finish = table.size() - 1;
         List<Statistics> serialityStatistics = new ArrayList<>();
@@ -936,7 +961,56 @@ public class StatisticsService implements IStatisticsService {
             ));
         });
 
+        logger.info("Parsed seriality statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
         return serialityStatistics;
+    }
+
+    private List<Statistics> parseGamesPerNumberStatistics(Map<Integer, List<String>> table) {
+        logger.info("Parsing games per number statistics...");
+
+        int start = 7;
+        int finish = table.size() - 1;
+        List<Statistics> gamesPerNumberStatistics = new ArrayList<>();
+        Date currentDate = new Date();
+
+        List<Date> dates = new ArrayList<>();
+        table.forEach((index, row) -> {
+            if (index == 3) {
+                dates.addAll(parseDates(row.get(2)));
+            }
+
+            if (index < start || index > finish) {
+                return;
+            }
+
+            gamesPerNumberStatistics.add(new GamesPerNumberStatisticsAll(
+                    parseCellInteger(row.get(1)), // number
+                    dates.get(0), // fromDate
+                    dates.get(1), // toDate
+                    parseCellInteger(row.get(2)), // gamesTotal
+                    parseCellInteger(row.get(3)), // firstShot
+                    parseCellInteger(row.get(4)), // percentFirstShot
+                    parseCellInteger(row.get(5)), // percentSelectedRed
+                    parseCellInteger(row.get(6)), // percentSelectedBlack
+                    parseCellInteger(row.get(7)), // percentSelectedDon
+                    parseCellInteger(row.get(8)), // percentSelectedSheriff
+                    parseCellInteger(row.get(9)), // percentWinningRed
+                    parseCellInteger(row.get(10)), // percentWinningBlack
+                    parseCellInteger(row.get(11)), // percentWinningDon
+                    parseCellInteger(row.get(12)), // percentWinningSheriff
+                    parseCellInteger(row.get(13)), // percentWinningAllRed
+                    parseCellInteger(row.get(14)), // percentWinningAllBlack
+                    true, // isActive
+                    currentDate // uploadingDate
+            ));
+        });
+
+        logger.info("Parsed games per number statistics from " +
+                dates.get(0) + " to " + dates.get(1));
+
+        return gamesPerNumberStatistics;
     }
 
     private Integer parseCellInteger(String cell) {

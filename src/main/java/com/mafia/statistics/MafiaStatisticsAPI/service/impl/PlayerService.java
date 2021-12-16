@@ -16,6 +16,8 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 import com.vk.api.sdk.objects.base.Sex;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PlayerService implements IPlayerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
     private final IVkService vkService;
 
@@ -181,6 +185,8 @@ public class PlayerService implements IPlayerService {
             player.setRoles(new HashSet<>(List.of(new RoleDto("USER"))));
 
             playerDao.save(player);
+
+            logger.info("Saved player with nickname: " + playerNickname);
         }
     }
 }
