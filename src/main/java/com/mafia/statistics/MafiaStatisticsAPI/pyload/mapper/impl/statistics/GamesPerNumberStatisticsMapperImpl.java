@@ -16,7 +16,6 @@ public class GamesPerNumberStatisticsMapperImpl implements IGamesPerNumberStatis
                 gamesPerNumberStatisticsDto.getNumber(),
                 gamesPerNumberStatisticsDto.getFromDate(),
                 gamesPerNumberStatisticsDto.getToDate(),
-                gamesPerNumberStatisticsDto.getGamesTotal(),
                 gamesPerNumberStatisticsDto.getFirstShot(),
                 DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentFirstShot(), 1),
                 DigitsUtil.roundDouble(gamesPerNumberStatisticsDto.getPercentSelectedRed(), 1),

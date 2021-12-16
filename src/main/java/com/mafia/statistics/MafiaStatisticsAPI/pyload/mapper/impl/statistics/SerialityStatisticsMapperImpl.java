@@ -18,7 +18,6 @@ public class SerialityStatisticsMapperImpl implements ISerialityStatisticsMapper
         return new SerialityStatistics(
                 serialityStatisticsDto.getFromDate(),
                 serialityStatisticsDto.getToDate(),
-                serialityStatisticsDto.getGamesTotal(),
                 serialityStatisticsDto.getSuccessivelyPlayedByRed(),
                 serialityStatisticsDto.getSuccessivelyPlayedBySheriff(),
                 serialityStatisticsDto.getSuccessivelyPlayedByBlack(),

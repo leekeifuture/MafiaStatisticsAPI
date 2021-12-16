@@ -20,7 +20,6 @@ public class NumbersStatisticsMapperImpl implements INumbersStatisticsMapper {
         return new NumbersStatistics(
                 numbersStatisticsDto.getFromDate(),
                 numbersStatisticsDto.getToDate(),
-                numbersStatisticsDto.getGamesTotal(),
                 new Place(
                         numbersStatisticsDto.getPlaceOne().getGamesRed(),
                         numbersStatisticsDto.getPlaceOne().getGamesBlack(),

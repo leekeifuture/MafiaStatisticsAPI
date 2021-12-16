@@ -12,8 +12,6 @@ public class NumbersStatistics {
     private Date fromDate;
     private Date toDate;
 
-    private Long gamesTotal;
-
     private Place placeOne;
     private Place placeTwo;
     private Place placeThree;

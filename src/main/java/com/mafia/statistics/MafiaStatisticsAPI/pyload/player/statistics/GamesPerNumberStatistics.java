@@ -14,8 +14,6 @@ public class GamesPerNumberStatistics {
     private Date fromDate;
     private Date toDate;
 
-    private Long gamesTotal;
-
     private Long firstShot;
 
     private Double percentFirstShot;

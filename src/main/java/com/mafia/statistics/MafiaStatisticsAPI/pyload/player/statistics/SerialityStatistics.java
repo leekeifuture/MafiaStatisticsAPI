@@ -12,8 +12,6 @@ public class SerialityStatistics {
     private Date fromDate;
     private Date toDate;
 
-    private Long gamesTotal;
-
     private Integer successivelyPlayedByRed; // with sheriff
     private Integer successivelyPlayedBySheriff;
     private Integer successivelyPlayedByBlack; // with don

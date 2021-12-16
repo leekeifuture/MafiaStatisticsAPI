@@ -12,8 +12,6 @@ public class RatingStatistics {
     private Date fromDate;
     private Date toDate;
 
-    private Long gamesTotal;
-
     private Long gamesRed;
     private Long gamesBlack;
     private Long gamesDon;
