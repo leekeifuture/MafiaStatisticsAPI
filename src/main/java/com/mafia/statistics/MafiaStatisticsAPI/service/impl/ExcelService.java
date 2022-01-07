@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 import lombok.RequiredArgsConstructor;
 
@@ -106,7 +107,10 @@ public class ExcelService implements IExcelService {
 
         Sheet sheet;
         try {
-            Workbook workbook = Workbook.getWorkbook(file);
+            WorkbookSettings ws = new WorkbookSettings();
+            ws.setEncoding("Cp1251");
+
+            Workbook workbook = Workbook.getWorkbook(file, ws);
             sheet = workbook.getSheet(0);
         } catch (IOException | BiffException e) {
             throw new ResourceNotFoundException("Workbook or Sheet", "index", 0);
