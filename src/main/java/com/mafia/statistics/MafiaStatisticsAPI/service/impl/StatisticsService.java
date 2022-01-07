@@ -86,7 +86,7 @@ public class StatisticsService implements IStatisticsService {
 
     @Override
     public DashboardInfo getDashboardInfo() {
-        Long minimalExperienceGames = 10L;
+        Long minimalExperienceGames = 15L;
 
         SerialityStatisticsDto winSeries = serialityStatisticsDao
                 .findFirstByOrderByMaximumSeriesOfWinDesc();
