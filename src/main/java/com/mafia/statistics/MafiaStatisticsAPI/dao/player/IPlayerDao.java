@@ -25,7 +25,7 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
 
     @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
             "   t.id, " +
-            "   t.nickname, " +
+            "   t.customNickname, " +
             "   t.gamesTotal, " +
             "   t.gender" +
             ") " +
@@ -35,7 +35,7 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
 
     @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
             "   t.id, " +
-            "   t.nickname, " +
+            "   t.customNickname, " +
             "   t.gamesTotal, " +
             "   t.gender" +
             ") " +
@@ -46,13 +46,13 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
 
     @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
             "   t.id, " +
-            "   t.nickname, " +
+            "   t.customNickname, " +
             "   t.gamesTotal, " +
             "   t.gender" +
             ") " +
             "FROM PlayerDto AS t " +
-            "WHERE LOWER(t.nickname)       LIKE LOWER(concat('%', :nickname, '%')) AND " +
-            "      LOWER(t.customNickname) LIKE LOWER(concat('%', :nickname, '%')) AND " +
+            "WHERE (LOWER(t.nickname)       LIKE LOWER(concat('%', :nickname, '%')) OR " +
+            "       LOWER(t.customNickname) LIKE LOWER(concat('%', :nickname, '%'))) AND " +
             "      t.gamesTotal IS NOT NULL " +
             "ORDER BY t.gamesTotal DESC")
     List<Player> findByNicknameFree(@Param("nickname") String nickname, Pageable pageable);
