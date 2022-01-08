@@ -240,7 +240,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved numbers statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveCoupleStatistics(List<Statistics> coupleStatistics) {
@@ -324,7 +323,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved couple statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveRatingStatistics(List<Statistics> ratingStatistics) {
@@ -376,7 +374,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved rating statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveRolesHistoryStatistics(List<Statistics> rolesHistoryStatistics) {
@@ -431,7 +428,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved roles history statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveVisitingStatistics(List<Statistics> visitingStatistics) {
@@ -482,7 +478,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved visiting statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveSerialityStatistics(List<Statistics> serialityStatistics) {
@@ -537,7 +532,6 @@ public class StatisticsService implements IStatisticsService {
         playerDao.saveAll(updatedPlayers);
 
         logger.info("Saved seriality statistics.");
-        logger.info("Updated players: " + updatedPlayers);
     }
 
     private void saveGamesPerNumberStatistics(List<Statistics> gamesPerNumberStatistics) {
@@ -571,7 +565,6 @@ public class StatisticsService implements IStatisticsService {
         gamesPerNumberStatisticsDao.saveAll(aggregatedStatistics);
 
         logger.info("Saved games per number statistics.");
-        logger.info("Aggregated statistics: " + aggregatedStatistics);
     }
 
     private <T> List<T> getNotActualStatistics(
