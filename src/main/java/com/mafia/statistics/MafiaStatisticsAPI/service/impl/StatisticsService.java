@@ -143,12 +143,12 @@ public class StatisticsService implements IStatisticsService {
                 visitingSeriesPlayer.getId(),
                 visitingSeriesPlayer.getGender(),
                 visitingSeriesPlayer.getNickname(),
-                visitingSeriesPercent,
+                DigitsUtil.roundDouble(visitingSeriesPercent, 1),
 
                 firstShootingPlayer.getId(),
                 firstShootingPlayer.getGender(),
                 firstShootingPlayer.getNickname(),
-                firstShooting.getPercentFirstShooting(),
+                DigitsUtil.roundDouble(firstShooting.getPercentFirstShooting(), 1),
 
                 topGamesTable,
                 topRatingTable
