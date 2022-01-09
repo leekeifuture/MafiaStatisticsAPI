@@ -346,8 +346,24 @@ public class StatisticsService implements IStatisticsService {
                 .saveAll((List<RatingStatisticsAll>) (List<?>) ratingStatistics);
 
         // Group data by nickname and aggregate it
-        List<RatingStatisticsDto> aggregatedStatistics =
+        List<RatingStatisticsDto> preAggregatedStatistics =
                 ratingStatisticsAllDao.getAggregatedData();
+
+        // Calculating rating points
+        List<RatingStatisticsDto> aggregatedStatistics = new ArrayList<>();
+
+        preAggregatedStatistics.forEach(player -> {
+            Double points = ((player.getGamesRed() +
+                    player.getGamesBlack() +
+                    player.getGamesDon() +
+                    player.getGamesSheriff() +
+                    player.getBestMove() +
+                    player.getAdditionalPoints()
+            ) / player.getGamesTotal()) * 100;
+
+            player.setPoints(points);
+            aggregatedStatistics.add(player);
+        });
 
         // Remove all actual statistics for updating with new one
         ratingStatisticsDao.findAll().forEach(statistics -> {
