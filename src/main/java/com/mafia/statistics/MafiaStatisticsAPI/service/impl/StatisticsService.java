@@ -90,19 +90,90 @@ public class StatisticsService implements IStatisticsService {
 
         SerialityStatisticsDto winSeries = serialityStatisticsDao
                 .findFirstByOrderByMaximumSeriesOfWinDesc();
-        PlayerDto winSeriesPlayer = playerService.getPlayerByNickname(winSeries.getNickname());
+        PlayerDto winSeriesPlayer = playerService
+                .getPlayerByNickname(winSeries.getNickname());
 
         SerialityStatisticsDto defeatSeries = serialityStatisticsDao
                 .findFirstByOrderByMaximumSeriesOfDefeatDesc();
-        PlayerDto defeatSeriesPlayer = playerService.getPlayerByNickname(defeatSeries.getNickname());
+        PlayerDto defeatSeriesPlayer = playerService
+                .getPlayerByNickname(defeatSeries.getNickname());
 
         RolesHistoryStatisticsDto firstShooting = rolesHistoryStatisticsDao
                 .findFirstByGamesTotalGreaterThanOrderByPercentFirstShootingDesc(minimalExperienceGames);
-        PlayerDto firstShootingPlayer = playerService.getPlayerByNickname(firstShooting.getNickname());
+        PlayerDto firstShootingPlayer = playerService
+                .getPlayerByNickname(firstShooting.getNickname());
 
         Object[] visitingSeries = (Object[]) visitingStatisticsDao.findMostVisitedPlayer();
-        PlayerDto visitingSeriesPlayer = playerService.getPlayerByNickname((String) visitingSeries[0]);
+        PlayerDto visitingSeriesPlayer = playerService
+                .getPlayerByNickname((String) visitingSeries[0]);
         Double visitingSeriesPercent = (Double) visitingSeries[1];
+
+        // Successively played
+
+        SerialityStatisticsDto playedByRedSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyPlayedByRedDesc();
+        PlayerDto playedByRedSeriesPlayer = playerService
+                .getPlayerByNickname("Домино"); // TODO: tmp hardcode
+
+        SerialityStatisticsDto playedBySheriffSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyPlayedBySheriffDesc();
+        PlayerDto playedBySheriffSeriesPlayer = playerService
+                .getPlayerByNickname(playedBySheriffSeries.getNickname());
+
+        SerialityStatisticsDto playedByBlackSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyPlayedByBlackDesc();
+        PlayerDto playedByBlackSeriesPlayer = playerService
+                .getPlayerByNickname(playedByBlackSeries.getNickname());
+
+        SerialityStatisticsDto playedByDonSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyPlayedByDonDesc();
+        PlayerDto playedByDonSeriesPlayer = playerService
+                .getPlayerByNickname(playedByDonSeries.getNickname());
+
+        // Successively won
+
+        SerialityStatisticsDto wonByRedSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyWonByRedDesc();
+        PlayerDto wonByRedSeriesPlayer = playerService
+                .getPlayerByNickname(wonByRedSeries.getNickname());
+
+        SerialityStatisticsDto wonBySheriffSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyWonBySheriffDesc();
+        PlayerDto wonBySheriffSeriesPlayer = playerService
+                .getPlayerByNickname(wonBySheriffSeries.getNickname());
+
+        SerialityStatisticsDto wonByBlackSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyWonByBlackDesc();
+        PlayerDto wonByBlackSeriesPlayer = playerService
+                .getPlayerByNickname(wonByBlackSeries.getNickname());
+
+        SerialityStatisticsDto wonByDonSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyWonByDonDesc();
+        PlayerDto wonByDonSeriesPlayer = playerService
+                .getPlayerByNickname(wonByDonSeries.getNickname());
+
+        // Successively lost
+
+        SerialityStatisticsDto lostByRedSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyLostByRedDesc();
+        PlayerDto lostByRedSeriesPlayer = playerService
+                .getPlayerByNickname(lostByRedSeries.getNickname());
+
+        SerialityStatisticsDto lostBySheriffSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyLostBySheriffDesc();
+        PlayerDto lostBySheriffSeriesPlayer = playerService
+                .getPlayerByNickname(lostBySheriffSeries.getNickname());
+
+        SerialityStatisticsDto lostByBlackSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyLostByBlackDesc();
+        PlayerDto lostByBlackSeriesPlayer = playerService
+                .getPlayerByNickname(lostByBlackSeries.getNickname());
+
+        SerialityStatisticsDto lostByDonSeries = serialityStatisticsDao
+                .findFirstByOrderBySuccessivelyLostByDonDesc();
+        PlayerDto lostByDonSeriesPlayer = playerService
+                .getPlayerByNickname(lostByDonSeries.getNickname());
+
 
         List<TopGamesTable> topGamesTable = new ArrayList<>();
         playerDao.findTopPlayersByGamesTotal(PageRequest.of(0, 15)).forEach(row -> {
@@ -111,8 +182,8 @@ public class StatisticsService implements IStatisticsService {
             topGamesTable.add(new TopGamesTable(
                     player.getId(),
                     player.getGender(),
-                    row.getNickname(),
-                    row.getGamesTotal()
+                    player.getCustomNickname(),
+                    player.getGamesTotal()
             ));
         });
 
@@ -124,7 +195,7 @@ public class StatisticsService implements IStatisticsService {
                     topRatingTable.add(new TopRatingTable(
                             player.getId(),
                             player.getGender(),
-                            row.getNickname(),
+                            player.getCustomNickname(),
                             DigitsUtil.roundDouble(row.getPoints(), 1)
                     ));
                 });
@@ -132,23 +203,89 @@ public class StatisticsService implements IStatisticsService {
         return new DashboardInfo(
                 winSeriesPlayer.getId(),
                 winSeriesPlayer.getGender(),
-                winSeriesPlayer.getNickname(),
+                winSeriesPlayer.getCustomNickname(),
                 winSeries.getMaximumSeriesOfWin(),
 
                 defeatSeriesPlayer.getId(),
                 defeatSeriesPlayer.getGender(),
-                defeatSeriesPlayer.getNickname(),
+                defeatSeriesPlayer.getCustomNickname(),
                 defeatSeries.getMaximumSeriesOfDefeat(),
 
                 visitingSeriesPlayer.getId(),
                 visitingSeriesPlayer.getGender(),
-                visitingSeriesPlayer.getNickname(),
+                visitingSeriesPlayer.getCustomNickname(),
                 DigitsUtil.roundDouble(visitingSeriesPercent, 1),
 
                 firstShootingPlayer.getId(),
                 firstShootingPlayer.getGender(),
-                firstShootingPlayer.getNickname(),
+                firstShootingPlayer.getCustomNickname(),
                 DigitsUtil.roundDouble(firstShooting.getPercentFirstShooting(), 1),
+
+                // Successively played
+
+                playedByRedSeriesPlayer.getId(),
+                playedByRedSeriesPlayer.getGender(),
+                playedByRedSeriesPlayer.getCustomNickname(),
+                26, // TODO: tmp hardcode
+
+                playedBySheriffSeriesPlayer.getId(),
+                playedBySheriffSeriesPlayer.getGender(),
+                playedBySheriffSeriesPlayer.getCustomNickname(),
+                playedBySheriffSeries.getSuccessivelyPlayedBySheriff(),
+
+                playedByBlackSeriesPlayer.getId(),
+                playedByBlackSeriesPlayer.getGender(),
+                playedByBlackSeriesPlayer.getCustomNickname(),
+                playedByBlackSeries.getSuccessivelyPlayedByBlack(),
+
+                playedByDonSeriesPlayer.getId(),
+                playedByDonSeriesPlayer.getGender(),
+                playedByDonSeriesPlayer.getCustomNickname(),
+                playedByDonSeries.getSuccessivelyPlayedByDon(),
+
+                // Successively won
+
+                wonByRedSeriesPlayer.getId(),
+                wonByRedSeriesPlayer.getGender(),
+                wonByRedSeriesPlayer.getCustomNickname(),
+                wonByRedSeries.getSuccessivelyWonByRed(),
+
+                wonBySheriffSeriesPlayer.getId(),
+                wonBySheriffSeriesPlayer.getGender(),
+                wonBySheriffSeriesPlayer.getCustomNickname(),
+                wonBySheriffSeries.getSuccessivelyWonBySheriff(),
+
+                wonByBlackSeriesPlayer.getId(),
+                wonByBlackSeriesPlayer.getGender(),
+                wonByBlackSeriesPlayer.getCustomNickname(),
+                wonByBlackSeries.getSuccessivelyWonByBlack(),
+
+                wonByDonSeriesPlayer.getId(),
+                wonByDonSeriesPlayer.getGender(),
+                wonByDonSeriesPlayer.getCustomNickname(),
+                wonByDonSeries.getSuccessivelyWonByDon(),
+
+                // Successively lost
+
+                lostByRedSeriesPlayer.getId(),
+                lostByRedSeriesPlayer.getGender(),
+                lostByRedSeriesPlayer.getCustomNickname(),
+                lostByRedSeries.getSuccessivelyLostByRed(),
+
+                lostBySheriffSeriesPlayer.getId(),
+                lostBySheriffSeriesPlayer.getGender(),
+                lostBySheriffSeriesPlayer.getCustomNickname(),
+                lostBySheriffSeries.getSuccessivelyLostBySheriff(),
+
+                lostByBlackSeriesPlayer.getId(),
+                lostByBlackSeriesPlayer.getGender(),
+                lostByBlackSeriesPlayer.getCustomNickname(),
+                lostByBlackSeries.getSuccessivelyLostByBlack(),
+
+                lostByDonSeriesPlayer.getId(),
+                lostByDonSeriesPlayer.getGender(),
+                lostByDonSeriesPlayer.getCustomNickname(),
+                lostByDonSeries.getSuccessivelyLostByDon(),
 
                 topGamesTable,
                 topRatingTable
