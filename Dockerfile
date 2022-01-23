@@ -27,6 +27,6 @@ RUN gradle build
 CMD [ \
     "java", \
     "-jar", \
-    "build/libs/MafiaStatisticsAPI-0.0.1-SNAPSHOT.jar", \
+    "build/libs/MafiaStatisticsAPI-1.0.0-SNAPSHOT.jar", \
     "--spring.config.additional-location=classpath:application-prod.yml" \
 ]
