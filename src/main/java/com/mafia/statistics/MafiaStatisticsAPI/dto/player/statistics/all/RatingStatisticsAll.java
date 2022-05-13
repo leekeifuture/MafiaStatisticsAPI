@@ -1,5 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 
 import org.hibernate.Hibernate;
@@ -36,8 +37,10 @@ public class RatingStatisticsAll extends Statistics {
     private String nickname;
 
     @NonNull
+    @JsonFormat(pattern = "yyyy-MM", timezone = "Europe/Minsk")
     private Date fromDate;
     @NonNull
+    @JsonFormat(pattern = "yyyy-MM", timezone = "Europe/Minsk")
     private Date toDate;
 
     @NonNull
