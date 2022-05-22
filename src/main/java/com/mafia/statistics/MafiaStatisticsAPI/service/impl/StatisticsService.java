@@ -38,6 +38,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGame
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
+import com.mafia.statistics.MafiaStatisticsAPI.util.DateUtil;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
 
 import org.slf4j.Logger;
@@ -47,9 +48,12 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -290,6 +294,48 @@ public class StatisticsService implements IStatisticsService {
                 topGamesTable,
                 topRatingTable
         );
+    }
+
+    @Override
+    public Map<String, List<RatingStatisticsAll>> getRatingByMonths(Integer minGames) {
+        List<RatingStatisticsAll> ratingStatistics =
+                ratingStatisticsAllDao
+                        .findAllByIsActiveAndGamesTotalGreaterThanEqualOrderByPointsDesc(
+                                true, minGames
+                        );
+
+        Map<String, List<RatingStatisticsAll>> ratingByMonths = new HashMap<>();
+
+        ratingStatistics.forEach(rating -> {
+            LocalDate localDate = DateUtil.convertToLocalDate(rating.getFromDate());
+            String date = localDate.getYear() + "-" +
+                    String.format("%02d", localDate.getMonthValue());
+
+            if (ratingByMonths.containsKey(date)) {
+                ratingByMonths.get(date).add(rating);
+            } else {
+                ratingByMonths.put(date, new ArrayList<>(List.of(rating)));
+            }
+        });
+
+        return ratingByMonths
+                .entrySet()
+                .stream()
+                .sorted((dateOne, dateTwo) ->
+                        dateTwo.getKey().compareTo(dateOne.getKey()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new
+                ));
+    }
+
+    @Override
+    public List<RatingStatisticsAll> getRatingByOneMonth(Integer minGames, Date date) {
+        return ratingStatisticsAllDao
+                .findAllByIsActiveAndGamesTotalGreaterThanEqualAndFromDateOrderByPointsDesc(
+                        true, minGames, date
+                );
     }
 
     // Save statistics

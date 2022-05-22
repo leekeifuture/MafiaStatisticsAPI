@@ -6,7 +6,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # install os dependencies
 RUN apt update
-RUN apt install -y wget unzip openjdk-11-jdk
+RUN apt install -y wget unzip tzdata openjdk-11-jdk
+
+# configure timezone
+ENV TZ="Europe/Minsk"
 
 # install gradle
 ENV GRADLE_VERSION=7.3

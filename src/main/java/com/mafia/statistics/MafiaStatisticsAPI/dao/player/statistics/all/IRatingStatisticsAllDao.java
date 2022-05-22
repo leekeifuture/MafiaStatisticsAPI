@@ -7,12 +7,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface IRatingStatisticsAllDao extends JpaRepository<RatingStatisticsAll, Long> {
 
     List<RatingStatisticsAll> findAllByIsActive(Boolean isActive);
+
+    List<RatingStatisticsAll> findAllByIsActiveAndGamesTotalGreaterThanEqualOrderByPointsDesc(
+            Boolean isActive, Integer gamesTotal
+    );
+
+    List<RatingStatisticsAll> findAllByIsActiveAndGamesTotalGreaterThanEqualAndFromDateOrderByPointsDesc(
+            Boolean isActive, Integer gamesTotal, Date fromDate
+    );
 
     @Query("SELECT NEW RatingStatisticsDto(t.nickname, " +
             "      MIN(t.fromDate), " +
