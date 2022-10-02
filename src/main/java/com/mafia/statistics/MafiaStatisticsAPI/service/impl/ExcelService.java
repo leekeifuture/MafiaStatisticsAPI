@@ -10,6 +10,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IExcelService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -77,8 +77,10 @@ public class ExcelService implements IExcelService {
             MultipartFile multipartFile,
             StatisticsType statisticsType
     ) {
-        if (!Objects.requireNonNull(multipartFile.getContentType())
-                .split("\\.")[1].equals("xls")) {
+        String file_extension = FilenameUtils
+                .getExtension(multipartFile.getOriginalFilename());
+
+        if (!file_extension.equals("xls")) {
             throw new ResourceNotFoundException("File", "extension", ".xls");
         }
 
