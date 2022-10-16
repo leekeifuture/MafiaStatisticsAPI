@@ -1,6 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IExcelService;
 
 import org.springframework.http.MediaType;
@@ -22,12 +21,9 @@ public class UploadController {
     private final IExcelService excelService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping(value = "/excel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadExcel(
-            @RequestParam StatisticsType statisticsType,
-            @RequestParam MultipartFile file
-    ) {
-        excelService.uploadExcel(file, statisticsType);
+    @PostMapping(value = "/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadExcel(@RequestParam MultipartFile[] files) {
+        excelService.uploadExcelFiles(files);
         return ResponseEntity.ok("Successfully saved");
     }
 }

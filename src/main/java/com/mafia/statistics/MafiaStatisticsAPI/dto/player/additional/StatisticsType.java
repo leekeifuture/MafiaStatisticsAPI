@@ -13,7 +13,8 @@ public enum StatisticsType {
     ROLES_HISTORY("roles_history"),
     VISITING("visiting"),
     GAMES_PER_NUMBER("games_per_number"),
-    SERIALITY("seriality");
+    SERIALITY("seriality"),
+    UNKNOWN("unknown");
 
     private final String statisticsType;
 }
