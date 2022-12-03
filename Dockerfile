@@ -5,7 +5,7 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 # install os dependencies
-RUN apt update
+RUN apt update --fix-missing
 RUN apt install -y wget unzip tzdata openjdk-11-jdk
 
 # configure timezone
