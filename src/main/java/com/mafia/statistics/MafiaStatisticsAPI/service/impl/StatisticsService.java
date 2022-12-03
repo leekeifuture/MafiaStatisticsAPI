@@ -371,6 +371,31 @@ public class StatisticsService implements IStatisticsService {
         }
     }
 
+    @Override
+    public StatisticsType getStatisticsTypeOfFile(
+            Map<Integer, List<String>> table
+    ) {
+        String table_header = table.get(3).get(2).isEmpty()
+                ? table.get(3).get(1)
+                : table.get(3).get(2);
+
+        if (table.get(5).get(3).contains("отстрел")) {
+            return StatisticsType.GAMES_PER_NUMBER;
+        } else if (table_header.contains("номерам")) {
+            return StatisticsType.NUMBERS;
+        } else if (table_header.contains("мафам")) {
+            return StatisticsType.COUPLE;
+        } else if (table_header.contains("Рейтинговая")) {
+            return StatisticsType.RATING;
+        } else if (table_header.contains("посещениям")) {
+            return StatisticsType.VISITING;
+        } else if (table_header.contains("серийности")) {
+            return StatisticsType.SERIALITY;
+        } else {
+            return StatisticsType.UNKNOWN;
+        }
+    }
+
     private void saveNumbersStatistics(List<Statistics> numbersStatistics) {
         logger.info("Saving numbers statistics...");
 

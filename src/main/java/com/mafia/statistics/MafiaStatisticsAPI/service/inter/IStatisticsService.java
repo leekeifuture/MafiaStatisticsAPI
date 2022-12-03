@@ -20,4 +20,6 @@ public interface IStatisticsService {
     List<Statistics> parseStatistics(Map<Integer, List<String>> table, StatisticsType statisticsType);
 
     void saveStatistics(List<Statistics> statistics);
+
+    StatisticsType getStatisticsTypeOfFile(Map<Integer, List<String>> table);
 }
