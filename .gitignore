@@ -6,6 +6,11 @@ node_modules/
 .pnp.js
 #.env
 
+### AWS SAM ###
+.aws-sam/
+packaged.yaml
+*.db
+
 ### Default ignored files ###
 workspace.xml
 
