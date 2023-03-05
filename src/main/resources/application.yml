@@ -47,6 +47,9 @@ app:
     folder: ../MafiaStatisticsFiles/statistics
     s3: mafia-statistics-files
 
+hostService:
+  baseUrl: ${hostServiceBaseUrl}
+
 server.error.include-message: always
 
 aws.secretsmanager.region: eu-central-1

@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface IHostService {
 
-    Game createGame();
-
-    Game updateGame();
-
-    List<Game> getGameById(Long id);
+    Game getGameById(Long id);
 
     List<Game> getAllGames();
+
+    Game createGame(Game game);
+
+    Game updateGame(Long id, Game game);
+
+    void deleteGame(Long id);
 }

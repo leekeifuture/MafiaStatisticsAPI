@@ -5,6 +5,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundExcepti
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,8 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @RequiredArgsConstructor
 public class HostService implements IHostService {
 
+    @Value("${hostService.url}")
+    private String hostServiceUrl;
+
     private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://localhost:8000")
+            .baseUrl(hostServiceUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -29,10 +33,10 @@ public class HostService implements IHostService {
             retrofit.create(IHostServiceApi.class);
 
     @Override
-    public List<Game> getGameById(Long id) {
-        Call<List<Game>> retrofitCall = hostServiceApi.getGameById(id);
+    public Game getGameById(Long id) {
+        Call<Game> retrofitCall = hostServiceApi.getGameById(id);
 
-        Response<List<Game>> response;
+        Response<Game> response;
         try {
             response = retrofitCall.execute();
         } catch (IOException e) {
@@ -44,16 +48,54 @@ public class HostService implements IHostService {
 
     @Override
     public List<Game> getAllGames() {
-        return null;
+        Call<List<Game>> retrofitCall = hostServiceApi.getAllGames();
+
+        Response<List<Game>> response;
+        try {
+            response = retrofitCall.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return response.body();
     }
 
     @Override
-    public Game createGame() {
-        return null;
+    public Game createGame(Game game) {
+        Call<Game> retrofitCall = hostServiceApi.createGame(game);
+
+        Response<Game> response;
+        try {
+            response = retrofitCall.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return response.body();
     }
 
     @Override
-    public Game updateGame() {
-        return null;
+    public Game updateGame(Long id, Game game) {
+        Call<Game> retrofitCall = hostServiceApi.updateGame(id, game);
+
+        Response<Game> response;
+        try {
+            response = retrofitCall.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return response.body();
+    }
+
+    @Override
+    public void deleteGame(Long id) {
+        Call<Game> retrofitCall = hostServiceApi.deleteGame(id);
+
+        try {
+            retrofitCall.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class HostController {
     private final IHostService hostService;
 
     @GetMapping("/{id}")
-    public Object getGameById(@PathVariable Long id) {
+    public Game getGameById(@PathVariable Long id) {
         return hostService.getGameById(id);
     }
 
@@ -32,12 +33,12 @@ public class HostController {
     }
 
     @PostMapping("/create")
-    public Game createGame() {
-        return hostService.createGame();
+    public Game createGame(Game game) {
+        return hostService.createGame(game);
     }
 
-    @PutMapping("/update")
-    public Game updateGame() {
-        return hostService.updateGame();
+    @PutMapping("/update/{id}")
+    public Game updateGame(@PathVariable Long id, @RequestBody Game game) {
+        return hostService.updateGame(id, game);
     }
 }
