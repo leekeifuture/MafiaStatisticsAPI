@@ -21,20 +21,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @RequiredArgsConstructor
 public class HostService implements IHostService {
 
-    @Value("${hostService.baseUrl}")
-    private String hostServiceUrl;
+    @Value("${app.hostService.baseUrl}")
+    private static String hostServiceUrl;
 
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(hostServiceUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    private final IHostServiceApi hostServiceApi =
-            retrofit.create(IHostServiceApi.class);
+    private static IHostServiceApi getHostServiceApi() {
+        return new Retrofit.Builder()
+                .baseUrl(hostServiceUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(IHostServiceApi.class);
+    }
 
     @Override
     public Game getGameById(Long id) {
-        Call<Game> retrofitCall = hostServiceApi.getGameById(id);
+        Call<Game> retrofitCall = getHostServiceApi().getGameById(id);
 
         Response<Game> response;
         try {
@@ -48,7 +48,7 @@ public class HostService implements IHostService {
 
     @Override
     public List<Game> getAllGames() {
-        Call<List<Game>> retrofitCall = hostServiceApi.getAllGames();
+        Call<List<Game>> retrofitCall = getHostServiceApi().getAllGames();
 
         Response<List<Game>> response;
         try {
@@ -62,7 +62,7 @@ public class HostService implements IHostService {
 
     @Override
     public Game createGame(Game game) {
-        Call<Game> retrofitCall = hostServiceApi.createGame(game);
+        Call<Game> retrofitCall = getHostServiceApi().createGame(game);
 
         Response<Game> response;
         try {
@@ -76,7 +76,7 @@ public class HostService implements IHostService {
 
     @Override
     public Game updateGame(Long id, Game game) {
-        Call<Game> retrofitCall = hostServiceApi.updateGame(id, game);
+        Call<Game> retrofitCall = getHostServiceApi().updateGame(id, game);
 
         Response<Game> response;
         try {
@@ -90,7 +90,7 @@ public class HostService implements IHostService {
 
     @Override
     public void deleteGame(Long id) {
-        Call<Game> retrofitCall = hostServiceApi.deleteGame(id);
+        Call<Game> retrofitCall = getHostServiceApi().deleteGame(id);
 
         try {
             retrofitCall.execute();

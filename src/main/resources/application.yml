@@ -46,9 +46,8 @@ app:
   statistics.path:
     folder: ../MafiaStatisticsFiles/statistics
     s3: mafia-statistics-files
-
-hostService:
-  baseUrl: ${hostServiceBaseUrl}
+  hostService:
+    baseUrl: ${hostServiceBaseUrl}
 
 server.error.include-message: always
 
