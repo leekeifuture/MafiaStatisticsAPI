@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @RequiredArgsConstructor
 public class HostService implements IHostService {
 
-    @Value("${hostService.url}")
+    @Value("${hostService.baseUrl}")
     private String hostServiceUrl;
 
     private final Retrofit retrofit = new Retrofit.Builder()
