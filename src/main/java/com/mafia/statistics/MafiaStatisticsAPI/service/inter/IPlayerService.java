@@ -17,6 +17,4 @@ public interface IPlayerService {
     PlayerDto getPlayerById(Long id);
 
     PlayerDto getPlayerByNickname(String nickname);
-
-    PlayerDto getPlayer(PlayerDto player);
 }

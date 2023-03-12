@@ -101,8 +101,7 @@ public class PlayerService implements IPlayerService {
         return getPlayer(player);
     }
 
-    @Override
-    public PlayerDto getPlayer(PlayerDto player) {
+    private PlayerDto getPlayer(PlayerDto player) {
         if (player.getVkId() != null) {
             if (player.getPhotoUrl() == null || player.getPhotoUrl().equals("")) {
                 String vkPhoto = vkService.getPhotoByUserId(player.getVkId());
