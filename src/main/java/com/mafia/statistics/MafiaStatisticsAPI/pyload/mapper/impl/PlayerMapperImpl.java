@@ -40,28 +40,41 @@ public class PlayerMapperImpl implements IPlayerMapper {
                 .stream().map(role -> Role.valueOf(role.getName()))
                 .collect(Collectors.toSet());
 
+        Player player = dtoToPlayerMin(playerDto);
+
+        player.setPhotoUrl(playerDto.getPhotoUrl());
+        player.setRoles(playerRoles);
+
+        player.setNumbersStatistics(numbersStatisticsMapper
+                .dtoToNumbersStatistics(playerDto.getNumbersStatistics()));
+        player.setCoupleStatistics(coupleStatisticsMapper
+                .dtoToCoupleStatistics(
+                        playerDto.getCoupleStatistics(),
+                        playerDto.getNickname()
+                ));
+        player.setRatingStatistics(ratingStatisticsMapper
+                .dtoToRatingStatistics(playerDto.getRatingStatistics()));
+        player.setRolesHistoryStatistics(rolesHistoryStatisticsMapper
+                .dtoToRolesHistoryStatistics(playerDto.getRolesHistoryStatistics()));
+        player.setVisitingStatistics(visitingStatisticsMapper
+                .dtoToVisitingStatistics(playerDto.getVisitingStatistics()));
+        player.setSerialityStatistics(serialityStatisticsMapper
+                .dtoToSerialityStatistics(playerDto.getSerialityStatistics()));
+
+        return player;
+    }
+
+    @Override
+    public Player dtoToPlayerMin(PlayerDto playerDto) {
+        if (playerDto == null) {
+            return null;
+        }
+
         return new Player(
                 playerDto.getId(),
                 playerDto.getCustomNickname(),
                 playerDto.getGamesTotal(),
-                playerDto.getGender(),
-                playerDto.getPhotoUrl(),
-                playerRoles,
-                numbersStatisticsMapper
-                        .dtoToNumbersStatistics(playerDto.getNumbersStatistics()),
-                coupleStatisticsMapper
-                        .dtoToCoupleStatistics(
-                                playerDto.getCoupleStatistics(),
-                                playerDto.getNickname()
-                        ),
-                ratingStatisticsMapper
-                        .dtoToRatingStatistics(playerDto.getRatingStatistics()),
-                rolesHistoryStatisticsMapper
-                        .dtoToRolesHistoryStatistics(playerDto.getRolesHistoryStatistics()),
-                visitingStatisticsMapper
-                        .dtoToVisitingStatistics(playerDto.getVisitingStatistics()),
-                serialityStatisticsMapper
-                        .dtoToSerialityStatistics(playerDto.getSerialityStatistics())
+                playerDto.getGender()
         );
     }
 }

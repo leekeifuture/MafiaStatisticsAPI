@@ -9,4 +9,6 @@ import org.mapstruct.Mapper;
 public interface IPlayerMapper {
 
     Player dtoToPlayer(PlayerDto playerDto);
+
+    Player dtoToPlayerMin(PlayerDto playerDto);
 }

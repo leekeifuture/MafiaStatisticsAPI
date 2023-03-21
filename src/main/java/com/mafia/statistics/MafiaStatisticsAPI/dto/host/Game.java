@@ -1,5 +1,10 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
+
 import java.util.List;
 
 import lombok.Getter;
@@ -13,7 +18,9 @@ public class Game {
 
     private Long id;
 
-    private Long hostId;
+    @SerializedName("hostId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player host;
 
     private Integer number;
 
@@ -29,13 +36,13 @@ public class Game {
 
     private String note;
 
-    private Integer blackPlayerOneId;
-    private Integer blackPlayerTwoId;
-    private Integer donPlayerId;
-    private Integer sheriffPlayerId;
-    private Integer firstShootPlayerId;
+    private Long blackPlayerOneId;
+    private Long blackPlayerTwoId;
+    private Long donPlayerId;
+    private Long sheriffPlayerId;
+    private Long firstShootPlayerId;
 
-    private List<List<Integer>> players;
+    private List<List<Long>> players;
 
     private List<List<Float>> bestPlayers;
 
