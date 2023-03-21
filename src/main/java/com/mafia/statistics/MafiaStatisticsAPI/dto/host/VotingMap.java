@@ -1,7 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,11 +7,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Day {
+public class VotingMap {
 
-    private Long gameId;
+    private Long playerId;
 
-    private Integer number;
+    private Long whoPutToVoteId;
 
-    private List<VotingMap> votingMap;
+    private Integer firstVoteCount;
+
+    private Integer secondVoteCount;
 }

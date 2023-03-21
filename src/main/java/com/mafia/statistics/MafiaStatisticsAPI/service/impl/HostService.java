@@ -1,7 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.GsonBuilder;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
@@ -28,14 +26,7 @@ public class HostService implements IHostService {
     ) {
         this.hostServiceApi = new Retrofit.Builder()
                 .baseUrl(hostServiceBaseUrl)
-                .addConverterFactory(
-                        GsonConverterFactory.create(
-                                new GsonBuilder()
-                                        .setFieldNamingPolicy(FieldNamingPolicy
-                                                .LOWER_CASE_WITH_UNDERSCORES)
-                                        .create()
-                        )
-                )
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(IHostServiceApi.class);
     }

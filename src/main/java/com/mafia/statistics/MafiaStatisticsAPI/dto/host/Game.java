@@ -31,13 +31,13 @@ public class Game {
 
     private Integer blackPlayerOneId;
     private Integer blackPlayerTwoId;
-    private Integer donPlyerId;
+    private Integer donPlayerId;
     private Integer sheriffPlayerId;
     private Integer firstShootPlayerId;
 
     private List<List<Integer>> players;
 
-    private List<List<Float>> best_players;
+    private List<List<Float>> bestPlayers;
 
     private List<Day> days;
 
