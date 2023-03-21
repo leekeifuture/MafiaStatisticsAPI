@@ -1,5 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.pyload.player;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.additional.Role;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.CoupleStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.NumbersStatistics;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Player {
 
     @NonNull
