@@ -36,11 +36,21 @@ public class Game {
 
     private String note;
 
-    private Long blackPlayerOneId;
-    private Long blackPlayerTwoId;
-    private Long donPlayerId;
-    private Long sheriffPlayerId;
-    private Long firstShootPlayerId;
+    @SerializedName("blackPlayerOneId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player blackPlayerOne;
+    @SerializedName("blackPlayerTwoId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player blackPlayerTwo;
+    @SerializedName("donPlayerId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player donPlayer;
+    @SerializedName("sheriffPlayerId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player sheriffPlayer;
+    @SerializedName("firstShootPlayerId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player firstShootPlayer;
 
     private List<List<Long>> players;
 
