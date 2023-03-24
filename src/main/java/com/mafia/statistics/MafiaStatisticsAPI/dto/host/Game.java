@@ -2,7 +2,9 @@ package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.BestPlayersJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayersJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 
 import java.util.List;
@@ -52,9 +54,11 @@ public class Game {
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player firstShootPlayer;
 
-    private List<List<Long>> players;
+    @JsonAdapter(PlayersJsonAdapter.class)
+    private List<GamePlayer> players;
 
-    private List<List<Float>> bestPlayers;
+    @JsonAdapter(BestPlayersJsonAdapter.class)
+    private List<BestPlayer> bestPlayers;
 
     private List<Day> days;
 

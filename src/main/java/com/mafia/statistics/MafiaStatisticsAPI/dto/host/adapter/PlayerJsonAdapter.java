@@ -26,13 +26,20 @@ public class PlayerJsonAdapter implements JsonDeserializer<Player> {
             Type typeOfT,
             JsonDeserializationContext context
     ) throws JsonParseException {
-        ApplicationContext appCtx = ApplicationContextUtils.getApplicationContext();
+        return getPlayerById(json.getAsLong());
+    }
 
-        IPlayerService playerService = appCtx.getBean("playerService", IPlayerService.class);
-        IPlayerMapper playerMapper = appCtx.getBean("playerMapperImpl", IPlayerMapper.class);
+    static Player getPlayerById(Long id) {
+        ApplicationContext appCtx = ApplicationContextUtils
+                .getApplicationContext();
+
+        IPlayerService playerService = appCtx
+                .getBean("playerService", IPlayerService.class);
+        IPlayerMapper playerMapper = appCtx
+                .getBean("playerMapperImpl", IPlayerMapper.class);
 
         return playerMapper.dtoToPlayerMin(
-                playerService.getPlayerById(json.getAsLong())
+                playerService.getPlayerById(id)
         );
     }
 }

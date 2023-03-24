@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum GameStatus {
 
-    IN_PROGRESS("in_progress"),
-    COMPLETED("completed");
+    IN_PROGRESS("IN_PROGRESS"),
+    COMPLETED("COMPLETED");
 
     private final String gameStatus;
 }

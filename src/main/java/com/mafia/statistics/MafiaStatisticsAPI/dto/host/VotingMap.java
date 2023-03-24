@@ -1,5 +1,10 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +14,13 @@ import lombok.ToString;
 @ToString
 public class VotingMap {
 
-    private Long playerId;
+    @SerializedName("playerId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player player;
 
-    private Long whoPutToVoteId;
+    @SerializedName("whoPutToVoteId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player whoPutToVote;
 
     private Integer firstVoteCount;
 
