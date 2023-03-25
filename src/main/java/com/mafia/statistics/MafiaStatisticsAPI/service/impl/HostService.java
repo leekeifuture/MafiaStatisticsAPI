@@ -1,6 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.BadRequestException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
+import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -45,6 +47,7 @@ public class HostService implements IHostService {
         return response.body();
     }
 
+    @SneakyThrows
     @Override
     public List<Game> getAllGames() {
         Call<List<Game>> retrofitCall = hostServiceApi.getAllGames();
@@ -56,9 +59,14 @@ public class HostService implements IHostService {
             throw new RuntimeException(e);
         }
 
+        if (response.code() == 400) {
+            throw new BadRequestException(response.errorBody().string());
+        }
+
         return response.body();
     }
 
+    @SneakyThrows
     @Override
     public Game createGame(Game game) {
         Call<Game> retrofitCall = hostServiceApi.createGame(game);
@@ -70,9 +78,14 @@ public class HostService implements IHostService {
             throw new RuntimeException(e);
         }
 
+        if (response.code() == 400) {
+            throw new BadRequestException(response.errorBody().string());
+        }
+
         return response.body();
     }
 
+    @SneakyThrows
     @Override
     public Game updateGame(Long id, Game game) {
         Call<Game> retrofitCall = hostServiceApi.updateGame(id, game);
@@ -84,17 +97,27 @@ public class HostService implements IHostService {
             throw new RuntimeException(e);
         }
 
+        if (response.code() == 400) {
+            throw new BadRequestException(response.errorBody().string());
+        }
+
         return response.body();
     }
 
+    @SneakyThrows
     @Override
     public void deleteGame(Long id) {
-        Call<Game> retrofitCall = hostServiceApi.deleteGame(id);
+        Call<Object> retrofitCall = hostServiceApi.deleteGame(id);
 
+        Response<Object> response;
         try {
-            retrofitCall.execute();
+            response = retrofitCall.execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        if (response.code() == 400) {
+            throw new BadRequestException(response.errorBody().string());
         }
     }
 }
