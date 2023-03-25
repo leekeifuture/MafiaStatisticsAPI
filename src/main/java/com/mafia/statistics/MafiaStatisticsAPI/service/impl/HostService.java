@@ -9,7 +9,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 import lombok.SneakyThrows;
@@ -33,14 +32,15 @@ public class HostService implements IHostService {
                 .create(IHostServiceApi.class);
     }
 
+    @SneakyThrows
     @Override
     public Game getGameById(Long id) {
         Call<Game> retrofitCall = hostServiceApi.getGameById(id);
+        Response<Game> response = retrofitCall.execute();
 
-        Response<Game> response;
-        try {
-            response = retrofitCall.execute();
-        } catch (IOException e) {
+        if (response.code() == 400) {
+            throw new BadRequestException(response.errorBody().string());
+        } else if (response.code() == 404) {
             throw new ResourceNotFoundException("Game", "id", id);
         }
 
@@ -51,13 +51,7 @@ public class HostService implements IHostService {
     @Override
     public List<Game> getAllGames() {
         Call<List<Game>> retrofitCall = hostServiceApi.getAllGames();
-
-        Response<List<Game>> response;
-        try {
-            response = retrofitCall.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Response<List<Game>> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
@@ -70,13 +64,7 @@ public class HostService implements IHostService {
     @Override
     public Game createGame(Game game) {
         Call<Game> retrofitCall = hostServiceApi.createGame(game);
-
-        Response<Game> response;
-        try {
-            response = retrofitCall.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Response<Game> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
@@ -89,16 +77,12 @@ public class HostService implements IHostService {
     @Override
     public Game updateGame(Long id, Game game) {
         Call<Game> retrofitCall = hostServiceApi.updateGame(id, game);
-
-        Response<Game> response;
-        try {
-            response = retrofitCall.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Response<Game> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
+        } else if (response.code() == 404) {
+            throw new ResourceNotFoundException("Game", "id", id);
         }
 
         return response.body();
@@ -108,16 +92,12 @@ public class HostService implements IHostService {
     @Override
     public void deleteGame(Long id) {
         Call<Object> retrofitCall = hostServiceApi.deleteGame(id);
-
-        Response<Object> response;
-        try {
-            response = retrofitCall.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Response<Object> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
+        } else if (response.code() == 404) {
+            throw new ResourceNotFoundException("Game", "id", id);
         }
     }
 }
