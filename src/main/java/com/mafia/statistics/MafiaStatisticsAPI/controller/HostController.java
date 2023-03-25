@@ -35,7 +35,7 @@ public class HostController {
     }
 
     @PostMapping("/create")
-    public Game createGame(Game game) {
+    public Game createGame(@RequestBody Game game) {
         return hostService.createGame(game);
     }
 

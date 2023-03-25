@@ -4,22 +4,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.GamePlayer;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
-
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
+import static com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.AdapterUtil.getPlayerById;
 
-import static com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter.getPlayerById;
-
-@Component
-@RequiredArgsConstructor
 public class PlayersJsonAdapter implements JsonDeserializer<List<GamePlayer>> {
 
     @Override
@@ -31,10 +26,24 @@ public class PlayersJsonAdapter implements JsonDeserializer<List<GamePlayer>> {
         List<GamePlayer> gamePlayers = new ArrayList<>();
 
         json.getAsJsonArray().forEach(playerJsonObject -> {
-            JsonArray gamePlayerJsonArray = playerJsonObject.getAsJsonArray();
+            Player player = null;
+            Integer foulsCount = null;
 
-            Player player = getPlayerById(gamePlayerJsonArray.get(0).getAsLong());
-            Integer foulsCount = gamePlayerJsonArray.get(1).getAsInt();
+            if (playerJsonObject instanceof JsonObject) {
+                JsonObject gamePlayerJsonObject = playerJsonObject.getAsJsonObject();
+
+                player = getPlayerById(
+                        gamePlayerJsonObject
+                                .get("player").getAsJsonObject()
+                                .get("id").getAsLong()
+                );
+                foulsCount = gamePlayerJsonObject.get("foulsCount").getAsInt();
+            } else if (playerJsonObject instanceof JsonArray) {
+                JsonArray gamePlayerJsonArray = playerJsonObject.getAsJsonArray();
+
+                player = getPlayerById(gamePlayerJsonArray.get(0).getAsLong());
+                foulsCount = gamePlayerJsonArray.get(1).getAsInt();
+            }
 
             GamePlayer gamePlayer = new GamePlayer(player, foulsCount);
             gamePlayers.add(gamePlayer);

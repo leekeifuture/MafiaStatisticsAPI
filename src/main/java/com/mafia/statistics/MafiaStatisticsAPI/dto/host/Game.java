@@ -20,7 +20,7 @@ public class Game {
 
     private Long id;
 
-    @SerializedName("hostId")
+    @SerializedName(value = "hostId", alternate = "host")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player host;
 
@@ -38,19 +38,19 @@ public class Game {
 
     private String note;
 
-    @SerializedName("blackPlayerOneId")
+    @SerializedName(value = "blackPlayerOneId", alternate = "blackPlayerOne")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player blackPlayerOne;
-    @SerializedName("blackPlayerTwoId")
+    @SerializedName(value = "blackPlayerTwoId", alternate = "blackPlayerTwo")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player blackPlayerTwo;
-    @SerializedName("donPlayerId")
+    @SerializedName(value = "donPlayerId", alternate = "donPlayer")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player donPlayer;
-    @SerializedName("sheriffPlayerId")
+    @SerializedName(value = "sheriffPlayerId", alternate = "sheriffPlayer")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player sheriffPlayer;
-    @SerializedName("firstShootPlayerId")
+    @SerializedName(value = "firstShootPlayerId", alternate = "firstShootPlayer")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player firstShootPlayer;
 
