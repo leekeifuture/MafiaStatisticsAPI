@@ -1,5 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.BestPlayersJsonAdapter;
@@ -16,6 +17,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Game {
 
     private Long id;
