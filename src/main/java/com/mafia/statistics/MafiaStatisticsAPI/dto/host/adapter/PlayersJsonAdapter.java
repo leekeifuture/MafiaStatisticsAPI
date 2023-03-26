@@ -20,7 +20,11 @@ import static com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.AdapterUt
 public class PlayersJsonAdapter implements JsonSerializer<List<GamePlayer>>, JsonDeserializer<List<GamePlayer>> {
 
     @Override
-    public JsonElement serialize(List<GamePlayer> src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(
+            List<GamePlayer> src,
+            Type typeOfSrc,
+            JsonSerializationContext context
+    ) {
         return context.serialize(src);
     }
 
