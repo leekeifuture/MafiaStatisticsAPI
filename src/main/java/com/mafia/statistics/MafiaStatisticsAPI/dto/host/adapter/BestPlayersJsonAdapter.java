@@ -6,6 +6,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.BestPlayer;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 
@@ -15,7 +17,12 @@ import java.util.List;
 
 import static com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.AdapterUtil.getPlayerById;
 
-public class BestPlayersJsonAdapter implements JsonDeserializer<List<BestPlayer>> {
+public class BestPlayersJsonAdapter implements JsonSerializer<List<BestPlayer>>, JsonDeserializer<List<BestPlayer>> {
+
+    @Override
+    public JsonElement serialize(List<BestPlayer> src, Type typeOfSrc, JsonSerializationContext context) {
+        return context.serialize(src);
+    }
 
     @Override
     public List<BestPlayer> deserialize(
