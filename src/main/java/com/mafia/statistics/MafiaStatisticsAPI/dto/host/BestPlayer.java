@@ -15,5 +15,5 @@ public class BestPlayer {
 
     private Player player;
 
-    private Integer additionalPoints;
+    private Float additionalPoints;
 }

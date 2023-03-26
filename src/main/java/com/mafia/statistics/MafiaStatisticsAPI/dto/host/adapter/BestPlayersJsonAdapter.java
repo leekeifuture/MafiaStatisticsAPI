@@ -34,7 +34,7 @@ public class BestPlayersJsonAdapter implements JsonSerializer<List<BestPlayer>>,
 
         json.getAsJsonArray().forEach(playerJsonObject -> {
             Player player = null;
-            Integer additionalPoints = null;
+            Float additionalPoints = null;
 
             if (playerJsonObject instanceof JsonObject) {
                 JsonObject gamePlayerJsonObject = playerJsonObject.getAsJsonObject();
@@ -44,12 +44,13 @@ public class BestPlayersJsonAdapter implements JsonSerializer<List<BestPlayer>>,
                                 .get("player").getAsJsonObject()
                                 .get("id").getAsLong()
                 );
-                additionalPoints = gamePlayerJsonObject.get("additionalPoints").getAsInt();
+                additionalPoints = gamePlayerJsonObject
+                        .get("additionalPoints").getAsFloat();
             } else if (playerJsonObject instanceof JsonArray) {
                 JsonArray gamePlayerJsonArray = playerJsonObject.getAsJsonArray();
 
                 player = getPlayerById(gamePlayerJsonArray.get(0).getAsLong());
-                additionalPoints = gamePlayerJsonArray.get(1).getAsInt();
+                additionalPoints = gamePlayerJsonArray.get(1).getAsFloat();
             }
 
             BestPlayer gamePlayer = new BestPlayer(player, additionalPoints);
