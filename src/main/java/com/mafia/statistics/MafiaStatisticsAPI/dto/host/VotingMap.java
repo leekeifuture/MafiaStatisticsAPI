@@ -14,11 +14,11 @@ import lombok.ToString;
 @ToString
 public class VotingMap {
 
-    @SerializedName("playerId")
+    @SerializedName(value = "player", alternate = "playerId")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player player;
 
-    @SerializedName("whoPutToVoteId")
+    @SerializedName(value = "whoPutToVote", alternate = "whoPutToVoteId")
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player whoPutToVote;
 
