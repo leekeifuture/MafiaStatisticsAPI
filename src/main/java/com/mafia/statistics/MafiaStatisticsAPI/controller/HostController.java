@@ -6,9 +6,9 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +34,12 @@ public class HostController {
         return hostService.getAllGames();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public Game createGame(@RequestBody Game game) {
         return hostService.createGame(game);
     }
 
-    @PutMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public Game updateGame(@PathVariable Long id, @RequestBody Game game) {
         return hostService.updateGame(id, game);
     }
