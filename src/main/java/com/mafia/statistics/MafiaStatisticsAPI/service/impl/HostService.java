@@ -97,8 +97,8 @@ public class HostService implements IHostService {
     @SneakyThrows
     @Override
     public void deleteGame(Long id) {
-        Call<Object> retrofitCall = hostServiceApi.deleteGame(id);
-        Response<Object> response = retrofitCall.execute();
+        Call<Void> retrofitCall = hostServiceApi.deleteGame(id);
+        Response<Void> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());

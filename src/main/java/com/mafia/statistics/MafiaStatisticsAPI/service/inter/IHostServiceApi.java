@@ -27,5 +27,5 @@ public interface IHostServiceApi {
     Call<Game> updateGame(@Path("id") Long id, @Body Game game);
 
     @DELETE("/game/{id}")
-    Call<Object> deleteGame(@Path("id") Long id);
+    Call<Void> deleteGame(@Path("id") Long id);
 }
