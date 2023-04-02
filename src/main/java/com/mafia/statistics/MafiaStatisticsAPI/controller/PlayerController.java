@@ -39,8 +39,13 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
-    public Player getPlayerById(@PathVariable Long id) {
-        return playerMapper.dtoToPlayer(playerService.getPlayerById(id));
+    public Player getPlayerById(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "false") Boolean isMinInfo
+    ) {
+        return isMinInfo
+                ? playerMapper.dtoToPlayerMin(playerService.getPlayerById(id))
+                : playerMapper.dtoToPlayer(playerService.getPlayerById(id));
     }
 
     @GetMapping("/search")
