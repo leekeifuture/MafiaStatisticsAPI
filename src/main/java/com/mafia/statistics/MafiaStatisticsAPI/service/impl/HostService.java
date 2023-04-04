@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.GameJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.BadRequestException;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
@@ -48,6 +49,8 @@ public class HostService implements IHostService {
             throw new BadRequestException(response.errorBody().string());
         } else if (response.code() == 404) {
             throw new ResourceNotFoundException("Game", "id", id);
+        } else if (response.code() == 500) {
+            throw new InternalServerException(response.errorBody().string());
         }
 
         return response.body();
@@ -74,6 +77,8 @@ public class HostService implements IHostService {
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
+        } else if (response.code() == 500) {
+            throw new InternalServerException(response.errorBody().string());
         }
 
         return response.body();
@@ -89,6 +94,8 @@ public class HostService implements IHostService {
             throw new BadRequestException(response.errorBody().string());
         } else if (response.code() == 404) {
             throw new ResourceNotFoundException("Game", "id", id);
+        } else if (response.code() == 500) {
+            throw new InternalServerException(response.errorBody().string());
         }
 
         return response.body();
@@ -104,6 +111,8 @@ public class HostService implements IHostService {
             throw new BadRequestException(response.errorBody().string());
         } else if (response.code() == 404) {
             throw new ResourceNotFoundException("Game", "id", id);
+        } else if (response.code() == 500) {
+            throw new InternalServerException(response.errorBody().string());
         }
     }
 }
