@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,8 +31,11 @@ public class HostController {
     }
 
     @GetMapping
-    public List<Game> getAllGames() {
-        return hostService.getAllGames();
+    public List<Game> getAllGames(
+            @RequestParam(defaultValue = "10") Integer limit,
+            @RequestParam(defaultValue = "1") Integer page
+    ) {
+        return hostService.getAllGames(limit, page);
     }
 
     @PostMapping

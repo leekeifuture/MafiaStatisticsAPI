@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IHostServiceApi {
 
@@ -18,7 +19,7 @@ public interface IHostServiceApi {
     Call<Game> getGameById(@Path("id") Long id);
 
     @GET("/game")
-    Call<List<Game>> getAllGames();
+    Call<List<Game>> getAllGames(@Query("limit") Integer limit, @Query("page") Integer page);
 
     @POST("/game")
     Call<Game> createGame(@Body Game game);

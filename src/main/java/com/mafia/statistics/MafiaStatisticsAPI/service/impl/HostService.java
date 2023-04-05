@@ -58,8 +58,8 @@ public class HostService implements IHostService {
 
     @SneakyThrows
     @Override
-    public List<Game> getAllGames() {
-        Call<List<Game>> retrofitCall = hostServiceApi.getAllGames();
+    public List<Game> getAllGames(Integer limit, Integer page) {
+        Call<List<Game>> retrofitCall = hostServiceApi.getAllGames(limit, page);
         Response<List<Game>> response = retrofitCall.execute();
 
         if (response.code() == 400) {

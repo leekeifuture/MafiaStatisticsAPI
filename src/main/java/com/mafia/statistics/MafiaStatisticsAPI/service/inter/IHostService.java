@@ -8,7 +8,7 @@ public interface IHostService {
 
     Game getGameById(Long id);
 
-    List<Game> getAllGames();
+    List<Game> getAllGames(Integer limit, Integer page);
 
     Game createGame(Game game);
 
