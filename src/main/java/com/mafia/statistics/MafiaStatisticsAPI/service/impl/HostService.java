@@ -64,6 +64,8 @@ public class HostService implements IHostService {
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());
+        } else if (response.code() == 500) {
+            throw new InternalServerException(response.errorBody().string());
         }
 
         return response.body();
