@@ -1,6 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.inter;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface IHostServiceApi {
     Call<Game> getGameById(@Path("id") Long id);
 
     @GET("/game")
-    Call<List<Game>> getAllGames(@Query("limit") Integer limit, @Query("page") Integer page);
+    Call<Games> getAllGames(@Query("limit") Integer limit, @Query("page") Integer page);
 
     @POST("/game")
     Call<Game> createGame(@Body Game game);

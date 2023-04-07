@@ -1,6 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class HostController {
     }
 
     @GetMapping
-    public List<Game> getAllGames(
+    public Games getAllGames(
             @RequestParam(defaultValue = "10") Integer limit,
             @RequestParam(defaultValue = "1") Integer page
     ) {

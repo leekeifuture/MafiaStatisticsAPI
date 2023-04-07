@@ -2,6 +2,8 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.google.gson.GsonBuilder;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.DateJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.GameJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.BadRequestException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
@@ -58,9 +60,9 @@ public class HostService implements IHostService {
 
     @SneakyThrows
     @Override
-    public List<Game> getAllGames(Integer limit, Integer page) {
-        Call<List<Game>> retrofitCall = hostServiceApi.getAllGames(limit, page);
-        Response<List<Game>> response = retrofitCall.execute();
+    public Games getAllGames(Integer limit, Integer page) {
+        Call<Games> retrofitCall = hostServiceApi.getAllGames(limit, page);
+        Response<Games> response = retrofitCall.execute();
 
         if (response.code() == 400) {
             throw new BadRequestException(response.errorBody().string());

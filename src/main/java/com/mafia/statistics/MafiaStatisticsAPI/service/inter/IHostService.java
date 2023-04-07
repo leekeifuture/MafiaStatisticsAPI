@@ -1,6 +1,7 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.inter;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public interface IHostService {
 
     Game getGameById(Long id);
 
-    List<Game> getAllGames(Integer limit, Integer page);
+    Games getAllGames(Integer limit, Integer page);
 
     Game createGame(Game game);
 
