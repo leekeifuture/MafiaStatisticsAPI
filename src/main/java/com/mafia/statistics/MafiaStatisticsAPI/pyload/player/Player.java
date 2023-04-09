@@ -51,4 +51,8 @@ public class Player {
     private VisitingStatistics visitingStatistics;
 
     private SerialityStatistics serialityStatistics;
+
+    public Player(@NonNull Long id) {
+        this.id = id;
+    }
 }

@@ -8,6 +8,8 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.GameJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.BadRequestException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
+import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
 
@@ -76,7 +78,9 @@ public class HostService implements IHostService {
 
     @SneakyThrows
     @Override
-    public Game createGame(Game game) {
+    public Game createGame(Game game, UserPrincipal userPrincipal) {
+        correctGame(game, userPrincipal);
+
         Call<Game> retrofitCall = hostServiceApi.createGame(game);
         Response<Game> response = retrofitCall.execute();
 
@@ -118,6 +122,23 @@ public class HostService implements IHostService {
             throw new ResourceNotFoundException("Game", "id", id);
         } else if (response.code() == 500) {
             throw new InternalServerException(response.errorBody().string());
+        }
+    }
+
+    private void correctGame(Game game, UserPrincipal userPrincipal) {
+        correctHost(game, userPrincipal);
+        correctNumber(game);
+    }
+
+    private static void correctHost(Game game, UserPrincipal userPrincipal) {
+        if (game.getHost() == null) {
+            game.setHost(new Player(userPrincipal.getId()));
+        }
+    }
+
+    private void correctNumber(Game game) {
+        if (game.getNumber() == null) {
+            game.setNumber(1); // TODO: mock
         }
     }
 }

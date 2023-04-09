@@ -2,9 +2,12 @@ package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
+import com.mafia.statistics.MafiaStatisticsAPI.security.CurrentUser;
+import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,9 +40,13 @@ public class HostController {
         return hostService.getAllGames(limit, page);
     }
 
+    @PreAuthorize("hasAuthority('HOST') || hasAuthority('ADMIN')")
     @PostMapping
-    public Game createGame(@RequestBody Game game) {
-        return hostService.createGame(game);
+    public Game createGame(
+            @RequestBody Game game,
+            @CurrentUser UserPrincipal userPrincipal
+    ) {
+        return hostService.createGame(game, userPrincipal);
     }
 
     @PatchMapping("/{id}")
