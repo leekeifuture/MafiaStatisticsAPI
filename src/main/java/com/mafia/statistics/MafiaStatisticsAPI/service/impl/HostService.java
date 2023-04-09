@@ -14,7 +14,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Date;
 
 import lombok.SneakyThrows;
 import retrofit2.Call;
@@ -35,6 +35,7 @@ public class HostService implements IHostService {
                 .addConverterFactory(GsonConverterFactory.create(
                         new GsonBuilder()
                                 .registerTypeAdapter(Game.class, new GameJsonAdapter())
+                                .registerTypeAdapter(Date.class, new DateJsonAdapter())
                                 .create()
                 ))
                 .build()

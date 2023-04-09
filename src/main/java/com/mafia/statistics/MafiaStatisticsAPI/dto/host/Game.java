@@ -8,6 +8,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapte
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayersJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -30,9 +31,8 @@ public class Game {
 
     private Integer[] bestMove;
 
-    private String startDatetime;
-
-    private String endDatetime;
+    private Date startDatetime;
+    private Date endDatetime;
 
     private GameStatus status;
 
@@ -66,6 +66,6 @@ public class Game {
 
     private Boolean isAggregated;
 
-    private String insertedAt;
-    private String updatedAt;
+    private Date insertedAt;
+    private Date updatedAt;
 }

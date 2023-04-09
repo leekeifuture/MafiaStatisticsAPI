@@ -31,7 +31,7 @@ public class StatisticsController {
 
     @GetMapping("/rating")
     public Map<String, List<RatingStatisticsAll>> getRatingByMonths(
-            @RequestParam(required = false, defaultValue = "0") Integer minGames
+            @RequestParam(defaultValue = "0") Integer minGames
     ) {
         return statisticsService.getRatingByMonths(minGames);
     }
@@ -39,7 +39,7 @@ public class StatisticsController {
     @GetMapping("/rating/{date}")
     public List<RatingStatisticsAll> getRatingByOneMonth(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM") Date date,
-            @RequestParam(required = false, defaultValue = "0") Integer minGames
+            @RequestParam(defaultValue = "0") Integer minGames
     ) {
         return statisticsService.getRatingByOneMonth(minGames, date);
     }
