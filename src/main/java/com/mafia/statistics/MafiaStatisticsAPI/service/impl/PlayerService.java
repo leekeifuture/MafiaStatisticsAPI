@@ -40,7 +40,7 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public List<PlayerDto> getPlayers() {
-        return playerDao.findAllByGamesTotalNotNull();
+        return playerDao.findAllByGamesTotalNotNullOrderByGamesTotalDesc();
     }
 
     @Override

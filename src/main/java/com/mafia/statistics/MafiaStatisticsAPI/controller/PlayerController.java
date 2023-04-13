@@ -1,6 +1,5 @@
 package com.mafia.statistics.MafiaStatisticsAPI.controller;
 
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.IPlayerMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.security.CurrentUser;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,8 +28,10 @@ public class PlayerController {
     private final IPlayerMapper playerMapper;
 
     @GetMapping
-    public List<PlayerDto> getPlayers() {
-        return playerService.getPlayers();
+    public List<Player> getPlayers() {
+        return playerService.getPlayers().stream()
+                .map(playerMapper::dtoToPlayerMin)
+                .collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAuthority('USER')")

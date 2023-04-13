@@ -21,7 +21,7 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
 
     Optional<PlayerDto> findByVkId(Long id);
 
-    List<PlayerDto> findAllByGamesTotalNotNull();
+    List<PlayerDto> findAllByGamesTotalNotNullOrderByGamesTotalDesc();
 
     @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
             "   t.id, " +
