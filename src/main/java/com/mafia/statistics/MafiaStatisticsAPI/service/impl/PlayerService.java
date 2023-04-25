@@ -10,6 +10,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHi
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
+import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceAlreadyExistsException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
@@ -74,9 +75,9 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public List<Player> searchPlayersByNickname(String query) {
+    public List<Player> searchPlayersByNickname(String nickname) {
         return playerDao.findByNicknameFree(
-                query.strip(),
+                nickname.strip(),
                 PageRequest.of(0, 15)
         );
     }
@@ -117,6 +118,32 @@ public class PlayerService implements IPlayerService {
         }
 
         return player;
+    }
+
+    @Override
+    public PlayerDto savePlayer(String nickname, Sex gender, Boolean fromFile) {
+        if (playerDao.existsByNickname(nickname) ||
+                searchPlayersByNickname(nickname).size() != 0) {
+            if (fromFile) return null;
+
+            throw new ResourceAlreadyExistsException("Player", "nickname", nickname);
+        }
+
+        PlayerDto player = new PlayerDto();
+        player.setNickname(nickname);
+        player.setCustomNickname(nickname);
+        player.setGender(gender);
+        player.setGamesTotal(fromFile ? null : 0L);
+        player.setRoles(new HashSet<>(List.of(new RoleDto("USER"))));
+
+        logger.info("Saving player with nickname: " + nickname + "...");
+
+        return playerDao.save(player);
+    }
+
+    private void savePlayer(String playerNickname) {
+        savePlayer(playerNickname, Sex.UNKNOWN, true);
+        logger.info("Saved player with nickname: " + playerNickname);
     }
 
     private void savePlayersFromNumbersStatistics(List<Statistics> numbersStatistics) {
@@ -174,19 +201,5 @@ public class PlayerService implements IPlayerService {
             String playerNickname = row.getNickname();
             savePlayer(playerNickname);
         });
-    }
-
-    private void savePlayer(String playerNickname) {
-        if (!playerDao.existsByNickname(playerNickname)) {
-            PlayerDto player = new PlayerDto();
-            player.setNickname(playerNickname);
-            player.setCustomNickname(playerNickname);
-            player.setGender(Sex.UNKNOWN);
-            player.setRoles(new HashSet<>(List.of(new RoleDto("USER"))));
-
-            playerDao.save(player);
-
-            logger.info("Saved player with nickname: " + playerNickname);
-        }
     }
 }

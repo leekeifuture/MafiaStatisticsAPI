@@ -3,8 +3,6 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.inter;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Games;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

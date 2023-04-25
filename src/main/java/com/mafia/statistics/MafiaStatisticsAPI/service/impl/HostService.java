@@ -44,6 +44,12 @@ public class HostService implements IHostService {
                 .create(IHostServiceApi.class);
     }
 
+    private static void correctHost(Game game, UserPrincipal userPrincipal) {
+        if (game.getHost() == null) {
+            game.setHost(new Player(userPrincipal.getId()));
+        }
+    }
+
     @SneakyThrows
     @Override
     public Game getGameById(Long id) {
@@ -128,12 +134,6 @@ public class HostService implements IHostService {
     private void correctGame(Game game, UserPrincipal userPrincipal) {
         correctHost(game, userPrincipal);
         correctNumber(game);
-    }
-
-    private static void correctHost(Game game, UserPrincipal userPrincipal) {
-        if (game.getHost() == null) {
-            game.setHost(new Player(userPrincipal.getId()));
-        }
     }
 
     private void correctNumber(Game game) {

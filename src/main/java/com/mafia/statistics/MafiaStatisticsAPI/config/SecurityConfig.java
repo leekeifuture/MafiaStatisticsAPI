@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/",
                         "/statistics/**",
-                        "/players/**",
+                        "/player/**",
                         "/host/**",
                         "/error",
                         "/actuator/health",
