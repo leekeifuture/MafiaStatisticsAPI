@@ -1,10 +1,10 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter

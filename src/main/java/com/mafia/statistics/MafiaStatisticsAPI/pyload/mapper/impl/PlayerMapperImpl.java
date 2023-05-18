@@ -2,21 +2,14 @@ package com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.IPlayerMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.ICoupleStatisticsMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.INumbersStatisticsMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IRatingStatisticsMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IRolesHistoryStatisticsMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.ISerialityStatisticsMapper;
-import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IVisitingStatisticsMapper;
+import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.*;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.additional.Role;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

@@ -1,17 +1,15 @@
 package com.mafia.statistics.MafiaStatisticsAPI.security;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
-
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Map;
-
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor

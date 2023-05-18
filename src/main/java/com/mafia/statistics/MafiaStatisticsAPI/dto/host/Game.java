@@ -7,13 +7,12 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.BestPlayersJsonA
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayersJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
-
-import java.util.Date;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter

@@ -3,12 +3,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.RoleDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHistoryStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.*;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceAlreadyExistsException;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
@@ -16,7 +11,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IVkService;
 import com.vk.api.sdk.objects.base.Sex;
-
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

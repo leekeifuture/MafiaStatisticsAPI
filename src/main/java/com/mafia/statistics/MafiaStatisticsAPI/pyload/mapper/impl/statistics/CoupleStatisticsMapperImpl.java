@@ -5,13 +5,11 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Coup
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.ICoupleStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.CoupleStatistics;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

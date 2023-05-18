@@ -6,19 +6,12 @@ import com.mafia.statistics.MafiaStatisticsAPI.security.CurrentUser;
 import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.vk.api.sdk.objects.base.Sex;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

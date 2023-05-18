@@ -3,7 +3,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.security;
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundException;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

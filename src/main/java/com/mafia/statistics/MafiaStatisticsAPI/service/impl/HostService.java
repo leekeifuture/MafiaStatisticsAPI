@@ -42,6 +42,30 @@ public class HostService implements IHostService {
                 .create(IHostServiceApi.class);
     }
 
+    private static void correctGame(Game game, UserPrincipal userPrincipal) {
+        correctCreator(game, userPrincipal);
+        correctHost(game, userPrincipal);
+        correctNumber(game);
+    }
+
+    private static void correctCreator(Game game, UserPrincipal userPrincipal) {
+        if (game.getCreator() == null) {
+            game.setCreator(new Player(userPrincipal.getId()));
+        }
+    }
+
+    private static void correctHost(Game game, UserPrincipal userPrincipal) {
+        if (game.getHost() == null) {
+            game.setHost(new Player(userPrincipal.getId()));
+        }
+    }
+
+    private static void correctNumber(Game game) {
+        if (game.getNumber() == null) {
+            game.setNumber(1); // TODO: mock
+        }
+    }
+
     @SneakyThrows
     @Override
     public Game getGameById(Long id) {
@@ -120,30 +144,6 @@ public class HostService implements IHostService {
             throw new ResourceNotFoundException("Game", "id", id);
         } else if (response.code() == 500) {
             throw new InternalServerException(response.errorBody().string());
-        }
-    }
-
-    private static void correctGame(Game game, UserPrincipal userPrincipal) {
-        correctCreator(game, userPrincipal);
-        correctHost(game, userPrincipal);
-        correctNumber(game);
-    }
-
-    private static void correctCreator(Game game, UserPrincipal userPrincipal) {
-        if (game.getCreator() == null) {
-            game.setCreator(new Player(userPrincipal.getId()));
-        }
-    }
-
-    private static void correctHost(Game game, UserPrincipal userPrincipal) {
-        if (game.getHost() == null) {
-            game.setHost(new Player(userPrincipal.getId()));
-        }
-    }
-
-    private static void correctNumber(Game game) {
-        if (game.getNumber() == null) {
-            game.setNumber(1); // TODO: mock
         }
     }
 }

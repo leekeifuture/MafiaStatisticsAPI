@@ -1,7 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI;
 
 import com.mafia.statistics.MafiaStatisticsAPI.config.AppProperties;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;

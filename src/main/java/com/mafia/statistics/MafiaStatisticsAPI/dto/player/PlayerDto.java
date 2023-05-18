@@ -1,35 +1,15 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.RoleDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatisticsDto;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.*;
 import com.vk.api.sdk.objects.base.Sex;
-
+import lombok.*;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter

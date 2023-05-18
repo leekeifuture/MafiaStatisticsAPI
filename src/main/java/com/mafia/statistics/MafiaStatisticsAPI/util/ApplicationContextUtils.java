@@ -1,10 +1,9 @@
 package com.mafia.statistics.MafiaStatisticsAPI.util;
 
+import lombok.NonNull;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-
-import lombok.NonNull;
 
 @Component
 public class ApplicationContextUtils implements ApplicationContextAware {

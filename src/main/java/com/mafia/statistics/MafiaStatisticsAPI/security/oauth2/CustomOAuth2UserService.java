@@ -7,7 +7,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.exception.ResourceNotFoundExcepti
 import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.user.OAuth2UserInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.user.VkOAuth2UserInfo;
-
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;

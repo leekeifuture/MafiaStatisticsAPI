@@ -4,7 +4,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.IPlayerMapper
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IPlayerService;
 import com.mafia.statistics.MafiaStatisticsAPI.util.ApplicationContextUtils;
-
 import org.springframework.context.ApplicationContext;
 
 public class AdapterUtil {

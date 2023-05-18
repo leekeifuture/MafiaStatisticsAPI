@@ -1,12 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.Game;
 
 import java.lang.reflect.Type;

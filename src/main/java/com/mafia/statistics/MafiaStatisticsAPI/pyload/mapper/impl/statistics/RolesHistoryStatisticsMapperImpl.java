@@ -4,7 +4,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Role
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IRolesHistoryStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.RolesHistoryStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
-
 import org.springframework.stereotype.Component;
 
 @Component

@@ -3,19 +3,13 @@ package com.mafia.statistics.MafiaStatisticsAPI.controller;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

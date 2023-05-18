@@ -4,7 +4,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter.PlayerJsonAdapter;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
