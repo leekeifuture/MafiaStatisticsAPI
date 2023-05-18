@@ -35,6 +35,15 @@ public class GameJsonAdapter implements JsonSerializer<Game> {
             game.remove("host");
         }
 
+        if (game.has("creator") &&
+                game.get("creator").getAsJsonObject().has("id")) {
+            game.addProperty(
+                    "creatorId",
+                    game.get("creator").getAsJsonObject().get("id").getAsLong()
+            );
+            game.remove("creator");
+        }
+
         if (game.has("blackPlayerOne") &&
                 game.get("blackPlayerOne").getAsJsonObject().has("id")) {
             game.addProperty(
