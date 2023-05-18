@@ -12,17 +12,15 @@ import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 import com.mafia.statistics.MafiaStatisticsAPI.security.UserPrincipal;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostService;
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IHostServiceApi;
-
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-
-import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.Date;
 
 @Service
 public class HostService implements IHostService {
@@ -42,12 +40,6 @@ public class HostService implements IHostService {
                 ))
                 .build()
                 .create(IHostServiceApi.class);
-    }
-
-    private static void correctHost(Game game, UserPrincipal userPrincipal) {
-        if (game.getHost() == null) {
-            game.setHost(new Player(userPrincipal.getId()));
-        }
     }
 
     @SneakyThrows
@@ -131,12 +123,25 @@ public class HostService implements IHostService {
         }
     }
 
-    private void correctGame(Game game, UserPrincipal userPrincipal) {
+    private static void correctGame(Game game, UserPrincipal userPrincipal) {
+        correctCreator(game, userPrincipal);
         correctHost(game, userPrincipal);
         correctNumber(game);
     }
 
-    private void correctNumber(Game game) {
+    private static void correctCreator(Game game, UserPrincipal userPrincipal) {
+        if (game.getCreator() == null) {
+            game.setCreator(new Player(userPrincipal.getId()));
+        }
+    }
+
+    private static void correctHost(Game game, UserPrincipal userPrincipal) {
+        if (game.getHost() == null) {
+            game.setHost(new Player(userPrincipal.getId()));
+        }
+    }
+
+    private static void correctNumber(Game game) {
         if (game.getNumber() == null) {
             game.setNumber(1); // TODO: mock
         }
