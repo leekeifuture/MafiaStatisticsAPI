@@ -38,8 +38,13 @@ public class PlayerController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/me")
-    public Player getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return playerMapper.dtoToPlayer(playerService.getPlayerById(userPrincipal.getId()));
+    public Player getCurrentUser(
+            @CurrentUser UserPrincipal userPrincipal,
+            @RequestParam(defaultValue = "false") Boolean isMinInfo
+    ) {
+        return isMinInfo
+                ? playerMapper.dtoToPlayerMin(playerService.getPlayerById(userPrincipal.getId()))
+                : playerMapper.dtoToPlayer(playerService.getPlayerById(userPrincipal.getId()));
     }
 
     @GetMapping("/{id}")
