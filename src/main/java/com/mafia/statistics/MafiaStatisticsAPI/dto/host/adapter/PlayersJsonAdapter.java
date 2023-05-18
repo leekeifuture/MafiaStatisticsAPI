@@ -1,13 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.host.adapter;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.host.GamePlayer;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
 
@@ -43,12 +36,17 @@ public class PlayersJsonAdapter implements JsonSerializer<List<GamePlayer>>, Jso
             if (playerJsonObject instanceof JsonObject) {
                 JsonObject gamePlayerJsonObject = playerJsonObject.getAsJsonObject();
 
-                player = getPlayerById(
-                        gamePlayerJsonObject
-                                .get("player").getAsJsonObject()
-                                .get("id").getAsLong()
-                );
-                foulsCount = gamePlayerJsonObject.get("foulsCount").getAsInt();
+                player = gamePlayerJsonObject.has("player")
+                        ? getPlayerById(gamePlayerJsonObject
+                        .get("player").getAsJsonObject()
+                        .get("id").getAsLong())
+                        : getPlayerById(gamePlayerJsonObject
+                        .get("playerId").getAsLong());
+
+                foulsCount = gamePlayerJsonObject
+                        .has("foulsCount")
+                        ? gamePlayerJsonObject.get("foulsCount").getAsInt()
+                        : 0;
             } else if (playerJsonObject instanceof JsonArray) {
                 JsonArray gamePlayerJsonArray = playerJsonObject.getAsJsonArray();
 
