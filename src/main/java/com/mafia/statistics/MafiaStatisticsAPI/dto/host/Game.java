@@ -27,6 +27,10 @@ public class Game {
     @JsonAdapter(PlayerJsonAdapter.class)
     private Player host;
 
+    @SerializedName(value = "creator", alternate = "creatorId")
+    @JsonAdapter(PlayerJsonAdapter.class)
+    private Player creator;
+
     private Integer number;
 
     private Integer[] bestMove;
