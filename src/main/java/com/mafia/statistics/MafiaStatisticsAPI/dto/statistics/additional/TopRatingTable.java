@@ -1,7 +1,6 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional;
 
 import com.vk.api.sdk.objects.base.Sex;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

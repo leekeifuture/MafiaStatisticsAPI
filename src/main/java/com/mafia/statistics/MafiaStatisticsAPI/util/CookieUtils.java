@@ -2,12 +2,11 @@ package com.mafia.statistics.MafiaStatisticsAPI.util;
 
 import org.springframework.util.SerializationUtils;
 
-import java.util.Base64;
-import java.util.Optional;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Base64;
+import java.util.Optional;
 
 public class CookieUtils {
 

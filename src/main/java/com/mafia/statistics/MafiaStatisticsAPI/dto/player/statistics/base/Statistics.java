@@ -1,10 +1,9 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.util.Date;
-
-import lombok.Data;
 
 @Data
 public class Statistics {

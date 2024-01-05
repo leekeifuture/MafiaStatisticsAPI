@@ -5,7 +5,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IN
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.NumbersStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.Place;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
-
 import org.springframework.stereotype.Component;
 
 @Component

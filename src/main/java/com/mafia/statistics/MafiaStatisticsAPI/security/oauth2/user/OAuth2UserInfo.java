@@ -1,8 +1,8 @@
 package com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.user;
 
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
+
+import java.util.Map;
 
 @AllArgsConstructor
 public abstract class OAuth2UserInfo {

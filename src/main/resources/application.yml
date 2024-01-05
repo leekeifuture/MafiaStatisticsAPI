@@ -1,28 +1,28 @@
 spring:
-  security.oauth2:
-    client:
-      provider:
-        vk:
-          user-name-attribute: first_name
-          token-uri: https://oauth.vk.com/access_token
-          # `revoke=1` needs to always show vk dialog
-          authorization-uri: https://oauth.vk.com/authorize?revoke=1
-          user-info-uri: https://api.vk.com/method/users.get?v=5.131&fields=photo_max
-      registration:
-        vk:
-          client-secret: ${app.vk.clientSecret}
-          authorization-grant-type: authorization_code
-          # Use post, as vk needs clientId and clientSecret as request params
-          # and does not accept Basic auth
-          client-authentication-method: post
-          scope: notify
-          client-id: ${app.vk.appId}
-          redirect-uri: ${baseUrl}/oauth2/callback/{registrationId}
+  security.oauth2.client:
+    provider:
+      vk:
+        user-name-attribute: first_name
+        token-uri: https://oauth.vk.com/access_token
+        # `revoke=1` needs to always show vk dialog
+        authorization-uri: https://oauth.vk.com/authorize?revoke=1
+        user-info-uri: https://api.vk.com/method/users.get?v=5.131&fields=photo_max
+    registration:
+      vk:
+        client-secret: ${app.vk.clientSecret}
+        authorization-grant-type: authorization_code
+        # Use post, as vk needs clientId and clientSecret as request params
+        # and does not accept Basic auth
+        client-authentication-method: post
+        scope: notify
+        client-id: ${app.vk.appId}
+        redirect-uri: ${baseUrl}/oauth2/callback/{registrationId}
   datasource:
     username: ${dbUsername}
     password: ${dbPassword}
     url: ${dbUrl}
   jpa.hibernate.ddl-auto: update
+  mvc.converters.preferred-json-mapper: gson
 
 app:
   auth:
@@ -46,6 +46,7 @@ app:
   statistics.path:
     folder: ../MafiaStatisticsFiles/statistics
     s3: mafia-statistics-files
+  hostService.baseUrl: ${hostServiceBaseUrl}
 
 server.error.include-message: always
 

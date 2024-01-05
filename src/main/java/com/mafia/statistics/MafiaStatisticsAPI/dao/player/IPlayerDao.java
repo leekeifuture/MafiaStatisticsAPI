@@ -2,7 +2,6 @@ package com.mafia.statistics.MafiaStatisticsAPI.dao.player;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +20,7 @@ public interface IPlayerDao extends JpaRepository<PlayerDto, Long> {
 
     Optional<PlayerDto> findByVkId(Long id);
 
-    List<PlayerDto> findAllByGamesTotalNotNull();
+    List<PlayerDto> findAllByGamesTotalNotNullOrderByGamesTotalDesc();
 
     @Query("SELECT NEW com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player (" +
             "   t.id, " +
