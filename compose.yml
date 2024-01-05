@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     env_file:
-      - .env
+      - docker.local.env
     ports:
       - "8080:8080"
     networks:
