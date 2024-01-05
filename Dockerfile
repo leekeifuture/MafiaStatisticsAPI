@@ -30,6 +30,7 @@ RUN gradle build
 CMD [ \
     "java", \
     "-jar", \
-    "build/libs/MafiaStatisticsAPI-1.0.0-SNAPSHOT.jar", \
-    "--spring.config.additional-location=classpath:application-prod.yml" \
+    "build/libs/MafiaStatisticsAPI-1.0.0-SNAPSHOT.jar" \
 ]
+
+# add this string into CMD to use prod version: "--spring.config.additional-location=classpath:application-prod.yml" \

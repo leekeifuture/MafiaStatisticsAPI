@@ -1,6 +1,6 @@
-create table couple_statistics_all
+CREATE TABLE couple_statistics_all
 (
-    id                    int8 not null,
+    id                    int8 NOT NULL,
     from_date             timestamp,
     games                 int4,
     is_active             boolean,
@@ -11,12 +11,12 @@ create table couple_statistics_all
     to_date               timestamp,
     uploading_date        timestamp,
     wins                  int4,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table couple_statistics_dto
+CREATE TABLE couple_statistics_dto
 (
-    id                         int8 not null,
+    id                         int8 NOT NULL,
     calculated_percent_of_wins int8,
     from_date                  timestamp,
     games                      int8,
@@ -25,12 +25,12 @@ create table couple_statistics_dto
     percent_of_wins            float8,
     to_date                    timestamp,
     wins                       int8,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table games_per_number_statistics_all
+CREATE TABLE games_per_number_statistics_all
 (
-    id                        int8 not null,
+    id                        int8 NOT NULL,
     first_shot                int4,
     from_date                 timestamp,
     games_total               int4,
@@ -49,12 +49,12 @@ create table games_per_number_statistics_all
     percent_winning_sheriff   int4,
     to_date                   timestamp,
     uploading_date            timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table games_per_number_statistics_dto
+CREATE TABLE games_per_number_statistics_dto
 (
-    id                        int8 not null,
+    id                        int8 NOT NULL,
     first_shot                int8,
     from_date                 timestamp,
     games_total               int8,
@@ -71,12 +71,12 @@ create table games_per_number_statistics_dto
     percent_winning_red       float8,
     percent_winning_sheriff   float8,
     to_date                   timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table numbers_statistics_all
+CREATE TABLE numbers_statistics_all
 (
-    id             int8 not null,
+    id             int8 NOT NULL,
     from_date      timestamp,
     games_total    int4,
     is_active      boolean,
@@ -93,12 +93,12 @@ create table numbers_statistics_all
     place_ten_id   int8,
     place_three_id int8,
     place_two_id   int8,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table numbers_statistics_dto
+CREATE TABLE numbers_statistics_dto
 (
-    id             int8 not null,
+    id             int8 NOT NULL,
     from_date      timestamp,
     games_total    int8,
     nickname       varchar(255),
@@ -113,36 +113,36 @@ create table numbers_statistics_dto
     place_ten_id   int8,
     place_three_id int8,
     place_two_id   int8,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table place_all
+CREATE TABLE place_all
 (
-    id                int8 not null,
+    id                int8 NOT NULL,
     games_black       int4,
     games_don         int4,
     games_red         int4,
     games_sheriff     int4,
     percent_win_black int4,
     percent_win_red   int4,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table place_dto
+CREATE TABLE place_dto
 (
-    id                int8 not null,
+    id                int8 NOT NULL,
     games_black       int8,
     games_don         int8,
     games_red         int8,
     games_sheriff     int8,
     percent_win_black float8,
     percent_win_red   float8,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table player_dto
+CREATE TABLE player_dto
 (
-    id                          int8 not null,
+    id                          int8 NOT NULL,
     custom_nickname             varchar(255),
     first_name                  varchar(255),
     games_total                 int8,
@@ -156,25 +156,25 @@ create table player_dto
     roles_history_statistics_id int8,
     seriality_statistics_id     int8,
     visiting_statistics_id      int8,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table player_dto_couple_statistics
+CREATE TABLE player_dto_couple_statistics
 (
-    player_dto_id        int8 not null,
-    couple_statistics_id int8 not null
+    player_dto_id        int8 NOT NULL,
+    couple_statistics_id int8 NOT NULL
 );
 
-create table player_dto_roles
+CREATE TABLE player_dto_roles
 (
-    player_dto_id int8 not null,
-    roles_id      int8 not null,
-    primary key (player_dto_id, roles_id)
+    player_dto_id int8 NOT NULL,
+    roles_id      int8 NOT NULL,
+    PRIMARY KEY (player_dto_id, roles_id)
 );
 
-create table rating_statistics_all
+CREATE TABLE rating_statistics_all
 (
-    id                int8 not null,
+    id                int8 NOT NULL,
     additional_points float4,
     best_move         float4,
     from_date         timestamp,
@@ -189,12 +189,12 @@ create table rating_statistics_all
     points            float4,
     to_date           timestamp,
     uploading_date    timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table rating_statistics_dto
+CREATE TABLE rating_statistics_dto
 (
-    id                int8 not null,
+    id                int8 NOT NULL,
     additional_points float8,
     best_move         float8,
     from_date         timestamp,
@@ -206,19 +206,19 @@ create table rating_statistics_dto
     nickname          varchar(255),
     points            float8,
     to_date           timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table role_dto
+CREATE TABLE role_dto
 (
-    id   int8 not null,
+    id   int8 NOT NULL,
     name varchar(255),
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table roles_history_statistics_all
+CREATE TABLE roles_history_statistics_all
 (
-    id                         int8 not null,
+    id                         int8 NOT NULL,
     from_date                  timestamp,
     games_black                int4,
     games_don                  int4,
@@ -246,12 +246,12 @@ create table roles_history_statistics_all
     shooting                   int4,
     to_date                    timestamp,
     uploading_date             timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table roles_history_statistics_dto
+CREATE TABLE roles_history_statistics_dto
 (
-    id                         int8 not null,
+    id                         int8 NOT NULL,
     from_date                  timestamp,
     games_black                int8,
     games_don                  int8,
@@ -276,12 +276,12 @@ create table roles_history_statistics_dto
     percent_winning_sheriff    float8,
     shooting                   int8,
     to_date                    timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table seriality_statistics_all
+CREATE TABLE seriality_statistics_all
 (
-    id                             int8 not null,
+    id                             int8 NOT NULL,
     from_date                      timestamp,
     games_total                    int4,
     is_active                      boolean,
@@ -302,12 +302,12 @@ create table seriality_statistics_all
     successively_won_by_sheriff    int4,
     to_date                        timestamp,
     uploading_date                 timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table seriality_statistics_dto
+CREATE TABLE seriality_statistics_dto
 (
-    id                             int8 not null,
+    id                             int8 NOT NULL,
     from_date                      timestamp,
     games_total                    int8,
     maximum_series_of_defeat       int4,
@@ -326,12 +326,12 @@ create table seriality_statistics_dto
     successively_won_by_red        int4,
     successively_won_by_sheriff    int4,
     to_date                        timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table visiting_statistics_all
+CREATE TABLE visiting_statistics_all
 (
-    id             int8 not null,
+    id             int8 NOT NULL,
     by_friday      int4,
     by_monday      int4,
     by_saturday    int4,
@@ -344,12 +344,12 @@ create table visiting_statistics_all
     nickname       varchar(255),
     to_date        timestamp,
     uploading_date timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-create table visiting_statistics_dto
+CREATE TABLE visiting_statistics_dto
 (
-    id           int8 not null,
+    id           int8 NOT NULL,
     by_friday    float8,
     by_monday    float8,
     by_saturday  float8,
@@ -360,118 +360,118 @@ create table visiting_statistics_dto
     from_date    timestamp,
     nickname     varchar(255),
     to_date      timestamp,
-    primary key (id)
+    PRIMARY KEY (id)
 );
 
-alter table if exists player_dto
-    drop constraint if exists UK_5gmjr03jh4uybjx52w4a6jx4k;
+ALTER TABLE IF EXISTS player_dto
+    DROP CONSTRAINT IF EXISTS UK_5gmjr03jh4uybjx52w4a6jx4k;
 
-alter table if exists player_dto
-    add constraint UK_5gmjr03jh4uybjx52w4a6jx4k unique (custom_nickname);
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT UK_5gmjr03jh4uybjx52w4a6jx4k UNIQUE (custom_nickname);
 
-alter table if exists player_dto
-    drop constraint if exists UK_5w987jkpxq935uh3m47hrjqsa;
+ALTER TABLE IF EXISTS player_dto
+    DROP CONSTRAINT IF EXISTS UK_5w987jkpxq935uh3m47hrjqsa;
 
-alter table if exists player_dto
-    add constraint UK_5w987jkpxq935uh3m47hrjqsa unique (nickname);
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT UK_5w987jkpxq935uh3m47hrjqsa UNIQUE (nickname);
 
-alter table if exists player_dto
-    drop constraint if exists UK_3ggs9a0myucan5u413kvosuc;
+ALTER TABLE IF EXISTS player_dto
+    DROP CONSTRAINT IF EXISTS UK_3ggs9a0myucan5u413kvosuc;
 
-alter table if exists player_dto
-    add constraint UK_3ggs9a0myucan5u413kvosuc unique (vk_id);
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT UK_3ggs9a0myucan5u413kvosuc UNIQUE (vk_id);
 
-alter table if exists player_dto_roles
-    drop constraint if exists UK_rpc78njjn616xh55jxm7ergm4;
+ALTER TABLE IF EXISTS player_dto_roles
+    DROP CONSTRAINT IF EXISTS UK_rpc78njjn616xh55jxm7ergm4;
 
-alter table if exists player_dto_roles
-    add constraint UK_rpc78njjn616xh55jxm7ergm4 unique (roles_id);
+ALTER TABLE IF EXISTS player_dto_roles
+    ADD CONSTRAINT UK_rpc78njjn616xh55jxm7ergm4 UNIQUE (roles_id);
 
-create sequence hibernate_sequence start 1 increment 1;
+CREATE SEQUENCE hibernate_sequence START 1 INCREMENT 1;
 
-alter table if exists numbers_statistics_all
-    add constraint FKpidpxqnpx4ujj9lu0fq0ogu2n foreign key (place_eight_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKpidpxqnpx4ujj9lu0fq0ogu2n FOREIGN KEY (place_eight_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKq0leo2bb7wlkc70d1j9f5wx2i foreign key (place_five_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKq0leo2bb7wlkc70d1j9f5wx2i FOREIGN KEY (place_five_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKmxru3yfsatkxfj7k12uhd285n foreign key (place_four_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKmxru3yfsatkxfj7k12uhd285n FOREIGN KEY (place_four_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKtb3ofl100ba69kulg6sy80qdy foreign key (place_nine_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKtb3ofl100ba69kulg6sy80qdy FOREIGN KEY (place_nine_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKe61qp8cr5i4mc08is9mbw84rc foreign key (place_one_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKe61qp8cr5i4mc08is9mbw84rc FOREIGN KEY (place_one_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKprmoxele31xu2130iwfjttd25 foreign key (place_seven_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKprmoxele31xu2130iwfjttd25 FOREIGN KEY (place_seven_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKbg1wixuh3441cdhs8yhid9j36 foreign key (place_six_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKbg1wixuh3441cdhs8yhid9j36 FOREIGN KEY (place_six_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FK9lqmu1bodeb1ws253iw9wbduh foreign key (place_ten_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FK9lqmu1bodeb1ws253iw9wbduh FOREIGN KEY (place_ten_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FKppc2u90ciopcda9ir108qbkno foreign key (place_three_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FKppc2u90ciopcda9ir108qbkno FOREIGN KEY (place_three_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_all
-    add constraint FK1so0d0hpkip5h489s3t6o4nm5 foreign key (place_two_id) references place_all;
+ALTER TABLE IF EXISTS numbers_statistics_all
+    ADD CONSTRAINT FK1so0d0hpkip5h489s3t6o4nm5 FOREIGN KEY (place_two_id) REFERENCES place_all;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKl9yjenx93e54twafl4t6t2j82 foreign key (place_eight_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKl9yjenx93e54twafl4t6t2j82 FOREIGN KEY (place_eight_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FK4pwbw9jj00actv6m34ykqwbxe foreign key (place_five_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FK4pwbw9jj00actv6m34ykqwbxe FOREIGN KEY (place_five_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKn2xpg6qg280loyvr2e94bxpeu foreign key (place_four_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKn2xpg6qg280loyvr2e94bxpeu FOREIGN KEY (place_four_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKaxk6kl6ank7fn4di90tso5xvk foreign key (place_nine_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKaxk6kl6ank7fn4di90tso5xvk FOREIGN KEY (place_nine_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKmd7l396st6t9rkatmgl1jf3p1 foreign key (place_one_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKmd7l396st6t9rkatmgl1jf3p1 FOREIGN KEY (place_one_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKa1b21giym5dyof62bwu32nxs1 foreign key (place_seven_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKa1b21giym5dyof62bwu32nxs1 FOREIGN KEY (place_seven_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKneaf95gf9qr1ilaal08orfpdl foreign key (place_six_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKneaf95gf9qr1ilaal08orfpdl FOREIGN KEY (place_six_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FKkfkf5hdajk42d997p02vy27da foreign key (place_ten_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FKkfkf5hdajk42d997p02vy27da FOREIGN KEY (place_ten_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FK11qottfw6ndng58xscthmunjm foreign key (place_three_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FK11qottfw6ndng58xscthmunjm FOREIGN KEY (place_three_id) REFERENCES place_dto;
 
-alter table if exists numbers_statistics_dto
-    add constraint FK6bu3x77bhfa5b7ldq6plff4c6 foreign key (place_two_id) references place_dto;
+ALTER TABLE IF EXISTS numbers_statistics_dto
+    ADD CONSTRAINT FK6bu3x77bhfa5b7ldq6plff4c6 FOREIGN KEY (place_two_id) REFERENCES place_dto;
 
-alter table if exists player_dto
-    add constraint FK1yofm5ikyjme75rqdbfs41suw foreign key (numbers_statistics_id) references numbers_statistics_dto;
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT FK1yofm5ikyjme75rqdbfs41suw FOREIGN KEY (numbers_statistics_id) REFERENCES numbers_statistics_dto;
 
-alter table if exists player_dto
-    add constraint FKra3bkhbividrcdyjtqe1idgk7 foreign key (rating_statistics_id) references rating_statistics_dto;
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT FKra3bkhbividrcdyjtqe1idgk7 FOREIGN KEY (rating_statistics_id) REFERENCES rating_statistics_dto;
 
-alter table if exists player_dto
-    add constraint FK9e06vtuy97neaut5lxo70d0jo foreign key (roles_history_statistics_id) references roles_history_statistics_dto;
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT FK9e06vtuy97neaut5lxo70d0jo FOREIGN KEY (roles_history_statistics_id) REFERENCES roles_history_statistics_dto;
 
-alter table if exists player_dto
-    add constraint FKhxyt2e1h4166ed7mf4fp0chx foreign key (seriality_statistics_id) references seriality_statistics_dto;
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT FKhxyt2e1h4166ed7mf4fp0chx FOREIGN KEY (seriality_statistics_id) REFERENCES seriality_statistics_dto;
 
-alter table if exists player_dto
-    add constraint FKm6nbt2oo9maj07url6ar8ujlk foreign key (visiting_statistics_id) references visiting_statistics_dto;
+ALTER TABLE IF EXISTS player_dto
+    ADD CONSTRAINT FKm6nbt2oo9maj07url6ar8ujlk FOREIGN KEY (visiting_statistics_id) REFERENCES visiting_statistics_dto;
 
-alter table if exists player_dto_couple_statistics
-    add constraint FKk6jy6yy88g7ifxt8t20u8kxhj foreign key (couple_statistics_id) references couple_statistics_dto;
+ALTER TABLE IF EXISTS player_dto_couple_statistics
+    ADD CONSTRAINT FKk6jy6yy88g7ifxt8t20u8kxhj FOREIGN KEY (couple_statistics_id) REFERENCES couple_statistics_dto;
 
-alter table if exists player_dto_couple_statistics
-    add constraint FKgj5oqenyp3cjvs3j05v8mi1al foreign key (player_dto_id) references player_dto;
+ALTER TABLE IF EXISTS player_dto_couple_statistics
+    ADD CONSTRAINT FKgj5oqenyp3cjvs3j05v8mi1al FOREIGN KEY (player_dto_id) REFERENCES player_dto;
 
-alter table if exists player_dto_roles
-    add constraint FKmat7yb25vfgdb45657ial5q0e foreign key (roles_id) references role_dto;
+ALTER TABLE IF EXISTS player_dto_roles
+    ADD CONSTRAINT FKmat7yb25vfgdb45657ial5q0e FOREIGN KEY (roles_id) REFERENCES role_dto;
 
-alter table if exists player_dto_roles
-    add constraint FKikvnfpmal3ofycuxjluf147ae foreign key (player_dto_id) references player_dto;
+ALTER TABLE IF EXISTS player_dto_roles
+    ADD CONSTRAINT FKikvnfpmal3ofycuxjluf147ae FOREIGN KEY (player_dto_id) REFERENCES player_dto;
