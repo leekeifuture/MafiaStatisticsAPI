@@ -5,21 +5,18 @@ import com.mafia.statistics.MafiaStatisticsAPI.exception.BadRequestException;
 import com.mafia.statistics.MafiaStatisticsAPI.security.TokenProvider;
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.mafia.statistics.MafiaStatisticsAPI.util.CookieUtils;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.Optional;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Optional;
 
 import static com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 

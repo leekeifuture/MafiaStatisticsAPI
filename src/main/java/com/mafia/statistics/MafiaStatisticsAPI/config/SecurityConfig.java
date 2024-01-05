@@ -7,7 +7,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.CustomOAuth2UserS
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.user.OAuth2AuthenticationFailureHandler;
 import com.mafia.statistics.MafiaStatisticsAPI.security.oauth2.user.OAuth2AuthenticationSuccessHandler;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.FormHttpMessageConverter;
@@ -30,8 +30,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-
-import lombok.RequiredArgsConstructor;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -106,7 +104,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/",
                         "/statistics/**",
-                        "/players/**",
+                        "/player/**",
+                        "/host/**",
                         "/error",
                         "/actuator/health",
                         "/favicon.ico",

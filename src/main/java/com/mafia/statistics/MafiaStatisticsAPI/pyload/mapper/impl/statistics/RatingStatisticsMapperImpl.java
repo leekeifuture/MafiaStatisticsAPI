@@ -4,7 +4,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Rati
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IRatingStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.RatingStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
-
 import org.springframework.stereotype.Component;
 
 @Component

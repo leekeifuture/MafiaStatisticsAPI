@@ -3,7 +3,6 @@ package com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.impl.statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.ISerialityStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.SerialityStatistics;
-
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,7 +2,6 @@ package com.mafia.statistics.MafiaStatisticsAPI.security.oauth2;
 
 import com.mafia.statistics.MafiaStatisticsAPI.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.stereotype.Component;

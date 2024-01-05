@@ -4,7 +4,6 @@ import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.Game
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.mapper.inter.statistics.IGamesPerNumberStatisticsMapper;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.statistics.GamesPerNumberStatistics;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
-
 import org.springframework.stereotype.Component;
 
 @Component

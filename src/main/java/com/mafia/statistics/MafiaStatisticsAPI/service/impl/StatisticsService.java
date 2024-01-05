@@ -1,37 +1,12 @@
 package com.mafia.statistics.MafiaStatisticsAPI.service.impl;
 
 import com.mafia.statistics.MafiaStatisticsAPI.dao.player.IPlayerDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ICoupleStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IGamesPerNumberStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.INumbersStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRatingStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IRolesHistoryStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.ISerialityStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.IVisitingStatisticsDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ICoupleStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IGamesPerNumberStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.INumbersStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRatingStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IRolesHistoryStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.ISerialityStatisticsAllDao;
-import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.IVisitingStatisticsAllDao;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.actual.*;
+import com.mafia.statistics.MafiaStatisticsAPI.dao.player.statistics.all.*;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.additional.StatisticsType;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.CoupleStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.GamesPerNumberStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.NumbersStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RatingStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.RolesHistoryStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.SerialityStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.VisitingStatisticsDto;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.CoupleStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.GamesPerNumberStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.NumbersStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.PlaceAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RatingStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.RolesHistoryStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.SerialityStatisticsAll;
-import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.VisitingStatisticsAll;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.actual.*;
+import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.all.*;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.DashboardInfo;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
@@ -40,7 +15,7 @@ import com.mafia.statistics.MafiaStatisticsAPI.exception.InternalServerException
 import com.mafia.statistics.MafiaStatisticsAPI.service.inter.IStatisticsService;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DateUtil;
 import com.mafia.statistics.MafiaStatisticsAPI.util.DigitsUtil;
-
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -49,18 +24,9 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

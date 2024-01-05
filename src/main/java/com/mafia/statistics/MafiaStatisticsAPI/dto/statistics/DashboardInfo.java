@@ -1,18 +1,19 @@
 package com.mafia.statistics.MafiaStatisticsAPI.dto.statistics;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopGamesTable;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.statistics.additional.TopRatingTable;
 import com.vk.api.sdk.objects.base.Sex;
-
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DashboardInfo {
 
     private Long winSeriesPlayerId;

@@ -3,6 +3,7 @@ package com.mafia.statistics.MafiaStatisticsAPI.service.inter;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.PlayerDto;
 import com.mafia.statistics.MafiaStatisticsAPI.dto.player.statistics.base.Statistics;
 import com.mafia.statistics.MafiaStatisticsAPI.pyload.player.Player;
+import com.vk.api.sdk.objects.base.Sex;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IPlayerService {
     PlayerDto getPlayerById(Long id);
 
     PlayerDto getPlayerByNickname(String nickname);
+
+    PlayerDto savePlayer(String playerNickname, Sex gender, Boolean fromFile);
 }
